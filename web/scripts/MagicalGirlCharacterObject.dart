@@ -51,8 +51,8 @@ class MagicalGirlCharacterObject extends CharacterObject {
       int fontSize = 24;
       int currentY = (300+fontSize*2).ceil();
 
-      canvas.context2D.font = "bold ${fontSize}pt Courier New";
-      Renderer.wrapTextAndResizeIfNeeded(canvas.context2D, name, "Courier New", 20, currentY, fontSize, cardWidth-50, fontSize);
+      canvas.context2D.font = "bold ${fontSize}pt cabin";
+      Renderer.wrapTextAndResizeIfNeeded(canvas.context2D, name, "cabin", 20, currentY, fontSize, cardWidth-50, fontSize);
       fontSize = 18;
       canvas.context2D.font = "bold ${fontSize}pt Courier New";
       currentY += (fontSize*2).round();
