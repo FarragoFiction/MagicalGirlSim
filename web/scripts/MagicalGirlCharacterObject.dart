@@ -1,3 +1,4 @@
+import 'MagicalAdventure.dart';
 import 'dart:async';
 import 'dart:html';
 import 'package:CommonLib/Colours.dart';
@@ -13,6 +14,11 @@ class MagicalGirlCharacterObject extends CharacterObject {
   void makeButton(Element subContainer) {
     ButtonElement button = new ButtonElement()..classes.add("adventureButton")..text = "Go on Mission!";
     subContainer.append(button);
+    button.onClick.listen((Event e) {
+        MagicalAdventure adventure = new MagicalAdventure(this);
+        adventure.start(subContainer);
+
+    });
   }
 
   @override

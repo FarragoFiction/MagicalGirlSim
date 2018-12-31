@@ -4,7 +4,16 @@ import 'dart:html';
 
 //TODO save/load from json
 class Game {
-    int magicules = 0;
+    static Game _instance;
+    static Game get instance {
+        if(_instance == null) {
+            _instance = new Game();
+        }
+        return _instance;
+    }
+    int _magicules = 0;
+    int get magicules => _magicules;
+
     Element container;
     Element moneyContainer;
     List<MagicalGirlCharacterObject> girls = new List<MagicalGirlCharacterObject>();
@@ -15,6 +24,12 @@ class Game {
             MagicalGirlCharacterObject girl = await MagicalGirlCharacterObject.randomGirl();
             girls.add(girl);
         }
+    }
+
+    void addFunds(int amount) {
+        _magicules += amount;
+        syncMoney();
+        //TODO save here.
     }
 
     Future<Null> display(Element parent) async {

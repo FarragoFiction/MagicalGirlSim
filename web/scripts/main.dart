@@ -8,7 +8,7 @@ import 'package:DollLibCorrect/src/Dolls/MagicalDoll.dart';
 
 Future<Null> main() async {
   await Doll.loadFileData();
-  Game game = new Game();
+  Game game =Game.instance;
   await game.initGirls();
   await game.display(querySelector("#output"));
 
