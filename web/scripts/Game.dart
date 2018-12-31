@@ -22,8 +22,11 @@ class Game {
         parent.append(container);
         moneyContainer = new DivElement();
         container.append(moneyContainer);
-        girls.forEach((MagicalGirlCharacterObject girl) {
-            girl.makeViewer(container);
+        girls.forEach((MagicalGirlCharacterObject girl) async {
+            DivElement girlContainer = new DivElement()..classes.add("girlContainer");
+            container.append(girlContainer);
+            await girl.makeViewer(girlContainer);
+            girl.makeButton(girlContainer);
         });
         syncMoney();
     }

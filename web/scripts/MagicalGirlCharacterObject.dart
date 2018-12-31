@@ -10,6 +10,10 @@ import 'package:RenderingLib/RendereringLib.dart';
 class MagicalGirlCharacterObject extends CharacterObject {
   MagicalGirlCharacterObject(String name, String dollString) : super(name, dollString);
 
+  void makeButton(Element subContainer) {
+    ButtonElement button = new ButtonElement()..classes.add("adventureButton")..text = "Go on Mission!";
+    subContainer.append(button);
+  }
 
   @override
   Future<Null> makeViewer(Element subContainer) async {
