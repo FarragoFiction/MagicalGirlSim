@@ -14,6 +14,8 @@ TODO: magical girls can choose to retire, go to magical girl valhalla or be forc
 
 class MagicalGirlCharacterObject extends CharacterObject {
   CanvasElement _portrait = new CanvasElement(width: 200, height:200);
+  int _numberWins = 0;
+  int _numberLosses = 0;
   bool dirty = true;
   Future<CanvasElement> get portrait async {
       if(dirty) {
@@ -35,6 +37,14 @@ class MagicalGirlCharacterObject extends CharacterObject {
         adventure.start(subContainer);
 
     });
+  }
+
+  void win() {
+        _numberWins ++;
+  }
+
+  void lose() {
+    _numberLosses ++;
   }
 
   @override
