@@ -6,6 +6,7 @@ import 'dart:html';
 class Game {
     int magicules = 0;
     Element container;
+    Element moneyContainer;
     List<MagicalGirlCharacterObject> girls = new List<MagicalGirlCharacterObject>();
 
 
@@ -17,11 +18,18 @@ class Game {
     }
 
     Future<Null> display(Element parent) async {
-        DivElement container = new DivElement();
+        container = new DivElement();
         parent.append(container);
+        moneyContainer = new DivElement();
+        container.append(moneyContainer);
         girls.forEach((MagicalGirlCharacterObject girl) {
             girl.makeViewer(container);
         });
+        syncMoney();
+    }
+
+    void syncMoney() {
+        moneyContainer.text = "Magicules: $magicules";
     }
 
 }
