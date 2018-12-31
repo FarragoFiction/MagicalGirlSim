@@ -2,6 +2,7 @@
 
 import 'Game.dart';
 import 'MagicalGirlCharacterObject.dart';
+import 'dart:async';
 import 'dart:html';
 
 import 'package:CommonLib/Random.dart';
@@ -19,18 +20,34 @@ class MagicalAdventure {
 
     }
 
-    void popup(Element container) {
+    Future<Null> popup(Element container) async {
         DivElement pop = new DivElement()..classes.add("adventurePopup");
         int prize = results();
         String prizeString = "${girl.name} earned ";
         if(prize < 0) {
             prizeString = "${girl.name} lost ";
         }
-        pop.text = "OMFG DO THIS PLZ. $prizeString $prize magicules.";
-        pop.append(container);
+        container.append(pop);
+        DivElement portrait = new DivElement();
+        pop.append(portrait);
+        DivElement content = new DivElement()..text = "OMFG DO THIS PLZ. $prizeString $prize magicules."..classes.add("adventureContent");
+        pop.append(content);
+        getPortrait(portrait);
+        ButtonElement dismiss = new ButtonElement()..text = "Okay"..classes.add("adventureButton");
+        dismiss.onClick.listen((Event e) =>pop.remove());
+        pop.append(dismiss);
+
+
     }
 
-    //TODO make this based on something.
+    Future<Null> getPortrait(Element portrait) async {
+        CanvasElement canvas = await girl.portrait;
+        portrait.append(canvas);
+    }
+
+
+
+        //TODO make this based on something.
     bool won() {
         Random rand = new Random();
         rand.nextInt();

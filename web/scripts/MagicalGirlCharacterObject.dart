@@ -13,7 +13,19 @@ TODO: magical girls can choose to retire, go to magical girl valhalla or be forc
  */
 
 class MagicalGirlCharacterObject extends CharacterObject {
-  MagicalGirlCharacterObject(String name, String dollString) : super(name, dollString);
+  CanvasElement _portrait = new CanvasElement(width: 200, height:200);
+  bool dirty = true;
+  Future<CanvasElement> get portrait async {
+      if(dirty) {
+          CanvasElement tmp = await doll.getNewCanvas();
+          _portrait.context2D.clearRect(0,0,_portrait.width, _portrait.height);
+          _portrait.context2D.drawImage(tmp,-230,-100);
+      }
+      return _portrait;
+  }
+  MagicalGirlCharacterObject(String name, String dollString) : super(name, dollString) {
+    _portrait.classes.add("portrait");
+  }
 
   void makeButton(Element subContainer) {
     ButtonElement button = new ButtonElement()..classes.add("adventureButton")..text = "Go on Mission!";
