@@ -15,8 +15,19 @@ class MagicalAdventure {
     }
 
     void start(Element container) {
+        popup(container);
+
+    }
+
+    void popup(Element container) {
+        DivElement pop = new DivElement()..classes.add("adventurePopup");
         int prize = results();
-        window.alert("Gained $prize");
+        String prizeString = "${girl.name} earned ";
+        if(prize < 0) {
+            prizeString = "${girl.name} lost ";
+        }
+        pop.text = "OMFG DO THIS PLZ. $prizeString $prize magicules.";
+        pop.append(container);
     }
 
     //TODO make this based on something.

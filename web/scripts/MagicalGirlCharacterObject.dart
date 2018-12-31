@@ -7,6 +7,10 @@ import 'package:CreditsLib/src/StatObject.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:LoaderLib/src/loader.dart';
 import 'package:RenderingLib/RendereringLib.dart';
+/*
+
+TODO: magical girls can choose to retire, go to magical girl valhalla or be forced to retire.
+ */
 
 class MagicalGirlCharacterObject extends CharacterObject {
   MagicalGirlCharacterObject(String name, String dollString) : super(name, dollString);
