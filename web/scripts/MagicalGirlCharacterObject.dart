@@ -16,6 +16,8 @@ class MagicalGirlCharacterObject extends CharacterObject {
   CanvasElement _portrait = new CanvasElement(width: 200, height:200);
   int _amountWon = 0;
   int _amountLost = 0;
+  int cardHeight = 800;
+
   bool dirty = true;
   Future<CanvasElement> get portrait async {
       if(dirty) {
@@ -86,7 +88,7 @@ class MagicalGirlCharacterObject extends CharacterObject {
   }
 
   @override
-  void makeViewerText(CanvasElement canvas) {
+  Future<Null> makeViewerText(CanvasElement canvas) async {
       Colour color = new Colour.hsv(doll.associatedColor.hue, 0.3, 0.7);
       canvas.context2D.fillStyle = "${color.toStyleString()}";
       canvas.context2D.strokeStyle = "${color.toStyleString()}";
@@ -104,6 +106,23 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
           currentY += (fontSize*1.2).round();
       }
+
+      MagicalAdventure adventure = new MagicalAdventure(this);
+      Narrative narrative =  await adventure.getNarrative();
+
+      /*
+        and theme
+      int get attackSeed => (doll as MagicalDoll).bowBack.imgNumber;
+  int get magicalCompanionSeed => (doll as MagicalDoll).socks.imgNumber;
+  int get weaponSeed => (doll as MagicalDoll).frontBow.imgNumber;
+       */
+      String attack = await adventure.getAttackName(narrative);
+      String theme = await adventure.getAdj(narrative);
+      canvas.context2D.fillText("Magical Attack",20,currentY);
+      canvas.context2D.fillText("$theme $attack",350-fontSize,currentY);
+      currentY += (fontSize*1.2).round();
+
+
   }
 
 }

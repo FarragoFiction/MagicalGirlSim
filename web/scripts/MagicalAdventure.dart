@@ -44,37 +44,42 @@ class MagicalAdventure {
     Future<String> getText()async {
         bool actuallyWon = won();
         int prize = results(actuallyWon);
-        TextEngine textEngine;
+        Narrative narrative = await getNarrative();
+        narrative.story.setString("name",girl.name);
 
-        if (girl.doll.useAbsolutePath) {
-            //absolute location, don't need to keep shit maintained between sims
-            //print("trying absolute location first");
-            textEngine = new TextEngine(13, "/WordSource");
-        } else {
-            //relative location for testing
-            print("using relative location, must be testing locally");
-            textEngine = new TextEngine(13);
-        }
-
-        TextStory story = new TextStory();
-        await textEngine.loadList("Mission");
-        story.setString("name",girl.name);
-
-        setAdj(textEngine,story);
-        setAttackName(textEngine,story);
-        setEnemyType(textEngine,story);
-        setMagicalCompanion(textEngine,story);
-        setMysteriousStranger(textEngine,story);
-        setWeaponType(textEngine,story);
-        textEngine.setSeed(rand.nextInt());
+        setAdj(narrative);
+        setAttackName(narrative);
+        setEnemyType(narrative);
+        setMagicalCompanion(narrative);
+        setMysteriousStranger(narrative);
+        setWeaponType(narrative);
+        narrative.engine.setSeed(rand.nextInt());
         //story.setString("name2","${participants.last.name}");
         if(actuallyWon) {
-            return await getWinningText(prize,textEngine, story);
+            return await getWinningText(prize,narrative);
         }else {
-            return await getLosingText(prize,textEngine, story);
+            return await getLosingText(prize,narrative);
 
         }
         //"OMFG DO THIS PLZ. $prizeString $prize magicules."..classes.add("adventureContent
+    }
+
+    Future<Narrative> getNarrative() async {
+      TextEngine textEngine;
+
+      if (girl.doll.useAbsolutePath) {
+          //absolute location, don't need to keep shit maintained between sims
+          //print("trying absolute location first");
+          textEngine = new TextEngine(13, "/WordSource");
+      } else {
+          //relative location for testing
+          print("using relative location, must be testing locally");
+          textEngine = new TextEngine(13);
+      }
+
+      TextStory story = new TextStory();
+      await textEngine.loadList("Mission");
+      return new Narrative(textEngine, story);
     }
 
     /*
@@ -83,58 +88,76 @@ class MagicalAdventure {
   int get weaponSeed => (doll as MagicalDoll).frontBow.imgNumber;
      */
 
-    void setAdj(TextEngine engine, TextStory story) {
+    void setAdj(Narrative narrative) {
         //TODO use the text engine to fetch a magical adj like sparkling, shining ,hopefilled etc.
-        int s = girl.themeSeed;
-        engine.setSeed(s);
-        String adj = engine.phrase("PossibleThemeAdjectives", story: story);
+        String adj = getAdj(narrative);
         print("adj set to $adj");
-        story.setString("attackAdj",adj.toUpperCase());
+        narrative.story.setString("attackAdj",adj.toUpperCase());
     }
 
-    void setAttackName(TextEngine engine, TextStory story) {
-        int s = girl.attackSeed;
-        engine.setSeed(s);
-        String adj = engine.phrase("PossibleAttackNames", story: story);
+    String getAdj(Narrative narrative) {
+      int s = girl.themeSeed;
+      return narrative.getPhrase(s,"PossibleThemeAdjectives");
+    }
+
+    void setAttackName(Narrative narrative) {
+        String adj = getAttackName(narrative);
         print("attack set to $adj");
-        story.setString("attackName",adj.toUpperCase());
+        narrative.story.setString("attackName",adj.toUpperCase());
     }
 
-    void setMysteriousStranger(TextEngine engine, TextStory story) {
-        int s = girl.mysteriousStrangerSeed;
-        engine.setSeed(s);
-        String adj = engine.phrase("mysteriousStrangerTypes", story: story);
+    String getAttackName(Narrative narrative) {
+      int s = girl.attackSeed;
+      return narrative.getPhrase(s,"PossibleAttackNames");
+    }
+
+    void setMysteriousStranger(Narrative narrative) {
+        String adj = getStranger(narrative);
         print("stranger set to $adj");
-        story.setString("mysteriousStranger",adj.toUpperCase());
+        narrative.story.setString("mysteriousStranger",adj.toUpperCase());
     }
 
-    void setMagicalCompanion(TextEngine engine, TextStory story) {
-        int s = girl.magicalCompanionSeed;
-        engine.setSeed(s);
-        String adj = engine.phrase("magicalCompanionTypes", story: story);
+    String getStranger(Narrative narrative) {
+      int s = girl.mysteriousStrangerSeed;
+      return narrative.getPhrase(s,"mysteriousStrangerTypes");
+    }
+
+    void setMagicalCompanion(Narrative narrative) {
+        String adj = getCompanion(narrative);
         print("companion set to $adj");
-        story.setString("magicalCompanion",adj.toUpperCase());
+        narrative.story.setString("magicalCompanion",adj.toUpperCase());
     }
 
-    void setEnemyType(TextEngine engine, TextStory story) {
-        int s = girl.enemySeed;
-        engine.setSeed(s);
-        String adj = engine.phrase("possibleEnemyTypes", story: story);
+    String getCompanion(Narrative narrative) {
+      int s = girl.magicalCompanionSeed;
+      return narrative.getPhrase(s,"magicalCompanionTypes");
+    }
+
+    void setEnemyType(Narrative narrative) {
+        String adj = getEnemy(narrative);
         print("enemy set to $adj");
-        story.setString("enemyType",adj.toUpperCase());
+        narrative.story.setString("enemyType",adj.toUpperCase());
     }
 
-    void setWeaponType(TextEngine engine, TextStory story) {
-        int s = girl.weaponSeed;
-        engine.setSeed(s);
-        String adj = engine.phrase("possibleWeaponTypes", story: story);
+    String getEnemy(Narrative narrative) {
+      int s = girl.enemySeed;
+      return narrative.getPhrase(s,"possibleEnemyTypes");
+    }
+
+    void setWeaponType(Narrative narrative) {
+        String adj = getWeapon(narrative);
         print("weapon set to $adj");
-        story.setString("weapon",adj.toUpperCase());
+        narrative.story.setString("weapon",adj.toUpperCase());
     }
 
-    Future<String> getWinningText(int prize, TextEngine textEngine, TextStory story) async {
+    String getWeapon(Narrative narrative) {
+      int s = girl.weaponSeed;
+      return narrative.getPhrase(s,"possibleWeaponTypes");
+    }
+
+    Future<String> getWinningText(int prize,Narrative narrative) async {
         //            storyText = "$storyText ${getLines('Beginning', textEngine, story)}\n \n ";
-        String flavor = textEngine.phrase("winningText", story: story);
+        String flavor = narrative.engine.phrase("winningText", story: narrative.story);
         String prizeString = "${girl.name} earned $prize magicules.";
         print("flavor set to $flavor");
         return "$flavor $prizeString";
@@ -142,8 +165,8 @@ class MagicalAdventure {
 
 
 
-    Future<String> getLosingText(int penalty, TextEngine textEngine, TextStory story) async {
-        String flavor = textEngine.phrase("losingText", story: story);
+    Future<String> getLosingText(int penalty, Narrative narrative) async {
+        String flavor = narrative.engine.phrase("losingText", story: narrative.story);
         String prizeString = "${girl.name} lost $penalty magicules.";
         print("flavor set to $flavor");
         return "$flavor $prizeString";
@@ -175,4 +198,16 @@ class MagicalAdventure {
     }
 
 
+}
+
+class Narrative {
+    TextEngine engine;
+    TextStory story;
+    Narrative(TextEngine this.engine, TextStory this.story);
+
+    String getPhrase(int seed, String identifier) {
+        engine.setSeed(seed);
+        String phrase = engine.phrase(identifier, story: story);
+        return phrase;
+    }
 }
