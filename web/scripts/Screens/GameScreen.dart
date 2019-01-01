@@ -38,8 +38,8 @@ abstract class GameScreen {
     void setup(Element element) {
         parentContainer = element;
         container = new DivElement();
+        makeBackButton();
         parentContainer.append(container);
         game.currentScreen = this;
-        makeBackButton();
     }
 }

@@ -105,6 +105,9 @@ possibleWeaponTypes
 companionTraits
     talking
     magical
+    spirited
+    spirit
+    flamboyant
     #magicalThemes#
     annoying: 0.1
     singing: 0.01

@@ -6,6 +6,9 @@ import 'dart:async';
 import 'dart:html';
 
 //TODO save/load from json
+//TODO missions take time to return from
+//TODO Magical girls can retire/be forced to retire (set number of missions they can do?)
+//TODO abilitiy to recruit new magical girl
 class Game {
     static Game _instance;
     GameScreen currentScreen;

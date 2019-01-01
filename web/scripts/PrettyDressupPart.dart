@@ -46,6 +46,6 @@ class PrettyDressupPart {
 
     static imgNumberToPowerLevel(int number) {
         Random rand = new Random(number);
-        return rand.nextIntRange(-13,13);
+        return rand.nextIntRange(-113,113);
     }
 }

@@ -180,13 +180,22 @@ class MagicalAdventure {
 
 
 
-        //TODO make this based on something.
+    //more likely than not to succeed
     bool won() {
-        return rand.nextBool();
+        int powerLevel = girl.statSum;
+        if(powerLevel >= 113*12) {
+            return true;
+        }else if(powerLevel > 113*6) {
+            return rand.nextDouble()>.25; //75% chance
+        }else if(powerLevel > 113) {
+            return rand.nextBool(); //50/50
+        }else {
+            return false; //just no
+        }
     }
 
     int results(bool actuallyWon) {
-        int amount = rand.nextIntRange(13,113);
+        int amount = (rand.nextIntRange(13,113)*girl.efficiencyRating).ceil();
         if(!actuallyWon) {
             amount = amount * -1;
             girl.lose(amount);

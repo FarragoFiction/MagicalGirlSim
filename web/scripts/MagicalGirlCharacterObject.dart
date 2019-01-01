@@ -2,7 +2,7 @@ import 'MagicalAdventure.dart';
 import 'PrettyDressupPart.dart';
 import 'dart:async';
 import 'dart:html';
-import 'dart:math';
+import 'dart:math' as Math;
 import 'package:CommonLib/Colours.dart';
 import 'package:CreditsLib/CharacterLib.dart';
 import 'package:CreditsLib/src/StatObject.dart';
@@ -16,10 +16,22 @@ TODO: magical girls can choose to retire, go to magical girl valhalla or be forc
 
 class MagicalGirlCharacterObject extends CharacterObject {
   CanvasElement _portrait = new CanvasElement(width: 200, height:200);
+  CanvasElement cardCanvas;
   int _amountWon = 0;
   int _amountLost = 0;
   int cardHeight = 800;
   MagicalDoll magicDoll;
+  CanvasElement statElement;
+
+  //if you generally win more than you lose you'll win even more, sort of like momentum
+  double get efficiencyRating {
+      if(_amountWon == 0 && _amountLost == 0) return 0.1;
+      if(_amountWon != 0 && _amountLost == 0) return 5.0; //perfection
+      if(_amountWon == 0 && _amountLost != 0) return 1.0; //bad break
+
+      //no more than triple your value
+        return Math.min(( _amountWon.abs()/_amountLost.abs()),3.0);
+  }
 
   bool dirty = true;
     //TODO wire these up
@@ -31,7 +43,7 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
   int get loyalClothesModifier {
       int numberOne = magicDoll.bowBack.imgNumber;
-      int numberTwo = magicDoll.frontBow.imgNumber;
+      int numberTwo = magicDoll.hairBack.imgNumber;
       return PrettyDressupPart.imgNumberToPowerLevel(numberOne) + PrettyDressupPart.imgNumberToPowerLevel(numberTwo);
   }
 
@@ -54,7 +66,7 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
   int get patientClothesModifier {
       int numberOne = magicDoll.eyebrows.imgNumber;
-      int numberTwo = magicDoll.hairBack.imgNumber;
+      int numberTwo = magicDoll.frontBow.imgNumber;
       return PrettyDressupPart.imgNumberToPowerLevel(numberOne) + PrettyDressupPart.imgNumberToPowerLevel(numberTwo);
   }
 
@@ -68,7 +80,6 @@ class MagicalGirlCharacterObject extends CharacterObject {
   }
   MagicalGirlCharacterObject(String name, String dollString) : super(name, dollString) {
     _portrait.classes.add("portrait");
-    magicDoll = doll as MagicalDoll;
   }
 
   int get themeSeed {
@@ -86,15 +97,27 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
   void win(int amount) {
         _amountWon +=amount;
+        syncToCardCanvas();
   }
 
   void lose(int amount) {
     _amountLost += amount;
+    syncToCardCanvas();
+  }
+
+  int get statSum {
+    int ret = 0;
+    stats.forEach((StatObject stat) {
+        ret += stat.value.abs();
+    });
+    return ret;
   }
 
   @override
   void initializeStats() {
+      print("trying to initialize stats with doll $doll");
       stats.clear();
+      magicDoll = doll as MagicalDoll;
       stats.add(new StatObject(this, StatObject.PATIENCE,StatObject.IMPATIENCE,patientClothesModifier));
       stats.add(new StatObject(this, StatObject.ENERGETIC,StatObject.CALM,energeticClothesModifier));
       stats.add(new StatObject(this, StatObject.IDEALISTIC,StatObject.REALISTIC,idealisticClothesModifier));
@@ -110,11 +133,18 @@ class MagicalGirlCharacterObject extends CharacterObject {
       canvasViewer = new DivElement();
       canvasViewer.classes.add("magicalCard");
       subContainer.append(canvasViewer);
-      CanvasElement canvas = new CanvasElement(width: cardWidth, height: cardHeight);
-      canvasViewer.append(canvas);
-      await makeViewerBorder(canvas);
-      makeViewerDoll(canvas);
-      makeViewerText(canvas);
+      cardCanvas = new CanvasElement(width: cardWidth, height: cardHeight);
+      canvasViewer.append(cardCanvas);
+      await makeViewerBorder(cardCanvas);
+      makeViewerDoll(cardCanvas);
+      makeViewerText(cardCanvas);
+  }
+
+  Future syncToCardCanvas() async {
+      cardCanvas.context2D.clearRect(0,0, cardCanvas.width, cardCanvas.height);
+      await makeViewerBorder(cardCanvas);
+      makeViewerDoll(cardCanvas);
+      makeViewerText(cardCanvas);
   }
 
   @override
@@ -137,8 +167,11 @@ class MagicalGirlCharacterObject extends CharacterObject {
       return new MagicalGirlCharacterObject(doll.dollName, doll.toDataBytesX());
   }
 
+
+
   @override
   Future<Null> makeViewerText(CanvasElement canvas) async {
+      statElement = canvas;
       Colour color = new Colour.hsv(doll.associatedColor.hue, 0.3, 0.7);
       canvas.context2D.fillStyle = "${color.toStyleString()}";
       canvas.context2D.strokeStyle = "${color.toStyleString()}";
@@ -156,7 +189,13 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
           currentY += (fontSize*1.2).round();
       }
+
+      canvas.context2D.fillText("Earned Magicules:",fontSize,currentY);
+      canvas.context2D.fillText("$_amountWon",325-fontSize,currentY);
       currentY += (fontSize*1.2).round();
+
+      canvas.context2D.fillText("Lost Magicules:",fontSize,currentY);
+      canvas.context2D.fillText("$_amountLost",325-fontSize,currentY);
       currentY += (fontSize*1.2).round();
       currentY += (fontSize*1.2).round();
 
