@@ -12,6 +12,7 @@ class DressupScreen extends GameScreen {
     MagicalDoll doll;
     List<DressupTab> tabs = new List<DressupTab>();
     CanvasElement canvas;
+    DressupTab selectedTab;
 
     DressupScreen(MagicalGirlCharacterObject this.girl) {
         doll = girl.doll as MagicalDoll;
@@ -19,11 +20,13 @@ class DressupScreen extends GameScreen {
     }
 
     void initTabs() {
-        tabs.add(new DressupTab(girl, doll.skirt));
-        tabs.add(new DressupTab(girl, doll.bowBack));
-        tabs.add(new DressupTab(girl, doll.frontBow));
-        tabs.add(new DressupTab(girl, doll.socks));
-        tabs.add(new DressupTab(girl, doll.shoes));
+        tabs.add(new DressupTab(this,girl, doll.skirt));
+        tabs.add(new DressupTab(this,girl, doll.bowBack));
+        tabs.add(new DressupTab(this,girl, doll.frontBow));
+        tabs.add(new DressupTab(this,girl, doll.socks));
+        tabs.add(new DressupTab(this,girl, doll.shoes));
+        tabs.add(new DressupTab(this,girl, doll.glasses));
+
     }
 
 
@@ -60,7 +63,14 @@ class DressupScreen extends GameScreen {
         tabs.forEach((DressupTab tab) {
             tab.showButton(subcontainer);
         });
+        selectTab(tabs.first,subcontainer);
 
+    }
+
+    void selectTab(DressupTab tab, Element subContainer) {
+        if(selectedTab != null) selectedTab.hideContents();
+        selectedTab = tab;
+        tab.showContents(subContainer);
     }
 
 }
@@ -71,9 +81,10 @@ class DressupTab {
     MagicalGirlCharacterObject girl;
     Element container;
     ButtonElement tabButton;
+    DressupScreen owner;
 
 
-    DressupTab(MagicalGirlCharacterObject this.girl, SpriteLayer this.layerToCollate) {
+    DressupTab(DressupScreen this.owner, MagicalGirlCharacterObject this.girl, SpriteLayer this.layerToCollate) {
         init();
     }
     void init() {
@@ -87,7 +98,7 @@ class DressupTab {
          tabButton.classes.add("tabButton");
          subcontainer.append(tabButton);
          tabButton.onClick.listen((Event e) {
-            showContents(subcontainer);
+            owner.selectTab(this,subcontainer);
          });
     }
 
@@ -96,12 +107,14 @@ class DressupTab {
             render(subcontainer);
         }else {
             container.style.display = "block";
+            tabButton.classes.add("tabButtonSelected");
         }
     }
 
-    void hideContents(Element subcontainer) {
+    void hideContents() {
         if(container != null) {
             container.style.display = "none";
+            tabButton.classes.remove("tabButtonSelected");
         }
     }
 
