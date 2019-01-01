@@ -32,7 +32,9 @@ button{
     float: left;
     margin:10px;
 }
-
+.tab{
+    width:1000px;
+}
 .adventureContent{
     padding:10px;
 }

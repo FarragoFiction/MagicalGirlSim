@@ -38,5 +38,6 @@ abstract class GameScreen {
         parentContainer = element;
         container = new DivElement();
         parentContainer.append(container);
+        game.currentScreen = this;
     }
 }

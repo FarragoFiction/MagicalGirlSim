@@ -11,6 +11,7 @@ class DressupScreen extends GameScreen {
     MagicalGirlCharacterObject girl;
     MagicalDoll doll;
     DressupTab skirtTab;
+    CanvasElement canvas;
 
     DressupScreen(MagicalGirlCharacterObject this.girl) {
         doll = girl.doll as MagicalDoll;
@@ -30,13 +31,20 @@ class DressupScreen extends GameScreen {
 
     Future<Null> makeDressup(Element subcontainer) async {
         //full size
-        CanvasElement tmpCanvas = await girl.doll.getNewCanvas();
-        CanvasElement canvas = girl.doll.blankCanvas;
-        await girl.makeViewerBorder(canvas);
-        canvas.context2D.drawImage(tmpCanvas,0,0);
+        canvas = girl.doll.blankCanvas;
+       syncDressup();
         subcontainer.append(canvas);
         drawSkirtTab(subcontainer);
     }
+
+    Future<Null> syncDressup() async {
+        canvas.context2D.clearRect(0,0,canvas.width,canvas.height);
+        CanvasElement tmpCanvas = await girl.doll.getNewCanvas();
+        await girl.makeViewerBorder(canvas);
+        canvas.context2D.drawImage(tmpCanvas,0,0);
+
+    }
+
 
     Future<Null> drawSkirtTab(Element subcontainer) async {
         skirtTab.render(subcontainer);
@@ -49,6 +57,8 @@ class DressupTab {
     List<PrettyDressupPart> parts = new List<PrettyDressupPart>();
     SpriteLayer layerToCollate;
     MagicalGirlCharacterObject girl;
+    Element container;
+
 
     DressupTab(MagicalGirlCharacterObject this.girl, SpriteLayer this.layerToCollate) {
         init();
@@ -61,8 +71,10 @@ class DressupTab {
 
     //TODO also display layer label
     Future<Null> render(Element subcontainer) async {
+        container = new DivElement()..classes.add("tab");
+        subcontainer.append(container);
         for(PrettyDressupPart part in parts) {
-            await part.render(subcontainer);
+            await part.render(container);
         }
     }
 }
