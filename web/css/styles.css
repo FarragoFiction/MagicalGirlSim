@@ -35,6 +35,9 @@ button{
 .tab{
     width:1000px;
 }
+.tabButton{
+    border-bottom: none;
+}
 .adventureContent{
     padding:10px;
 }

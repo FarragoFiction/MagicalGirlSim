@@ -10,12 +10,19 @@ import 'package:DollLibCorrect/src/Dolls/MagicalDoll.dart';
 class DressupScreen extends GameScreen {
     MagicalGirlCharacterObject girl;
     MagicalDoll doll;
-    DressupTab skirtTab;
+    List<DressupTab> tabs = new List<DressupTab>();
     CanvasElement canvas;
 
     DressupScreen(MagicalGirlCharacterObject this.girl) {
         doll = girl.doll as MagicalDoll;
-        skirtTab = new DressupTab(girl, doll.skirt);
+    }
+
+    void initTabs() {
+        tabs.add(new DressupTab(girl, doll.skirt));
+        tabs.add(new DressupTab(girl, doll.bowBack));
+        tabs.add(new DressupTab(girl, doll.frontBow));
+        tabs.add(new DressupTab(girl, doll.socks));
+        tabs.add(new DressupTab(girl, doll.shoes));
     }
 
 
@@ -34,7 +41,9 @@ class DressupScreen extends GameScreen {
         canvas = girl.doll.blankCanvas;
        syncDressup();
         subcontainer.append(canvas);
-        drawSkirtTab(subcontainer);
+        DivElement tabs = new DivElement();
+        subcontainer.append(tabs);
+        drawTabs(tabs);
     }
 
     Future<Null> syncDressup() async {
@@ -46,8 +55,10 @@ class DressupScreen extends GameScreen {
     }
 
 
-    Future<Null> drawSkirtTab(Element subcontainer) async {
-        skirtTab.render(subcontainer);
+    Future<Null> drawTabs(Element subcontainer) async {
+        tabs.forEach((DressupTab tab) {
+            tab.showButton(subcontainer);
+        });
 
     }
 
@@ -58,6 +69,7 @@ class DressupTab {
     SpriteLayer layerToCollate;
     MagicalGirlCharacterObject girl;
     Element container;
+    ButtonElement tabButton;
 
 
     DressupTab(MagicalGirlCharacterObject this.girl, SpriteLayer this.layerToCollate) {
@@ -66,6 +78,29 @@ class DressupTab {
     void init() {
         for(int i = 0; i<layerToCollate.maxImageNumber; i++) {
             parts.add(new PrettyDressupPart(layerToCollate, i,girl));
+        }
+    }
+
+    void showButton(Element subcontainer) {
+         tabButton = new ButtonElement()..text = layerToCollate.name;
+         tabButton.classes.add("tabButton");
+         subcontainer.append(tabButton);
+         tabButton.onClick.listen((Event e) {
+            showContents(subcontainer);
+         });
+    }
+
+    void showContents(Element subcontainer) {
+        if(container == null) {
+            render(container);
+        }else {
+            container.style.display = "block";
+        }
+    }
+
+    void hideContents(Element subcontainer) {
+        if(container != null) {
+            container.style.display = "none";
         }
     }
 
