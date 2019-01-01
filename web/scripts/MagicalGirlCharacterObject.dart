@@ -109,17 +109,24 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
       MagicalAdventure adventure = new MagicalAdventure(this);
       Narrative narrative =  await adventure.getNarrative();
-
-      /*
-        and theme
-      int get attackSeed => (doll as MagicalDoll).bowBack.imgNumber;
-  int get magicalCompanionSeed => (doll as MagicalDoll).socks.imgNumber;
-  int get weaponSeed => (doll as MagicalDoll).frontBow.imgNumber;
-       */
+      
       String attack = await adventure.getAttackName(narrative);
       String theme = await adventure.getAdj(narrative);
-      canvas.context2D.fillText("Magical Attack",20,currentY);
-      canvas.context2D.fillText("$theme $attack",350-fontSize,currentY);
+      canvas.context2D.fillText("Magical Attack:",fontSize,currentY);
+      currentY += (fontSize*1.2).round();
+      canvas.context2D.fillText("$theme $attack".toUpperCase(),fontSize,currentY);
+      currentY += (fontSize*1.2).round();
+
+      String weapon = await adventure.getWeapon(narrative);
+      canvas.context2D.fillText("Weapon:",fontSize,currentY);
+      currentY += (fontSize*1.2).round();
+      canvas.context2D.fillText("$weapon".toUpperCase(),fontSize,currentY);
+      currentY += (fontSize*1.2).round();
+
+      String animal = await adventure.getCompanion(narrative);
+      canvas.context2D.fillText("Magical Companion:",fontSize,currentY);
+      currentY += (fontSize*1.2).round();
+      canvas.context2D.fillText("$animal".toUpperCase(),fontSize,currentY);
       currentY += (fontSize*1.2).round();
 
 
