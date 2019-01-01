@@ -26,7 +26,7 @@ class DressupScreen extends GameScreen {
         tabs.add(new DressupTab(this,girl, doll.socks));
         tabs.add(new DressupTab(this,girl, doll.shoes));
         tabs.add(new DressupTab(this,girl, doll.glasses));
-
+        tabs.add(new DressupTab(this,girl, doll.body));
     }
 
 

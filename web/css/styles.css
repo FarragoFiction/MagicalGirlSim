@@ -24,6 +24,7 @@ button{
     border: 3px solid #fdbee5;
     border-radius: 5px;
     padding: 5px;
+    margin: 10px;
   font-family: 'cabin', sans-serif;
   color: #ef9ace;
 }
@@ -42,6 +43,7 @@ button{
     border-top:none;
 }
 .tabButton{
+    margin: 0px;
     background-color: #ecd1e6;
     border-radius: 0px;
     border: 3px solid #efb3d8;

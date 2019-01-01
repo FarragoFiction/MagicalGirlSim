@@ -100,9 +100,11 @@ possibleWeaponTypes
     tiara
     sceptre
     ax
+    #noun_object#: 3.0
 
 companionTraits
     talking
     magical
+    #magicalThemes#
     annoying: 0.1
     singing: 0.01

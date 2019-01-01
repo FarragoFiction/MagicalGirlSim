@@ -4,6 +4,7 @@ import 'Screens/DressupScreen.dart';
 import 'dart:async';
 import 'dart:html';
 
+import 'package:CommonLib/Random.dart';
 import 'package:DollLibCorrect/src/Dolls/Layers/SpriteLayer.dart';
 import 'package:RenderingLib/RendereringLib.dart';
 
@@ -41,5 +42,10 @@ class PrettyDressupPart {
       DressupScreen screen  =Game.instance.currentScreen as DressupScreen;
       screen.syncDressup();
       window.scrollTo(0,0);
+    }
+
+    static imgNumberToPowerLevel(int number) {
+        Random rand = new Random(number);
+        return rand.nextIntRange(-13,13);
     }
 }

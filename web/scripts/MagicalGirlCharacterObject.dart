@@ -1,6 +1,8 @@
 import 'MagicalAdventure.dart';
+import 'PrettyDressupPart.dart';
 import 'dart:async';
 import 'dart:html';
+import 'dart:math';
 import 'package:CommonLib/Colours.dart';
 import 'package:CreditsLib/CharacterLib.dart';
 import 'package:CreditsLib/src/StatObject.dart';
@@ -17,8 +19,45 @@ class MagicalGirlCharacterObject extends CharacterObject {
   int _amountWon = 0;
   int _amountLost = 0;
   int cardHeight = 800;
+  MagicalDoll magicDoll;
 
   bool dirty = true;
+    //TODO wire these up
+  int get externalClothesModifier {
+      int numberOne = magicDoll.skirt.imgNumber;
+      int numberTwo = magicDoll.shoes.imgNumber;
+      return PrettyDressupPart.imgNumberToPowerLevel(numberOne) + PrettyDressupPart.imgNumberToPowerLevel(numberTwo);
+  }
+
+  int get loyalClothesModifier {
+      int numberOne = magicDoll.bowBack.imgNumber;
+      int numberTwo = magicDoll.frontBow.imgNumber;
+      return PrettyDressupPart.imgNumberToPowerLevel(numberOne) + PrettyDressupPart.imgNumberToPowerLevel(numberTwo);
+  }
+
+  int get curiousClothesModifier {
+      int numberOne = magicDoll.glasses.imgNumber;
+      int numberTwo = magicDoll.eyes.imgNumber;
+      return PrettyDressupPart.imgNumberToPowerLevel(numberOne) + PrettyDressupPart.imgNumberToPowerLevel(numberTwo);
+  }
+
+  int get idealisticClothesModifier {
+      int numberOne = magicDoll.hairFront.imgNumber;
+      int numberTwo = magicDoll.body.imgNumber;
+      return PrettyDressupPart.imgNumberToPowerLevel(numberOne) + PrettyDressupPart.imgNumberToPowerLevel(numberTwo);
+  }
+
+  int get energeticClothesModifier {
+      int numberOne = magicDoll.socks.imgNumber;
+      int numberTwo = magicDoll.mouth.imgNumber;
+      return PrettyDressupPart.imgNumberToPowerLevel(numberOne) + PrettyDressupPart.imgNumberToPowerLevel(numberTwo);  }
+
+  int get patientClothesModifier {
+      int numberOne = magicDoll.eyebrows.imgNumber;
+      int numberTwo = magicDoll.hairBack.imgNumber;
+      return PrettyDressupPart.imgNumberToPowerLevel(numberOne) + PrettyDressupPart.imgNumberToPowerLevel(numberTwo);
+  }
+
   Future<CanvasElement> get portrait async {
       if(dirty) {
           CanvasElement tmp = await doll.getNewCanvas();
@@ -29,6 +68,7 @@ class MagicalGirlCharacterObject extends CharacterObject {
   }
   MagicalGirlCharacterObject(String name, String dollString) : super(name, dollString) {
     _portrait.classes.add("portrait");
+    magicDoll = doll as MagicalDoll;
   }
 
   int get themeSeed {
@@ -52,6 +92,16 @@ class MagicalGirlCharacterObject extends CharacterObject {
     _amountLost += amount;
   }
 
+  @override
+  void initializeStats() {
+      stats.clear();
+      stats.add(new StatObject(this, StatObject.PATIENCE,StatObject.IMPATIENCE,patientClothesModifier));
+      stats.add(new StatObject(this, StatObject.ENERGETIC,StatObject.CALM,energeticClothesModifier));
+      stats.add(new StatObject(this, StatObject.IDEALISTIC,StatObject.REALISTIC,idealisticClothesModifier));
+      stats.add(new StatObject(this, StatObject.CURIOUS,StatObject.ACCEPTING,curiousClothesModifier));
+      stats.add(new StatObject(this, StatObject.LOYAL,StatObject.FREE,loyalClothesModifier));
+      stats.add(new StatObject(this, StatObject.EXTERNAL,StatObject.INTERNAL,externalClothesModifier));
+  }
 
 
 
@@ -106,28 +156,31 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
           currentY += (fontSize*1.2).round();
       }
+      currentY += (fontSize*1.2).round();
+      currentY += (fontSize*1.2).round();
+      currentY += (fontSize*1.2).round();
 
       MagicalAdventure adventure = new MagicalAdventure(this);
       Narrative narrative =  await adventure.getNarrative();
-      
+
       String attack = await adventure.getAttackName(narrative);
       String theme = await adventure.getAdj(narrative);
       canvas.context2D.fillText("Magical Attack:",fontSize,currentY);
       currentY += (fontSize*1.2).round();
       canvas.context2D.fillText("$theme $attack".toUpperCase(),fontSize,currentY);
-      currentY += (fontSize*1.2).round();
+      currentY += (fontSize*2.4).round();
 
       String weapon = await adventure.getWeapon(narrative);
       canvas.context2D.fillText("Weapon:",fontSize,currentY);
       currentY += (fontSize*1.2).round();
       canvas.context2D.fillText("$weapon".toUpperCase(),fontSize,currentY);
-      currentY += (fontSize*1.2).round();
+      currentY += (fontSize*2.4).round();
 
       String animal = await adventure.getCompanion(narrative);
       canvas.context2D.fillText("Magical Companion:",fontSize,currentY);
       currentY += (fontSize*1.2).round();
       canvas.context2D.fillText("$animal".toUpperCase(),fontSize,currentY);
-      currentY += (fontSize*1.2).round();
+      currentY += (fontSize*2.4).round();
 
 
   }
