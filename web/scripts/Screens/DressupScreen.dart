@@ -45,9 +45,9 @@ class DressupScreen extends GameScreen {
         canvas = girl.doll.blankCanvas;
         syncDressup();
         subcontainer.append(canvas);
-        DivElement tabs = new DivElement();
-        subcontainer.append(tabs);
-        drawTabs(tabs);
+        DivElement tabElement = new DivElement()..classes.add("tabs");
+        subcontainer.append(tabElement);
+        drawTabs(tabElement);
     }
 
     Future<Null> syncDressup() async {
@@ -107,8 +107,8 @@ class DressupTab {
             render(subcontainer);
         }else {
             container.style.display = "block";
-            tabButton.classes.add("tabButtonSelected");
         }
+        tabButton.classes.add("tabButtonSelected");
     }
 
     void hideContents() {
