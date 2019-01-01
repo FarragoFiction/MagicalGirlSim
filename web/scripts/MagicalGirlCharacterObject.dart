@@ -43,9 +43,10 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
   }
   int get attackSeed => (doll as MagicalDoll).bowBack.imgNumber;
-  int get enemySeed => (doll as MagicalDoll).socks.imgNumber;
+  //if multiple magical girls have the same skirt they are obviously on the same team
+  int get enemySeed => (doll as MagicalDoll).skirt.imgNumber;
   int get mysteriousStrangerSeed => (doll as MagicalDoll).shoes.imgNumber;
-  int get magicalCompanionSeed => (doll as MagicalDoll).skirt.imgNumber;
+  int get magicalCompanionSeed => (doll as MagicalDoll).socks.imgNumber;
   int get weaponSeed => (doll as MagicalDoll).frontBow.imgNumber;
 
 

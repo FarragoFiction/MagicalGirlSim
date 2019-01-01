@@ -11,3 +11,31 @@ winningText
 losingText
     #noun|var@name# loses. Their #adjective|var@attackAdj#  #noun|var@attackName# was ineffective :( :( :(
     #noun|var@name# loses. Their #adjective|var@attackAdj#  #noun|var@attackName# sucks. :(
+
+
+PossibleThemeAdjectives
+    #color_bright#
+
+PossibleAttackNames
+    Beam
+    Canon
+    Pyre
+    Spell
+    Encantation
+
+possibleEnemyTypes
+    monsters
+    demons
+    negative emotions
+
+mysteriousStrangerTypes
+    masked man
+
+magicalCompanionTypes
+    talking @noun_animal
+    magical @noun_animal
+
+possibleWeaponTypes
+    tiara
+    sceptre
+    ax

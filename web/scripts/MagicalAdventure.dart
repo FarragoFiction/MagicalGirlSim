@@ -75,8 +75,6 @@ class MagicalAdventure {
 
     /*
      int get attackSeed => (doll as MagicalDoll).bowBack.imgNumber;
-  int get enemySeed => (doll as MagicalDoll).socks.imgNumber;
-  int get mysteriousStrangerSeed => (doll as MagicalDoll).shoes.imgNumber;
   int get magicalCompanionSeed => (doll as MagicalDoll).skirt.imgNumber;
   int get weaponSeed => (doll as MagicalDoll).frontBow.imgNumber;
      */
@@ -85,20 +83,44 @@ class MagicalAdventure {
         //TODO use the text engine to fetch a magical adj like sparkling, shining ,hopefilled etc.
         int s = girl.themeSeed;
         engine.setSeed(s);
-
-        String adj = "Bangin'";
+        String adj = engine.phrase("PossibleThemeAdjectives", story: story);
         story.setString("attackAdj",adj.toUpperCase());
 
     }
 
     void setAttackName(TextEngine engine, TextStory story) {
-        //todo use the text engine to fetch an attack name like "SLASH", "BEAM", "CANON", "RAY" etc.
         int s = girl.attackSeed;
-
         engine.setSeed(s);
-
-        String adj = "Canon";
+        String adj = engine.phrase("PossibleAttackNames", story: story);
         story.setString("attackName",adj.toUpperCase());
+    }
+
+    void setMysteriousStranger(TextEngine engine, TextStory story) {
+        int s = girl.attackSeed;
+        engine.setSeed(s);
+        String adj = engine.phrase("mysteriousStrangerTypes", story: story);
+        story.setString("mysteriousStranger",adj.toUpperCase());
+    }
+
+    void setMagicalCompanion(TextEngine engine, TextStory story) {
+        int s = girl.attackSeed;
+        engine.setSeed(s);
+        String adj = engine.phrase("magicalCompanionTypes", story: story);
+        story.setString("mysteriousStranger",adj.toUpperCase());
+    }
+
+    void setEnemyType(TextEngine engine, TextStory story) {
+        int s = girl.attackSeed;
+        engine.setSeed(s);
+        String adj = engine.phrase("magicalCompanionTypes", story: story);
+        story.setString("mysteriousStranger",adj.toUpperCase());
+    }
+
+    void setWeaponType(TextEngine engine, TextStory story) {
+        int s = girl.attackSeed;
+        engine.setSeed(s);
+        String adj = engine.phrase("possibleWeaponTypes", story: story);
+        story.setString("weapon",adj.toUpperCase());
     }
 
     Future<String> getWinningText(int prize, TextEngine textEngine, TextStory story) async {
