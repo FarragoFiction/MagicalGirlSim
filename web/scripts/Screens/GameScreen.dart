@@ -30,6 +30,7 @@ abstract class GameScreen {
                 teardown();
                 parent.setup(parentContainer);
             });
+            container.append(button);
         }
     }
 
@@ -39,5 +40,6 @@ abstract class GameScreen {
         container = new DivElement();
         parentContainer.append(container);
         game.currentScreen = this;
+        makeBackButton();
     }
 }
