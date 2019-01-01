@@ -38,8 +38,8 @@ adj_negative
 
 
 randomEvent
-    A #noun|var@mysteriousStrangerTypes# watched from a distance.
-    A #noun|var@mysteriousStrangerTypes# helps out some, but you don't know why.: 0.5
+    A #noun|var@mysteriousStranger# watched from a distance.
+    A #noun|var@mysteriousStranger# helps out some, but you don't know why.: 0.5
     Their #noun|var@magicalCompanion# gives them advice.
     Their #noun|var@magicalCompanion# does stereotypical adorable things.
     Their #noun|var@magicalCompanion# asks inane questions.: 0.1
@@ -55,6 +55,8 @@ PossibleThemeAdjectives
 PossibleAttackNames
     Beam
     Canon
+    Cannon
+    Aria
     Pyre
     Spell
     Encantation
