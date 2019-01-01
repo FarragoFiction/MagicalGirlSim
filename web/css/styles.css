@@ -36,6 +36,9 @@ button{
     width:1000px;
 }
 .tabButton{
+}
+
+.tabButtonSelected{
     border-bottom: none;
 }
 .adventureContent{

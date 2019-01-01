@@ -15,6 +15,7 @@ class DressupScreen extends GameScreen {
 
     DressupScreen(MagicalGirlCharacterObject this.girl) {
         doll = girl.doll as MagicalDoll;
+        initTabs();
     }
 
     void initTabs() {
@@ -39,7 +40,7 @@ class DressupScreen extends GameScreen {
     Future<Null> makeDressup(Element subcontainer) async {
         //full size
         canvas = girl.doll.blankCanvas;
-       syncDressup();
+        syncDressup();
         subcontainer.append(canvas);
         DivElement tabs = new DivElement();
         subcontainer.append(tabs);
@@ -92,7 +93,7 @@ class DressupTab {
 
     void showContents(Element subcontainer) {
         if(container == null) {
-            render(container);
+            render(subcontainer);
         }else {
             container.style.display = "block";
         }

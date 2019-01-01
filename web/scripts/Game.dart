@@ -1,4 +1,5 @@
 import 'MagicalGirlCharacterObject.dart';
+import 'Screens/DressupScreen.dart';
 import 'Screens/GameScreen.dart';
 import 'Screens/TeamScreen.dart';
 import 'dart:async';
@@ -40,7 +41,8 @@ class Game {
         parent.append(container);
         moneyContainer = new DivElement();
         container.append(moneyContainer);
-        currentScreen = new TeamScreen();
+        //currentScreen = new TeamScreen();
+        currentScreen = new DressupScreen(girls.first);
         currentScreen.setup(container);
 
         syncMoney();
