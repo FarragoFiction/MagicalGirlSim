@@ -1,0 +1,13 @@
+TextEngine Word List
+
+@nouns
+@verbs
+@adjectives
+
+winningText
+    #noun|var@name# wins! Their #adjective|var@attackAdj#  #noun|var@attackName# saves the day!
+    #noun|var@name# definitely wins! Their #adjective|var@attackAdj#  #noun|var@attackName# was super effective!
+
+losingText
+    #noun|var@name# loses. Their #adjective|var@attackAdj#  #noun|var@attackName# was ineffective :( :( :(
+    #noun|var@name# loses. Their #adjective|var@attackAdj#  #noun|var@attackName# sucks. :(

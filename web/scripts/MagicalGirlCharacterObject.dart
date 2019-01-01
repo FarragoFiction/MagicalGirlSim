@@ -38,6 +38,17 @@ class MagicalGirlCharacterObject extends CharacterObject {
 
     });
   }
+  int get themeSeed {
+      return doll.associatedColor.red + doll.associatedColor.green + doll.associatedColor.blue;
+
+  }
+  int get attackSeed => (doll as MagicalDoll).bowBack.imgNumber;
+  int get enemySeed => (doll as MagicalDoll).socks.imgNumber;
+  int get mysteriousStrangerSeed => (doll as MagicalDoll).shoes.imgNumber;
+  int get magicalCompanionSeed => (doll as MagicalDoll).skirt.imgNumber;
+  int get weaponSeed => (doll as MagicalDoll).frontBow.imgNumber;
+
+
 
   void win() {
         _numberWins ++;

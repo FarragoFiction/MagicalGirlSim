@@ -6,6 +6,7 @@ import 'dart:async';
 import 'dart:html';
 
 import 'package:CommonLib/Random.dart';
+import 'package:TextEngine/TextEngine.dart';
 
 class MagicalAdventure {
     MagicalGirlCharacterObject girl;
@@ -43,24 +44,77 @@ class MagicalAdventure {
     Future<String> getText()async {
         bool actuallyWon = won();
         int prize = results(actuallyWon);
+        TextEngine textEngine;
+
+        if (girl.doll.useAbsolutePath) {
+            //absolute location, don't need to keep shit maintained between sims
+            //print("trying absolute location first");
+            textEngine = new TextEngine(13, "/WordSource");
+        } else {
+            //relative location for testing
+            print("using relative location, must be testing locally");
+            textEngine = new TextEngine(13);
+        }
+
+        TextStory story = new TextStory();
+        await textEngine.loadList("Mission");
+        story.setString("name",girl.name);
+
+        setAdj(textEngine,story);
+        setAttackName(textEngine,story);
+        textEngine.setSeed(rand.nextInt());
+        //story.setString("name2","${participants.last.name}");
         if(actuallyWon) {
-            return await getWinningText(prize);
+            return await getWinningText(prize,textEngine, story);
         }else {
-            return await getLosingText(prize);
+            return await getLosingText(prize,textEngine, story);
 
         }
         //"OMFG DO THIS PLZ. $prizeString $prize magicules."..classes.add("adventureContent
     }
 
-    Future<String> getWinningText(int prize) async {
-        String flavor = "TODO: LOAD FROM TEXT ENGINE WITH SET ADJ AND SHIT FOR WINNING";
-        String prizeString = "${girl.name} earned $prize. ";
+    /*
+     int get attackSeed => (doll as MagicalDoll).bowBack.imgNumber;
+  int get enemySeed => (doll as MagicalDoll).socks.imgNumber;
+  int get mysteriousStrangerSeed => (doll as MagicalDoll).shoes.imgNumber;
+  int get magicalCompanionSeed => (doll as MagicalDoll).skirt.imgNumber;
+  int get weaponSeed => (doll as MagicalDoll).frontBow.imgNumber;
+     */
+
+    void setAdj(TextEngine engine, TextStory story) {
+        //TODO use the text engine to fetch a magical adj like sparkling, shining ,hopefilled etc.
+        int s = girl.themeSeed;
+        engine.setSeed(s);
+
+        String adj = "Bangin'";
+        story.setString("attackAdj",adj.toUpperCase());
+
+    }
+
+    void setAttackName(TextEngine engine, TextStory story) {
+        //todo use the text engine to fetch an attack name like "SLASH", "BEAM", "CANON", "RAY" etc.
+        int s = girl.attackSeed;
+
+        engine.setSeed(s);
+
+        String adj = "Canon";
+        story.setString("attackName",adj.toUpperCase());
+    }
+
+    Future<String> getWinningText(int prize, TextEngine textEngine, TextStory story) async {
+        //            storyText = "$storyText ${getLines('Beginning', textEngine, story)}\n \n ";
+        String flavor = textEngine.phrase("winningText", story: story);
+        String prizeString = "${girl.name} earned $prize magicules.";
+
+
         return "$flavor $prizeString";
     }
 
-    Future<String> getLosingText(int penalty) async {
-        String flavor = "TODO: LOAD FROM TEXT ENGINE WITH SET ADJ AND SHIT FOR LOSING";
-        String prizeString = "${girl.name} lost $penalty. ";
+
+
+    Future<String> getLosingText(int penalty, TextEngine textEngine, TextStory story) async {
+        String flavor = textEngine.phrase("losingText", story: story);
+        String prizeString = "${girl.name} lost $penalty magicules.";
         return "$flavor $prizeString";
 
     }
