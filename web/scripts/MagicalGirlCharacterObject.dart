@@ -29,15 +29,6 @@ class MagicalGirlCharacterObject extends CharacterObject {
     _portrait.classes.add("portrait");
   }
 
-  void makeButton(Element subContainer) {
-    ButtonElement button = new ButtonElement()..classes.add("adventureButton")..text = "Go on Mission!";
-    subContainer.append(button);
-    button.onClick.listen((Event e) {
-        MagicalAdventure adventure = new MagicalAdventure(this);
-        adventure.start(subContainer);
-
-    });
-  }
   int get themeSeed {
       return doll.associatedColor.red + doll.associatedColor.green + doll.associatedColor.blue;
 
@@ -58,6 +49,9 @@ class MagicalGirlCharacterObject extends CharacterObject {
   void lose(int amount) {
     _amountLost += amount;
   }
+
+
+
 
   @override
   Future<Null> makeViewer(Element subContainer) async {
