@@ -166,6 +166,9 @@ class MagicalAdventure {
         int amount = rand.nextIntRange(13,113);
         if(!actuallyWon) {
             amount = amount * -1;
+            girl.lose(amount);
+        }else {
+            girl.win(amount);
         }
         game.addFunds(amount);
         return amount;

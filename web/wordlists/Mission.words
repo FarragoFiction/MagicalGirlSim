@@ -50,7 +50,7 @@ PossibleThemeAdjectives
     #magicalThemes#
     #gem#: 0.1
     #adj_material#: 0.1
-    #noun_emotion@experience#: 10
+    #noun_emotion@experience#: 2
 
 PossibleAttackNames
     Beam
