@@ -50,7 +50,7 @@ class DressupTab {
     SpriteLayer layerToCollate;
     MagicalGirlCharacterObject girl;
 
-    DressupTab(MagicalGirlCharacterObject this.girl, SpriteLayer layerToCollate) {
+    DressupTab(MagicalGirlCharacterObject this.girl, SpriteLayer this.layerToCollate) {
         init();
     }
     void init() {

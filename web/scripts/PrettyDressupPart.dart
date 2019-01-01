@@ -8,11 +8,13 @@ import 'package:RenderingLib/RendereringLib.dart';
 class PrettyDressupPart {
     MagicalGirlCharacterObject girl;
     SpriteLayer layer;
+    SpriteLayer layerToChange;
 
-    PrettyDressupPart(SpriteLayer layerToMimic, int imgNumber, MagicalGirlCharacterObject girl) {
-        layer = new SpriteLayer(layerToMimic.name, layerToMimic.imgNameBase,imgNumber, layerToMimic.maxImageNumber);
+    PrettyDressupPart(SpriteLayer this.layerToChange, int imgNumber, MagicalGirlCharacterObject this.girl) {
+        layer = new SpriteLayer(layerToChange.name, layerToChange.imgNameBase,imgNumber, layerToChange.maxImageNumber);
     }
 
+    //TODO on click need to rerender the girl doll with the layer to mimic set to this
     Future<Null> render(Element subcontainer) async {
         //full size
         CanvasElement tmpCanvas = await girl.doll.blankCanvas;
