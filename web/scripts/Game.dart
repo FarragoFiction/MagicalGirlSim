@@ -1,10 +1,13 @@
 import 'MagicalGirlCharacterObject.dart';
+import 'Screens/GameScreen.dart';
+import 'Screens/TeamScreen.dart';
 import 'dart:async';
 import 'dart:html';
 
 //TODO save/load from json
 class Game {
     static Game _instance;
+    GameScreen currentScreen;
     static Game get instance {
         if(_instance == null) {
             _instance = new Game();
@@ -37,12 +40,9 @@ class Game {
         parent.append(container);
         moneyContainer = new DivElement();
         container.append(moneyContainer);
-        girls.forEach((MagicalGirlCharacterObject girl) async {
-            DivElement girlContainer = new DivElement()..classes.add("girlContainer");
-            container.append(girlContainer);
-            await girl.makeViewer(girlContainer);
-            girl.makeButton(girlContainer);
-        });
+        currentScreen = new TeamScreen();
+        currentScreen.setup(container);
+
         syncMoney();
     }
 
