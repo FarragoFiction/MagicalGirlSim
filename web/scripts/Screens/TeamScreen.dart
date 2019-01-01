@@ -25,6 +25,7 @@ class TeamScreen extends GameScreen {
 
     void makeButtons(MagicalGirlCharacterObject girl, Element subContainer) {
         makeAdventureButton(girl, subContainer);
+        makeDressupButton(girl, subContainer);
     }
 
     void makeAdventureButton(MagicalGirlCharacterObject girl, Element subContainer) {
@@ -37,7 +38,7 @@ class TeamScreen extends GameScreen {
     }
 
     void makeDressupButton(MagicalGirlCharacterObject girl, Element subContainer) {
-        ButtonElement button = new ButtonElement()..classes.add("adventureButton")..text = "Go on Mission!";
+        ButtonElement button = new ButtonElement()..classes.add("adventureButton")..text = "Choose Clothes!";
         subContainer.append(button);
         button.onClick.listen((Event e) {
             showNewScreen(new DressupScreen(girl));

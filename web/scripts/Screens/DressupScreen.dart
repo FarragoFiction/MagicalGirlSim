@@ -21,7 +21,10 @@ class DressupScreen extends GameScreen {
 
     Future<Null> makeDressup(Element subcontainer) async {
         //full size
-        CanvasElement canvas = await girl.doll.getNewCanvas();
+        CanvasElement tmpCanvas = await girl.doll.getNewCanvas();
+        CanvasElement canvas = girl.doll.blankCanvas;
+        await girl.makeViewerBorder(canvas);
+        canvas.context2D.drawImage(tmpCanvas,0,0);
         subcontainer.append(canvas);
     }
 
