@@ -106,14 +106,14 @@ class MagicalAdventure {
         int s = girl.attackSeed;
         engine.setSeed(s);
         String adj = engine.phrase("magicalCompanionTypes", story: story);
-        story.setString("mysteriousStranger",adj.toUpperCase());
+        story.setString("magicalCompanion",adj.toUpperCase());
     }
 
     void setEnemyType(TextEngine engine, TextStory story) {
         int s = girl.attackSeed;
         engine.setSeed(s);
-        String adj = engine.phrase("magicalCompanionTypes", story: story);
-        story.setString("mysteriousStranger",adj.toUpperCase());
+        String adj = engine.phrase("possibleEnemyTypes", story: story);
+        story.setString("enemyType",adj.toUpperCase());
     }
 
     void setWeaponType(TextEngine engine, TextStory story) {

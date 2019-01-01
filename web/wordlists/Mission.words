@@ -5,16 +5,54 @@ TextEngine Word List
 @adjectives
 
 winningText
-    #noun|var@name# wins! Their #adjective|var@attackAdj#  #noun|var@attackName# saves the day!
-    #noun|var@name# definitely wins! Their #adjective|var@attackAdj#  #noun|var@attackName# was super effective!
+    #noun|var@name# #winingPhrase# #enemyActivity#, but #howTheyWon#!
+    #noun|var@name# #winingPhrase# #randomEvent# #enemyActivity#, but #howTheyWon#!
+
 
 losingText
     #noun|var@name# loses. Their #adjective|var@attackAdj#  #noun|var@attackName# was ineffective :( :( :(
     #noun|var@name# loses. Their #adjective|var@attackAdj#  #noun|var@attackName# sucks. :(
 
+winningPhrase
+    wins!
+    made it!
+    completed the mission!
+    succeeded!
+
+howTheyWon
+    their #adjective|var@attackAdj# #noun|var@weapon#  #noun|var@attackName# saves the day
+    their #adjective|var@attackAdj#  #noun|var@attackName# was super effective
+
+enemyActivity
+    A #adj_negative# #noun|var@enemyType# swings at them
+    A #adj_negative# #noun|var@enemyType# takes them by surprise
+
+adj_negative
+    monstrous: 3.0
+    beastly: 3.0
+    infernal: 3.0
+    terrifying: 3.0
+    vicious: 3.0
+    slobbering: 3.0
+    demonic: 3.0
+
+
+randomEvent
+    A #noun|var@mysteriousStrangerTypes# watched from a distance.
+    A #noun|var@mysteriousStrangerTypes# helps out some, but you don't know why.: 0.5
+    The #noun|var@name#'s #noun|var@magicalCompanion# gives them advice.
+    The #noun|var@name#'s #noun|var@magicalCompanion# does stereotypical adorable things.
+    The #noun|var@name#'s #noun|var@magicalCompanion# asks inane questions.: 0.1
+
+
+
 
 PossibleThemeAdjectives
     #color_bright#
+    #magicalThemes#
+    #gem#: 0.1
+    #adj_material#: 0.1
+    #noun_emotion@experience#: 10
 
 PossibleAttackNames
     Beam
@@ -23,6 +61,18 @@ PossibleAttackNames
     Spell
     Encantation
 
+magicalThemes
+    moon
+    magical
+    love
+    happy
+    sparkly
+    flowery
+    dark: 0.1
+    glorious
+    giddy
+
+
 possibleEnemyTypes
     monsters
     demons
@@ -30,12 +80,29 @@ possibleEnemyTypes
 
 mysteriousStrangerTypes
     masked man
+    mysterious stranger
 
 magicalCompanionTypes
-    talking @noun_animal
-    magical @noun_animal
+    #companionTraits# @noun_animal
+    #companionTraits# noun_object: 0.1
+    #companionTraits# nonstandardAnimals: 0.1
+
+
+nonstandardAnimals
+    yakuza
+    little brother
+    alien
+    mobster
+    vampire
+
 
 possibleWeaponTypes
     tiara
     sceptre
     ax
+
+companionTraits
+    talking
+    magical
+    annoying: 0.1
+    singing: 0.01
