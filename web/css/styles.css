@@ -19,14 +19,13 @@ html, body {
 
 }
 
-.adventureButton{
+button{
     background-color: #ffe2f8;
     border: 3px solid #fdbee5;
     border-radius: 5px;
     padding: 5px;
   font-family: 'cabin', sans-serif;
   color: #ef9ace;
-
 }
 .portrait{
     border: 3px solid #fdbee5;

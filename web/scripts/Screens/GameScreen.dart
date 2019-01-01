@@ -21,6 +21,18 @@ abstract class GameScreen {
         container.remove();
     }
 
+    void makeBackButton() {
+        if(parent != null) {
+            ButtonElement button = new ButtonElement()..text = "Back";
+            button.onClick.listen((Event e)
+            {
+                //TODO think carefully if i want to preserve the original parent strucutre or make the current screen the new parent
+                teardown();
+                parent.setup(parentContainer);
+            });
+        }
+    }
+
 
     void setup(Element element) {
         parentContainer = element;
