@@ -62,6 +62,10 @@ class MagicalAdventure {
 
         setAdj(textEngine,story);
         setAttackName(textEngine,story);
+        setEnemyType(textEngine,story);
+        setMagicalCompanion(textEngine,story);
+        setMysteriousStranger(textEngine,story);
+        setWeaponType(textEngine,story);
         textEngine.setSeed(rand.nextInt());
         //story.setString("name2","${participants.last.name}");
         if(actuallyWon) {
@@ -84,42 +88,47 @@ class MagicalAdventure {
         int s = girl.themeSeed;
         engine.setSeed(s);
         String adj = engine.phrase("PossibleThemeAdjectives", story: story);
+        print("adj set to $adj");
         story.setString("attackAdj",adj.toUpperCase());
-
     }
 
     void setAttackName(TextEngine engine, TextStory story) {
         int s = girl.attackSeed;
         engine.setSeed(s);
         String adj = engine.phrase("PossibleAttackNames", story: story);
+        print("attack set to $adj");
         story.setString("attackName",adj.toUpperCase());
     }
 
     void setMysteriousStranger(TextEngine engine, TextStory story) {
-        int s = girl.attackSeed;
+        int s = girl.mysteriousStrangerSeed;
         engine.setSeed(s);
         String adj = engine.phrase("mysteriousStrangerTypes", story: story);
+        print("stranger set to $adj");
         story.setString("mysteriousStranger",adj.toUpperCase());
     }
 
     void setMagicalCompanion(TextEngine engine, TextStory story) {
-        int s = girl.attackSeed;
+        int s = girl.magicalCompanionSeed;
         engine.setSeed(s);
         String adj = engine.phrase("magicalCompanionTypes", story: story);
+        print("companion set to $adj");
         story.setString("magicalCompanion",adj.toUpperCase());
     }
 
     void setEnemyType(TextEngine engine, TextStory story) {
-        int s = girl.attackSeed;
+        int s = girl.enemySeed;
         engine.setSeed(s);
         String adj = engine.phrase("possibleEnemyTypes", story: story);
+        print("enemy set to $adj");
         story.setString("enemyType",adj.toUpperCase());
     }
 
     void setWeaponType(TextEngine engine, TextStory story) {
-        int s = girl.attackSeed;
+        int s = girl.weaponSeed;
         engine.setSeed(s);
         String adj = engine.phrase("possibleWeaponTypes", story: story);
+        print("weapon set to $adj");
         story.setString("weapon",adj.toUpperCase());
     }
 
@@ -127,8 +136,7 @@ class MagicalAdventure {
         //            storyText = "$storyText ${getLines('Beginning', textEngine, story)}\n \n ";
         String flavor = textEngine.phrase("winningText", story: story);
         String prizeString = "${girl.name} earned $prize magicules.";
-
-
+        print("flavor set to $flavor");
         return "$flavor $prizeString";
     }
 
@@ -137,6 +145,7 @@ class MagicalAdventure {
     Future<String> getLosingText(int penalty, TextEngine textEngine, TextStory story) async {
         String flavor = textEngine.phrase("losingText", story: story);
         String prizeString = "${girl.name} lost $penalty magicules.";
+        print("flavor set to $flavor");
         return "$flavor $prizeString";
 
     }
