@@ -44,10 +44,9 @@ class Game {
         parent.append(container);
         moneyContainer = new DivElement();
         container.append(moneyContainer);
-         //currentScreen = new TeamScreen();
+        //currentScreen = new TeamScreen();
         currentScreen = new DressupScreen(girls.first);
         currentScreen.setup(container);
-
         syncMoney();
     }
 

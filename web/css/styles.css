@@ -19,6 +19,20 @@ html, body {
 
 }
 
+.revertButton{
+    position: absolute;
+    top:400px;
+    left:590px;
+    font-size: 24px;
+}
+
+.purchaseButton{
+    position: absolute;
+    top:400px;
+    left:790px;
+    font-size: 24px;
+}
+
 button{
     background-color: #ffe2f8;
     border: 3px solid #fdbee5;
@@ -81,4 +95,5 @@ button{
 .girlContainer{
     display: inline-block;
     margin:10px;
+    position: relative;
 }

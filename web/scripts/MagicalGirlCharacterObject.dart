@@ -198,7 +198,6 @@ class MagicalGirlCharacterObject extends CharacterObject {
   }
 
   Future displayTraits(CanvasElement canvas, int fontSize, int x, int currentY) async {
-      print("displaying traits currentY  at start is $currentY");
      MagicalAdventure adventure = new MagicalAdventure(this);
     Narrative narrative =  await adventure.getNarrative();
 
@@ -208,21 +207,18 @@ class MagicalGirlCharacterObject extends CharacterObject {
     currentY += (fontSize*1.2).round();
     canvas.context2D.fillText("$theme $attack".toUpperCase(),x,currentY);
     currentY += (fontSize*2.4).round();
-      print("displaying traits currentY after attack is $currentY");
 
     String weapon = await adventure.getWeapon(narrative);
     canvas.context2D.fillText("Weapon:",x,currentY);
     currentY += (fontSize*1.2).round();
     canvas.context2D.fillText("$weapon".toUpperCase(),x,currentY);
     currentY += (fontSize*2.4).round();
-      print("displaying traits currentY after weapon is $currentY");
 
     String animal = await adventure.getCompanion(narrative);
     canvas.context2D.fillText("Magical Companion:",x,currentY);
     currentY += (fontSize*1.2).round();
     canvas.context2D.fillText("$animal".toUpperCase(),x,currentY);
     currentY += (fontSize*2.4).round();
-      print("displaying traits currentY after animal is $currentY");
 
   }
 

@@ -20,6 +20,7 @@ class DressupScreen extends GameScreen {
         girl = new MagicalGirlCharacterObject(cachedGirl.name, cachedGirl.doll.toDataBytesX());
         doll = girl.doll as MagicalDoll;
         initTabs();
+
     }
 
     void initTabs() {
@@ -40,6 +41,24 @@ class DressupScreen extends GameScreen {
         DivElement girlContainer = new DivElement()..classes.add("girlContainer");
         container.append(girlContainer);
         await makeDressup(girlContainer);
+        makeButtons(girlContainer);
+    }
+
+    void makeButtons(Element ele) {
+        ButtonElement revertButton = new ButtonElement()..text = "Revert Outfit"..classes.add("revertButton");
+        ele.append(revertButton);
+        revertButton.onClick.listen((Event e) {
+            revert();
+        });
+        ButtonElement purchaseButton = new ButtonElement()..text = "Purchase Outfit"..classes.add("purchaseButton");
+        ele.append(purchaseButton);
+    }
+
+    void revert() {
+        //can't just load the doll from string because that unhooks the prettydressupparts since they use layers
+        girl.doll.copy(cachedGirl.doll);
+        doll = girl.doll as MagicalDoll;
+        syncDressup();
     }
 
 
@@ -65,12 +84,12 @@ class DressupScreen extends GameScreen {
         canvas.context2D.strokeStyle = "${color.toStyleString()}";
         girl.initializeStats();
         displayCurrentStats();
-        displayPossibleStats();
+        displayOwnedStats();
 
 
     }
 
-    void displayCurrentStats() {
+    Future displayCurrentStats() async {
         int leftMargin = 800;
       int fontSize = 18;
       int y = (300+fontSize*2).ceil();
@@ -79,10 +98,14 @@ class DressupScreen extends GameScreen {
       fontSize = 12;
       canvas.context2D.font = "bold ${fontSize}pt cabin";
       y = girl.displayStats(canvas,leftMargin,100,20,100);
-      girl.displayTraits(canvas,fontSize,leftMargin,y+20);
+      y = await girl.displayTraits(canvas,fontSize,leftMargin,y+20);
+      canvas.context2D.fillText("Cost: ",leftMargin,400);
+      int cost = -1*(cachedGirl.statSum - girl.statSum);
+      canvas.context2D.fillText("$cost Magicules ",leftMargin+75,400);
+
     }
 
-    void displayPossibleStats() {
+    Future displayOwnedStats() async {
         int fontSize = 18;
         int leftMargin = 600;
 
@@ -92,7 +115,8 @@ class DressupScreen extends GameScreen {
         fontSize = 12;
         canvas.context2D.font = "bold ${fontSize}pt cabin";
         y = cachedGirl.displayStats(canvas,leftMargin,100,20,100);
-        cachedGirl.displayTraits(canvas,fontSize,leftMargin,y+20);
+        y = await cachedGirl.displayTraits(canvas,fontSize,leftMargin,y+20);
+
     }
 
 
