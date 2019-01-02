@@ -1,3 +1,4 @@
+import '../Game.dart';
 import '../MagicalGirlCharacterObject.dart';
 import '../PrettyDressupPart.dart';
 import 'GameScreen.dart';
@@ -48,11 +49,14 @@ class DressupScreen extends GameScreen {
         ButtonElement revertButton = new ButtonElement()..text = "Revert Outfit"..classes.add("revertButton");
         ele.append(revertButton);
         revertButton.onClick.listen((Event e) {
+            Game.instance.clickSound();
             revert();
         });
         ButtonElement purchaseButton = new ButtonElement()..text = "Purchase Outfit"..classes.add("purchaseButton");
         ele.append(purchaseButton);
-        purchaseButton.onClick.listen((Event e) => purchase());
+        purchaseButton.onClick.listen((Event e){
+            purchase();
+        });
     }
 
     void revert() {
@@ -65,6 +69,7 @@ class DressupScreen extends GameScreen {
     void purchase() {
         int cost = calcCost();
         if(game.magicules >= cost) {
+            Game.instance.moneySound();
             game.removeFunds(cost);
             cachedGirl.doll.copy(girl.doll);
             cachedGirl.initializeStats();
@@ -176,7 +181,8 @@ class DressupTab {
          tabButton.classes.add("tabButton");
          subcontainer.append(tabButton);
          tabButton.onClick.listen((Event e) {
-            owner.selectTab(this,subcontainer);
+             Game.instance.clickSound();
+             owner.selectTab(this,subcontainer);
          });
     }
 

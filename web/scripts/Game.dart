@@ -12,6 +12,7 @@ import 'dart:html';
 class Game {
     static Game _instance;
     GameScreen currentScreen;
+    AudioElement fx = new AudioElement();
     static Game get instance {
         if(_instance == null) {
             _instance = new Game();
@@ -48,7 +49,7 @@ class Game {
     Future<Null> display(Element parent) async {
         container = new DivElement();
         parent.append(container);
-        moneyContainer = new DivElement();
+        moneyContainer = new DivElement()..classes.add("money");
         container.append(moneyContainer);
         currentScreen = new TeamScreen();
         //currentScreen = new DressupScreen(girls.first);
@@ -58,6 +59,21 @@ class Game {
 
     void syncMoney() {
         moneyContainer.text = "Magicules: $magicules";
+    }
+
+    void moneySound() {
+        playSoundEffect("121990__tomf__coinbag");
+    }
+
+    void clickSound() {
+        playSoundEffect("254286__jagadamba__mechanical-switch");
+    }
+
+    void playSoundEffect(String locationWithoutExtension) {
+        if(fx.canPlayType("audio/mpeg").isNotEmpty) fx.src = "SoundFX/${locationWithoutExtension}.mp3";
+        if(fx.canPlayType("audio/ogg").isNotEmpty) fx.src = "SoundFX/${locationWithoutExtension}.ogg";
+        fx.play();
+
     }
 
 }

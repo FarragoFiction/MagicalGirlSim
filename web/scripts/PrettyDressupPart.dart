@@ -33,6 +33,7 @@ class PrettyDressupPart {
 
         canvas.onClick.listen((Event e)
         {
+            Game.instance.clickSound();
             changeOutfit();
         });
     }

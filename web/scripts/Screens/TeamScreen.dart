@@ -1,3 +1,4 @@
+import '../Game.dart';
 import '../MagicalAdventure.dart';
 import '../MagicalGirlCharacterObject.dart';
 import 'DressupScreen.dart';
@@ -32,8 +33,9 @@ class TeamScreen extends GameScreen {
         ButtonElement button = new ButtonElement()..classes.add("adventureButton")..text = "Go on Mission!";
         subContainer.append(button);
         button.onClick.listen((Event e) {
+            Game.instance.clickSound();
             MagicalAdventure adventure = new MagicalAdventure(girl);
-            adventure.start(subContainer);
+            adventure.start(container);
         });
     }
 
@@ -41,6 +43,7 @@ class TeamScreen extends GameScreen {
         ButtonElement button = new ButtonElement()..classes.add("adventureButton")..text = "Choose Clothes!";
         subContainer.append(button);
         button.onClick.listen((Event e) {
+            Game.instance.clickSound();
             showNewScreen(new DressupScreen(girl));
         });
     }

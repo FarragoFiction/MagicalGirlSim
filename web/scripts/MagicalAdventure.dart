@@ -34,7 +34,10 @@ class MagicalAdventure {
         pop.append(content);
         getPortrait(portrait);
         ButtonElement dismiss = new ButtonElement()..text = "Okay"..classes.add("adventureButton");
-        dismiss.onClick.listen((Event e) =>pop.remove());
+        dismiss.onClick.listen((Event e){
+            game.clickSound();
+            pop.remove();
+        });
         pop.append(dismiss);
         content.text = await getText();
 
