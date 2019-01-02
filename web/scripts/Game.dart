@@ -39,6 +39,12 @@ class Game {
         //TODO save here.
     }
 
+    void removeFunds(int amount) {
+        _magicules += -1*amount;
+        syncMoney();
+        //TODO save here.
+    }
+
     Future<Null> display(Element parent) async {
         container = new DivElement();
         parent.append(container);

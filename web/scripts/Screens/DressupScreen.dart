@@ -52,6 +52,7 @@ class DressupScreen extends GameScreen {
         });
         ButtonElement purchaseButton = new ButtonElement()..text = "Purchase Outfit"..classes.add("purchaseButton");
         ele.append(purchaseButton);
+        purchaseButton.onClick.listen((Event e) => purchase());
     }
 
     void revert() {
@@ -59,6 +60,17 @@ class DressupScreen extends GameScreen {
         girl.doll.copy(cachedGirl.doll);
         doll = girl.doll as MagicalDoll;
         syncDressup();
+    }
+
+    void purchase() {
+        int cost = calcCost();
+        if(game.magicules >= cost) {
+            game.removeFunds(cost);
+            cachedGirl.doll.copy(girl.doll);
+            syncDressup();
+        }else {
+            window.alert("You can't afford this!!! It cost $cost and you only have ${game.magicules}");
+        }
     }
 
 
@@ -100,9 +112,13 @@ class DressupScreen extends GameScreen {
       y = girl.displayStats(canvas,leftMargin,100,20,100);
       y = await girl.displayTraits(canvas,fontSize,leftMargin,y+20);
       canvas.context2D.fillText("Cost: ",leftMargin,400);
-      int cost = -1*(cachedGirl.statSum - girl.statSum);
+      int cost = calcCost();
       canvas.context2D.fillText("$cost Magicules ",leftMargin+75,400);
 
+    }
+
+    int calcCost() {
+        return -1*(cachedGirl.statSum - girl.statSum);
     }
 
     Future displayOwnedStats() async {
