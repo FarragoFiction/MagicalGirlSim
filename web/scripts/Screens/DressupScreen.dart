@@ -67,6 +67,7 @@ class DressupScreen extends GameScreen {
         if(game.magicules >= cost) {
             game.removeFunds(cost);
             cachedGirl.doll.copy(girl.doll);
+            cachedGirl.initializeStats();
             syncDressup();
         }else {
             window.alert("You can't afford this!!! It cost $cost and you only have ${game.magicules}");

@@ -183,9 +183,9 @@ class MagicalAdventure {
     //more likely than not to succeed
     bool won() {
         int powerLevel = girl.statSum;
-        if(powerLevel >= 113*12) {
+        if(powerLevel >= 113*8) {
             return true;
-        }else if(powerLevel > 113*6) {
+        }else if(powerLevel > 113*4) {
             return rand.nextDouble()>.25; //75% chance
         }else if(powerLevel > 113) {
             return rand.nextBool(); //50/50
