@@ -63,7 +63,7 @@ class DressupScreen extends GameScreen {
         Colour color = new Colour.hsv(doll.associatedColor.hue, 0.3, 0.7);
         canvas.context2D.fillStyle = "${color.toStyleString()}";
         canvas.context2D.strokeStyle = "${color.toStyleString()}";
-
+        girl.initializeStats();
         displayCurrentStats();
         displayPossibleStats();
 
@@ -71,25 +71,28 @@ class DressupScreen extends GameScreen {
     }
 
     void displayCurrentStats() {
+        int leftMargin = 800;
       int fontSize = 18;
       int y = (300+fontSize*2).ceil();
       canvas.context2D.font = "bold ${fontSize}pt cabin";
-      canvas.context2D.fillText("Owned Outfit:",fontSize,y);
+      canvas.context2D.fillText("Current Outfit:",leftMargin,50);
       fontSize = 12;
       canvas.context2D.font = "bold ${fontSize}pt cabin";
-      y = girl.displayStats(canvas,600,100,20,100);
-      girl.displayTraits(canvas,fontSize,600,y+20);
+      y = girl.displayStats(canvas,leftMargin,100,20,100);
+      girl.displayTraits(canvas,fontSize,leftMargin,y+20);
     }
 
     void displayPossibleStats() {
         int fontSize = 18;
+        int leftMargin = 600;
+
         int y = (300+fontSize*2).ceil();
         canvas.context2D.font = "bold ${fontSize}pt cabin";
-        canvas.context2D.fillText("Current Outfit:",fontSize,y);
+        canvas.context2D.fillText("Owned Outfit:",leftMargin,50);
         fontSize = 12;
         canvas.context2D.font = "bold ${fontSize}pt cabin";
-        y = cachedGirl.displayStats(canvas,600,100,20,100);
-        cachedGirl.displayTraits(canvas,fontSize,600,y+20);
+        y = cachedGirl.displayStats(canvas,leftMargin,100,20,100);
+        cachedGirl.displayTraits(canvas,fontSize,leftMargin,y+20);
     }
 
 
