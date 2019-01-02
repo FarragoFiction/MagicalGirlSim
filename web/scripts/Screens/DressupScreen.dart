@@ -4,17 +4,20 @@ import 'GameScreen.dart';
 import 'dart:async';
 import 'dart:html';
 
+import 'package:CommonLib/Colours.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'package:DollLibCorrect/src/Dolls/MagicalDoll.dart';
 
 class DressupScreen extends GameScreen {
     MagicalGirlCharacterObject girl;
     MagicalDoll doll;
+    MagicalGirlCharacterObject cachedGirl;
     List<DressupTab> tabs = new List<DressupTab>();
     CanvasElement canvas;
     DressupTab selectedTab;
 
-    DressupScreen(MagicalGirlCharacterObject this.girl) {
+    DressupScreen(MagicalGirlCharacterObject this.cachedGirl) {
+        girl = new MagicalGirlCharacterObject(cachedGirl.name, cachedGirl.doll.toDataBytesX());
         doll = girl.doll as MagicalDoll;
         initTabs();
     }
@@ -43,11 +46,13 @@ class DressupScreen extends GameScreen {
     Future<Null> makeDressup(Element subcontainer) async {
         //full size
         canvas = girl.doll.blankCanvas;
+        canvas.width = 1000;
         syncDressup();
         subcontainer.append(canvas);
         DivElement tabElement = new DivElement()..classes.add("tabs");
         subcontainer.append(tabElement);
         drawTabs(tabElement);
+
     }
 
     Future<Null> syncDressup() async {
@@ -55,7 +60,36 @@ class DressupScreen extends GameScreen {
         CanvasElement tmpCanvas = await girl.doll.getNewCanvas();
         await girl.makeViewerBorder(canvas);
         canvas.context2D.drawImage(tmpCanvas,0,0);
+        Colour color = new Colour.hsv(doll.associatedColor.hue, 0.3, 0.7);
+        canvas.context2D.fillStyle = "${color.toStyleString()}";
+        canvas.context2D.strokeStyle = "${color.toStyleString()}";
 
+        displayCurrentStats();
+        displayPossibleStats();
+
+
+    }
+
+    void displayCurrentStats() {
+      int fontSize = 18;
+      int y = (300+fontSize*2).ceil();
+      canvas.context2D.font = "bold ${fontSize}pt cabin";
+      canvas.context2D.fillText("Owned Outfit:",fontSize,y);
+      fontSize = 12;
+      canvas.context2D.font = "bold ${fontSize}pt cabin";
+      y = girl.displayStats(canvas,600,100,20,100);
+      girl.displayTraits(canvas,fontSize,600,y+20);
+    }
+
+    void displayPossibleStats() {
+        int fontSize = 18;
+        int y = (300+fontSize*2).ceil();
+        canvas.context2D.font = "bold ${fontSize}pt cabin";
+        canvas.context2D.fillText("Current Outfit:",fontSize,y);
+        fontSize = 12;
+        canvas.context2D.font = "bold ${fontSize}pt cabin";
+        y = cachedGirl.displayStats(canvas,600,100,20,100);
+        cachedGirl.displayTraits(canvas,fontSize,600,y+20);
     }
 
 

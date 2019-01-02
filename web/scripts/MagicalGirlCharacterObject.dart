@@ -181,14 +181,9 @@ class MagicalGirlCharacterObject extends CharacterObject {
       canvas.context2D.font = "bold ${fontSize}pt cabin";
       Renderer.wrapTextAndResizeIfNeeded(canvas.context2D, name, "cabin", 20, currentY, fontSize, cardWidth-50, fontSize);
       fontSize = 18;
-      canvas.context2D.font = "bold ${fontSize}pt Courier New";
+      canvas.context2D.font = "bold ${fontSize}pt cabin";
       currentY += (fontSize*2).round();
-      for(StatObject s in stats) {
-          canvas.context2D.fillText("${s.name}:",20,currentY);
-          canvas.context2D.fillText("${s.value.abs()}",350-fontSize,currentY);
-
-          currentY += (fontSize*1.2).round();
-      }
+      currentY = displayStats(canvas, 20,currentY, fontSize,275);
 
       canvas.context2D.fillText("Earned Magicules:",fontSize,currentY);
       canvas.context2D.fillText("$_amountWon",325-fontSize,currentY);
@@ -199,29 +194,46 @@ class MagicalGirlCharacterObject extends CharacterObject {
       currentY += (fontSize*1.2).round();
       currentY += (fontSize*1.2).round();
 
-      MagicalAdventure adventure = new MagicalAdventure(this);
-      Narrative narrative =  await adventure.getNarrative();
+      await displayTraits(canvas, fontSize, fontSize,currentY);
+  }
 
-      String attack = await adventure.getAttackName(narrative);
-      String theme = await adventure.getAdj(narrative);
-      canvas.context2D.fillText("Magical Attack:",fontSize,currentY);
-      currentY += (fontSize*1.2).round();
-      canvas.context2D.fillText("$theme $attack".toUpperCase(),fontSize,currentY);
-      currentY += (fontSize*2.4).round();
+  Future displayTraits(CanvasElement canvas, int fontSize, int x, int currentY) async {
+      print("displaying traits currentY  at start is $currentY");
+     MagicalAdventure adventure = new MagicalAdventure(this);
+    Narrative narrative =  await adventure.getNarrative();
 
-      String weapon = await adventure.getWeapon(narrative);
-      canvas.context2D.fillText("Weapon:",fontSize,currentY);
-      currentY += (fontSize*1.2).round();
-      canvas.context2D.fillText("$weapon".toUpperCase(),fontSize,currentY);
-      currentY += (fontSize*2.4).round();
+    String attack = await adventure.getAttackName(narrative);
+    String theme = await adventure.getAdj(narrative);
+    canvas.context2D.fillText("Magical Attack:",x,currentY);
+    currentY += (fontSize*1.2).round();
+    canvas.context2D.fillText("$theme $attack".toUpperCase(),x,currentY);
+    currentY += (fontSize*2.4).round();
+      print("displaying traits currentY after attack is $currentY");
 
-      String animal = await adventure.getCompanion(narrative);
-      canvas.context2D.fillText("Magical Companion:",fontSize,currentY);
-      currentY += (fontSize*1.2).round();
-      canvas.context2D.fillText("$animal".toUpperCase(),fontSize,currentY);
-      currentY += (fontSize*2.4).round();
+    String weapon = await adventure.getWeapon(narrative);
+    canvas.context2D.fillText("Weapon:",x,currentY);
+    currentY += (fontSize*1.2).round();
+    canvas.context2D.fillText("$weapon".toUpperCase(),x,currentY);
+    currentY += (fontSize*2.4).round();
+      print("displaying traits currentY after weapon is $currentY");
 
+    String animal = await adventure.getCompanion(narrative);
+    canvas.context2D.fillText("Magical Companion:",x,currentY);
+    currentY += (fontSize*1.2).round();
+    canvas.context2D.fillText("$animal".toUpperCase(),x,currentY);
+    currentY += (fontSize*2.4).round();
+      print("displaying traits currentY after animal is $currentY");
 
+  }
+
+  int displayStats(CanvasElement canvas, int x, int currentY, int fontSize, int statMargin) {
+    for(StatObject s in stats) {
+        canvas.context2D.fillText("${s.name}:",x,currentY);
+        canvas.context2D.fillText("${s.value.abs()}",x+statMargin,currentY);
+
+        currentY += (fontSize*1.2).round();
+    }
+    return currentY;
   }
 
 }
