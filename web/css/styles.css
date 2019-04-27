@@ -45,6 +45,19 @@ html, body {
     z-index: 13;
 }
 
+.menuHeader{
+    font-size: 39px;
+    width: 100%;
+    text-align: center;
+    background-color: #fdbee5;
+    color: #fff0f9;
+}
+
+.menuInsides{
+    font-size: 39px;
+    margin-top: 30px;
+}
+
 
 .menuItem:hover{
     background-color: #fdbee5;
