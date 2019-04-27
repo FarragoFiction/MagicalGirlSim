@@ -31,7 +31,7 @@ class BloodPriceGame {
         instance = this;
     }
 
-    void display(Element parent) async {
+    Future<void> display(Element parent) async {
         currentGirl ??= await BloodPriceGirl.randomGirl();
 
         currentMonster ??= await MonsterGirl.randomGirl();
@@ -40,7 +40,7 @@ class BloodPriceGame {
         healthBar.updateMonsterHP(currentMonster.hp);
 
         healthBar.display(parent);
-        DivElement container = new DivElement()..classes.add("gameBox");
+        final DivElement container = new DivElement()..classes.add("gameBox");
         parent.append(container);
         await displayMonster(container);
         await displayCurrentGirl(container);
@@ -51,24 +51,24 @@ class BloodPriceGame {
 
     }
 
-    void displayCurrentGirl(Element container) async {
+    Future<void> displayCurrentGirl(Element container) async {
         currentGirl.doll.orientation = Doll.TURNWAYS;
-        CanvasElement cacheCanvas = await currentGirl.doll.getNewCanvas();
-        int ratio = 2;
-        CanvasElement dollCanvas = new CanvasElement(width: (cacheCanvas.width/ratio).floor(), height: (cacheCanvas.height/ratio).floor());
+        final CanvasElement cacheCanvas = await currentGirl.doll.getNewCanvas();
+        const int ratio = 2;
+        final CanvasElement dollCanvas = new CanvasElement(width: (cacheCanvas.width/ratio).floor(), height: (cacheCanvas.height/ratio).floor());
         dollCanvas.context2D.drawImageScaled(cacheCanvas, 0,0, dollCanvas.width, dollCanvas.height);
         dollCanvas.classes.add("bloodDoll");
         container.append(dollCanvas);
     }
 
-    void displayMonster(Element container) async {
-        CanvasElement dollCanvas = await currentMonster.doll.getNewCanvas();
+    Future<void> displayMonster(Element container) async {
+        final CanvasElement dollCanvas = await currentMonster.doll.getNewCanvas();
         dollCanvas.classes.add("monsterDoll");
         container.append(dollCanvas);
     }
 
     void handleWeapon() {
-        int damage = currentGirl.calculateWeaponDamage();
+        final int damage = currentGirl.calculateWeaponDamage();
         //TODO display damage
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
