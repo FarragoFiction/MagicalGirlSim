@@ -2,7 +2,8 @@ import 'dart:html';
 
 import 'package:DollLibCorrect/DollRenderer.dart';
 
-import 'MagicalGirlCharacterObject.dart';
+import '../MagicalGirlCharacterObject.dart';
+import 'HealthBar.dart';
 
 class BloodPriceGame {
     /*TODO
@@ -17,20 +18,25 @@ class BloodPriceGame {
      */
     AudioElement fx = new AudioElement();
     BloodPriceGirl currentGirl;
-    MonsterGirl monsterGirl;
+    MonsterGirl currentMonster;
     Element secondMenu;
     Element thirdMenu;
     Element thirdMenuInsides;
+    HealthBar healthBar;
 
 
 
-    BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.monsterGirl});
+    BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.currentMonster});
 
     void display(Element parent) async {
         currentGirl ??= await BloodPriceGirl.randomGirl();
 
-        monsterGirl ??= await MonsterGirl.randomGirl();
+        currentMonster ??= await MonsterGirl.randomGirl();
+        healthBar = new HealthBar();
+        healthBar.updateGirlHP(currentGirl.hp);
+        healthBar.updateMonsterHP(currentMonster.hp);
 
+        healthBar.display(parent);
         DivElement container = new DivElement()..classes.add("gameBox");
         parent.append(container);
         await displayMonster(container);
@@ -38,6 +44,7 @@ class BloodPriceGame {
         displayMenu(container);
         displayBloodPriceSub1(container);
         displayBloodPriceSub2(container);
+
 
 
     }
@@ -69,7 +76,7 @@ class BloodPriceGame {
     }
 
     void displayMonster(Element container) async {
-        CanvasElement dollCanvas = await monsterGirl.doll.getNewCanvas();
+        CanvasElement dollCanvas = await currentMonster.doll.getNewCanvas();
         dollCanvas.classes.add("monsterDoll");
         container.append(dollCanvas);
     }
@@ -224,6 +231,7 @@ class BloodPriceGame {
 }
 
 class BloodPriceGirl extends MagicalGirlCharacterObject{
+    int hp = 113;
   BloodPriceGirl(String name, String dollString) : super(name, dollString);
 
   static Future<BloodPriceGirl> randomGirl() async {
@@ -236,6 +244,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
 
 //TODO make actually a monster dollset not a magical girl (its a subset tho???)
 class MonsterGirl extends MagicalGirlCharacterObject{
+    int hp = 9999;
     MonsterGirl(String name, String dollString) : super(name, dollString);
 
     static Future<MonsterGirl> randomGirl() async {

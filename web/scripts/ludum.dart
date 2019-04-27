@@ -1,6 +1,6 @@
 import 'dart:html';
 
-import 'BloodPriceGame.dart';
+import 'BloodPriceGame/BloodPriceGame.dart';
 import 'dart:async';
 import 'package:DollLibCorrect/src/Dolls/Doll.dart';
 import 'package:CommonLib/NavBar.dart';
