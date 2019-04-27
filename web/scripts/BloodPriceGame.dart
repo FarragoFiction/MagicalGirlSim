@@ -31,6 +31,8 @@ class BloodPriceGame {
         await displayMonster(container);
         await displayCurrentGirl(container);
         displayMenu(container);
+        displayBloodPriceSub1(container);
+
     }
 
     void displayCurrentGirl(Element container) async {
@@ -49,8 +51,20 @@ class BloodPriceGame {
         container.append(dollCanvas);
     }
 
+    //defaults to hidden
+    void displayBloodPriceSub1(Element container) {
+        DivElement menu = new DivElement()..classes.add("bloodMenu1")..classes.add("menuHolder");
+
+        container.append(menu);
+        displayHealthBargainOpt(menu);
+        displayWeaponBargainOpt(menu);
+        displayMagicBargainOpt(menu);
+        displayCompanionBargainOpt(menu);
+        displayLegacyBargainOpt(menu);
+    }
+
     void displayMenu(Element container) {
-        DivElement menu = new DivElement()..classes.add("menuHolder");
+        final DivElement menu = new DivElement()..classes.add("menuHolder");
         displayWeapon(menu);
         displayMagic(menu);
         displayCompanion(menu);
@@ -59,23 +73,50 @@ class BloodPriceGame {
         container.append(menu);
     }
 
+
+
     void displayWeapon(Element container) {
-        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Weapon";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Weapon";
         container.append(menu);
     }
 
     void displayMagic(Element container) {
-        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Magic";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Magic";
         container.append(menu);
     }
 
     void displayCompanion(Element container) {
-        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Companion";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Companion";
         container.append(menu);
     }
 
     void displayBloodPrice(Element container) {
-        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Blood Price >";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Blood Price >";
+        container.append(menu);
+    }
+
+    void displayHealthBargainOpt(Element container) {
+        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Health Pact >";
+        container.append(menu);
+    }
+
+    void displayWeaponBargainOpt(Element container) {
+        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Weapon Pact >";
+        container.append(menu);
+    }
+
+    void displayMagicBargainOpt(Element container) {
+        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Magic Pact >";
+        container.append(menu);
+    }
+
+    void displayCompanionBargainOpt(Element container) {
+        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Companion Pact >";
+        container.append(menu);
+    }
+
+    void displayLegacyBargainOpt(Element container) {
+        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Legacy Pact >";
         container.append(menu);
     }
 

@@ -12,7 +12,7 @@ html, body {
 }
 
 .gameBox{
-    background: url('../images/BloodPrice/shittyporogrammerui.png');
+    background: url('../images/BGs/cityscape.png');
     width: 1280px;
     height: 720px;
     background-color: #ff0000;
@@ -32,6 +32,7 @@ html, body {
 }
 
 
+
 .menuItem{
     padding: 5px;
     padding-left: 15px;
@@ -40,15 +41,21 @@ html, body {
     vertical-align: middle;
     font-family: 'cabin', sans-serif;
     width: 285px;
-    font-size: 52px;
+    font-size: 39px;
     z-index: 13;
 }
+.bloodItem{
+    width: 301px;
+
+}
+
 
 .menuItem:hover{
     background-color: #fdbee5;
     color: #fff0f9;
 
 }
+
 
 
 .menuHolder{
@@ -59,7 +66,7 @@ html, body {
     box-shadow: 0px 3px 13px #000000;
     background-color: #fff0f9;
     width: 315px;
-    height: 292px;
+    height: 288px;
     vertical-align: top;
     font-family: 'cabin', sans-serif;
     color: #fdbee5;
@@ -68,6 +75,10 @@ html, body {
     z-index: 10;
 }
 
+.bloodMenu1{
+    left: 350px;
+    width: 330px;
+}
 #output {
   padding: 20px;
   text-align: center;
