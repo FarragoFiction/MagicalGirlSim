@@ -1,5 +1,6 @@
 import 'dart:html';
 
+import 'BloodPriceGame.dart';
 import 'SoundHandler.dart';
 
  class MenuHandler {
@@ -23,6 +24,10 @@ import 'SoundHandler.dart';
     void displayWeapon(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Weapon";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            SoundHandler.clickSound();
+            BloodPriceGame.instance.handleWeapon();
+        });
     }
 
     void displayMagic(Element container) {

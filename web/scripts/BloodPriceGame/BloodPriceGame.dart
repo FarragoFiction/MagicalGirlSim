@@ -23,10 +23,13 @@ class BloodPriceGame {
     MenuHandler menuHandler = new MenuHandler();
 
     HealthBar healthBar;
+    static BloodPriceGame instance;
 
 
 
-    BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.currentMonster});
+    BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.currentMonster}) {
+        instance = this;
+    }
 
     void display(Element parent) async {
         currentGirl ??= await BloodPriceGirl.randomGirl();
@@ -62,6 +65,13 @@ class BloodPriceGame {
         CanvasElement dollCanvas = await currentMonster.doll.getNewCanvas();
         dollCanvas.classes.add("monsterDoll");
         container.append(dollCanvas);
+    }
+
+    void handleWeapon() {
+        int damage = currentGirl.calculateWeaponDamage();
+        //TODO display damage
+        currentMonster.damage(damage);
+        healthBar.updateMonsterHP(currentMonster.hp);
     }
 
 

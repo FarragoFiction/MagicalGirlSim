@@ -3,8 +3,10 @@
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 import '../MagicalGirlCharacterObject.dart';
+import 'BloodPriceGirl.dart';
 
-class MonsterGirl extends MagicalGirlCharacterObject{
+class MonsterGirl extends BloodPriceGirl{
+    @override
     int hp = 9999;
     MonsterGirl(String name, String dollString) : super(name, dollString);
 
