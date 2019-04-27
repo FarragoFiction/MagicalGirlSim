@@ -73,6 +73,7 @@ html, body {
 
 .bloodMenu1{
     left: 350px;
+    display: none;
 }
 
 #output {

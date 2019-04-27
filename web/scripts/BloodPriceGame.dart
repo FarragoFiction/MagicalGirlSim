@@ -15,8 +15,10 @@ class BloodPriceGame {
             * doesn't use wider stat system YET
         * menu shit???
      */
+    AudioElement fx = new AudioElement();
     BloodPriceGirl currentGirl;
     MonsterGirl monsterGirl;
+    Element secondMenu;
 
 
     BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.monsterGirl});
@@ -32,6 +34,22 @@ class BloodPriceGame {
         await displayCurrentGirl(container);
         displayMenu(container);
         displayBloodPriceSub1(container);
+
+    }
+
+
+    void moneySound() {
+        playSoundEffect("121990__tomf__coinbag");
+    }
+
+    void clickSound() {
+        playSoundEffect("254286__jagadamba__mechanical-switch");
+    }
+
+    void playSoundEffect(String locationWithoutExtension) {
+        if(fx.canPlayType("audio/mpeg").isNotEmpty) fx.src = "SoundFX/${locationWithoutExtension}.mp3";
+        if(fx.canPlayType("audio/ogg").isNotEmpty) fx.src = "SoundFX/${locationWithoutExtension}.ogg";
+        fx.play();
 
     }
 
@@ -53,14 +71,14 @@ class BloodPriceGame {
 
     //defaults to hidden
     void displayBloodPriceSub1(Element container) {
-        DivElement menu = new DivElement()..classes.add("bloodMenu1")..classes.add("menuHolder");
+        secondMenu = new DivElement()..classes.add("bloodMenu1")..classes.add("menuHolder");
 
-        container.append(menu);
-        displayHealthBargainOpt(menu);
-        displayWeaponBargainOpt(menu);
-        displayMagicBargainOpt(menu);
-        displayCompanionBargainOpt(menu);
-        displayLegacyBargainOpt(menu);
+        container.append(secondMenu);
+        displayHealthBargainOpt(secondMenu);
+        displayWeaponBargainOpt(secondMenu);
+        displayMagicBargainOpt(secondMenu);
+        displayCompanionBargainOpt(secondMenu);
+        displayLegacyBargainOpt(secondMenu);
     }
 
     void displayMenu(Element container) {
@@ -92,6 +110,19 @@ class BloodPriceGame {
 
     void displayBloodPrice(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Blood Price >";
+        menu.onClick.listen((Event e) {
+            clickSound();
+            window.console.log("display is ${secondMenu.style.display}");
+            if(secondMenu.style.display == "none" || secondMenu.style.display.isEmpty) {
+                secondMenu.style.display = 'block';
+                menu.style.backgroundColor = "#fdbee5";
+                menu.style.color = "#fff0f9";
+            }else {
+                secondMenu.style.display = "none";
+                menu.style.backgroundColor = "#fff0f9";
+                menu.style.color = "#fdbee5";
+            }
+        });
         container.append(menu);
     }
 
