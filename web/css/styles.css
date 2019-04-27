@@ -40,13 +40,9 @@ html, body {
     text-align: left;
     vertical-align: middle;
     font-family: 'cabin', sans-serif;
-    width: 285px;
+    width: 301px;
     font-size: 39px;
     z-index: 13;
-}
-.bloodItem{
-    width: 301px;
-
 }
 
 
@@ -65,7 +61,7 @@ html, body {
     left: 10px;
     box-shadow: 0px 3px 13px #000000;
     background-color: #fff0f9;
-    width: 315px;
+    width: 330px;
     height: 288px;
     vertical-align: top;
     font-family: 'cabin', sans-serif;
@@ -77,8 +73,8 @@ html, body {
 
 .bloodMenu1{
     left: 350px;
-    width: 330px;
 }
+
 #output {
   padding: 20px;
   text-align: center;
