@@ -28,7 +28,7 @@ class BloodPriceGame {
 
     BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.currentMonster});
 
-    void display(Element parent) async {
+    Future<void> display(Element parent) async {
         currentGirl ??= await BloodPriceGirl.randomGirl();
 
         currentMonster ??= await MonsterGirl.randomGirl();
@@ -41,6 +41,7 @@ class BloodPriceGame {
         parent.append(container);
         await displayMonster(container);
         await displayCurrentGirl(container);
+        container.append(new DivElement()..className="sunGlow");
         menuHandler.displayMenu(container);
 
 
@@ -48,7 +49,7 @@ class BloodPriceGame {
 
     }
 
-    void displayCurrentGirl(Element container) async {
+    Future<void> displayCurrentGirl(Element container) async {
         currentGirl.doll.orientation = Doll.TURNWAYS;
         CanvasElement cacheCanvas = await currentGirl.doll.getNewCanvas();
         int ratio = 2;
@@ -58,7 +59,7 @@ class BloodPriceGame {
         container.append(dollCanvas);
     }
 
-    void displayMonster(Element container) async {
+    Future<void> displayMonster(Element container) async {
         CanvasElement dollCanvas = await currentMonster.doll.getNewCanvas();
         dollCanvas.classes.add("monsterDoll");
         container.append(dollCanvas);
