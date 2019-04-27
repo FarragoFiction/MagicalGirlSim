@@ -7,13 +7,7 @@ version: 1.0.0
 environment:
   sdk: '>=2.2.0 <3.0.0'
 
-#dependencies:
-#  path: ^1.4.1
-
-dev_dependencies:
-  build_runner: ^1.0.0
-  build_test: ^0.10.2
-  build_web_compilers: ^0.4.0
+dependencies:
   CreditsLib:
     git:  git://github.com/FarragoFiction/CharacterLib.git
   RenderingLib:
@@ -24,6 +18,11 @@ dev_dependencies:
     git: git://github.com/FarragoFiction/CommonLib.git
   TextEngine:
     git: git://github.com/FarragoFiction/TextEngine.git
+
+dev_dependencies:
+  build_runner: ^1.0.0
+  build_test: ^0.10.2
+  build_web_compilers: ^0.4.0
 
 web:
   compiler:
