@@ -233,3 +233,4 @@ class MagicalGirlCharacterObject extends CharacterObject {
   }
 
 }
+

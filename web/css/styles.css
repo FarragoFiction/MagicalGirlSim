@@ -11,6 +11,19 @@ html, body {
   font-family: 'cabin', sans-serif;
 }
 
+.gameBox{
+    background: url('../images/BloodPrice/shittyporogrammerui.png');
+    width: 1280px;
+    height: 720px;
+    background-color: #ff0000;
+}
+
+.bloodDoll{
+    position: absolute;
+    top: 165px;
+    left: 22px;
+}
+
 #output {
   padding: 20px;
   text-align: center;

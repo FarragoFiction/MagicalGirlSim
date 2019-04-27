@@ -1,34 +1,30 @@
 name: MagicalGirlSim
-description: An absolute bare-bones web app.
-version: 0.0.1
-#homepage: https://www.example.com
+description: Contract?
+version: 1.0.0
+#homepage: https://www.farragofiction.com/MagicalGirlSim
 #author: jadedResearcher <email@example.com>
 
 environment:
-  sdk: '>=1.20.1 <2.0.0'
+  sdk: '>=2.2.0 <3.0.0'
 
 #dependencies:
 #  path: ^1.4.1
 
 dev_dependencies:
-  browser: ^0.10.0
-  dart_to_js_script_rewriter: ^1.0.1
+  build_runner: ^1.0.0
+  build_test: ^0.10.2
+  build_web_compilers: ^0.4.0
   CreditsLib:
-          git:  git://github.com/FarragoFiction/CharacterLib.git
+    git:  git://github.com/FarragoFiction/CharacterLib.git
   RenderingLib:
-        git: git://github.com/FarragoFiction/RenderingLib.git
+    git: git://github.com/FarragoFiction/RenderingLib.git
   DollLibCorrect:
-        git:  git://github.com/FarragoFiction/DollLibCorrect.git
+    git:  git://github.com/FarragoFiction/DollLibCorrect.git
   CommonLib:
-            git: git://github.com/FarragoFiction/CommonLib.git
+    git: git://github.com/FarragoFiction/CommonLib.git
   TextEngine:
-            git: git://github.com/FarragoFiction/TextEngine.git
+    git: git://github.com/FarragoFiction/TextEngine.git
 
-transformers:
-- dart_to_js_script_rewriter
-
-# Uncomment the following in sdk 1.24+ to make pub serve
-# use dartdevc (webdev.dartlang.org/tools/dartdevc).
-#web:
-#  compiler:
-#    debug: dartdevc
+web:
+  compiler:
+    debug: dartdevc
