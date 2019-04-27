@@ -16,12 +16,19 @@ html, body {
     width: 1280px;
     height: 720px;
     background-color: #ff0000;
+    position: relative;
 }
 
 .bloodDoll{
     position: absolute;
-    top: 165px;
-    left: 22px;
+    top: 147px;
+    left: 3px;
+}
+
+.monsterDoll{
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 #output {
