@@ -23,6 +23,7 @@ class BloodPriceGame {
     Element thirdMenuInsides;
 
 
+
     BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.monsterGirl});
 
     void display(Element parent) async {
@@ -95,6 +96,12 @@ class BloodPriceGame {
 
         thirdMenuInsides = new DivElement()..classes.add("menuInsides");
         thirdMenu.append(thirdMenuInsides);
+
+        ButtonElement button = new ButtonElement()..text = "Pay Blood Price"..classes.add("bloodPriceButton");
+        thirdMenu.append(button);
+        button.onClick.listen((Event e){
+            window.alert("TODO: determine which child is selected, do shit.");
+        });
     }
 
     void displayMenu(Element container) {

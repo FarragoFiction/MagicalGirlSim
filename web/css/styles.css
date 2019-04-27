@@ -54,8 +54,19 @@ html, body {
 }
 
 .menuInsides{
-    font-size: 39px;
+    font-size: 29px;
     margin-top: 30px;
+    height: 130px;
+}
+
+.bloodPriceButton{
+    padding: 5px;
+    font-size: 39px;
+    background-color: #a10000;
+    color: #330000;
+    border: 3px solid #aa0000;
+    border-radius: 13px;
+
 }
 
 
