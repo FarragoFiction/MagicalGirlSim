@@ -22,18 +22,15 @@ class BloodPriceGame {
     BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.monsterGirl});
 
     void display(Element parent) async {
-        if(currentGirl == null) {
-            currentGirl = await BloodPriceGirl.randomGirl();
-        }
+        currentGirl ??= await BloodPriceGirl.randomGirl();
 
-        if(monsterGirl == null) {
-            monsterGirl = await MonsterGirl.randomGirl();
-        }
+        monsterGirl ??= await MonsterGirl.randomGirl();
 
         DivElement container = new DivElement()..classes.add("gameBox");
         parent.append(container);
-        displayMonster(container);
-        displayCurrentGirl(container);
+        await displayMonster(container);
+        await displayCurrentGirl(container);
+        displayMenu(container);
     }
 
     void displayCurrentGirl(Element container) async {
@@ -50,6 +47,36 @@ class BloodPriceGame {
         CanvasElement dollCanvas = await monsterGirl.doll.getNewCanvas();
         dollCanvas.classes.add("monsterDoll");
         container.append(dollCanvas);
+    }
+
+    void displayMenu(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuHolder");
+        displayWeapon(menu);
+        displayMagic(menu);
+        displayCompanion(menu);
+        displayBloodPrice(menu);
+
+        container.append(menu);
+    }
+
+    void displayWeapon(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Weapon";
+        container.append(menu);
+    }
+
+    void displayMagic(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Magic";
+        container.append(menu);
+    }
+
+    void displayCompanion(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Companion";
+        container.append(menu);
+    }
+
+    void displayBloodPrice(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Blood Price >";
+        container.append(menu);
     }
 
 }

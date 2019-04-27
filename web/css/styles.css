@@ -31,6 +31,43 @@ html, body {
     right: 0px;
 }
 
+
+.menuItem{
+    padding: 5px;
+    padding-left: 15px;
+    padding-right: 15px;
+    text-align: left;
+    vertical-align: middle;
+    font-family: 'cabin', sans-serif;
+    width: 285px;
+    font-size: 52px;
+    z-index: 13;
+}
+
+.menuItem:hover{
+    background-color: #fdbee5;
+    color: #fff0f9;
+
+}
+
+
+.menuHolder{
+    border: 3px solid #fdbee5;
+    position: absolute;
+    bottom: 10px;
+    left: 10px;
+    box-shadow: 0px 3px 13px #000000;
+    background-color: #fff0f9;
+    width: 315px;
+    height: 292px;
+    vertical-align: top;
+    font-family: 'cabin', sans-serif;
+    color: #fdbee5;
+    display: inline-block;
+    border-radius: 13px;
+    z-index: 10;
+}
+
 #output {
   padding: 20px;
   text-align: center;

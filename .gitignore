@@ -1,13 +1,3 @@
-# Files and directories created by pub
-.dart_tool/
-.packages
-.pub/
-build/
-# Remove the following pattern if you wish to check in your lock file
-pubspec.lock
-
-# Directory created by dartdoc
-doc/api/
 .idea/
 *.iml
 *.DS_Store
@@ -16,8 +6,14 @@ doc/api/
 .packages
 .pub/
 build/
+.dart_tool/
 # Remove the following pattern if you wish to check in your lock file
 pubspec.lock
 
 # Directory created by dartdoc
 doc/api/
+
+# No need to push bundles or the manifest I guess - those can be generated simply enough
+*.bundle
+web/manifest/manifest.txt
+.DS_Store
