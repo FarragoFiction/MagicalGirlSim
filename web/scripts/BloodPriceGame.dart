@@ -50,7 +50,33 @@ class BloodPriceGame {
     }
 
     void displayMenu(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuHolder");
+        displayWeapon(menu);
+        displayMagic(menu);
+        displayCompanion(menu);
+        displayBloodPrice(menu);
 
+        container.append(menu);
+    }
+
+    void displayWeapon(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Weapon";
+        container.append(menu);
+    }
+
+    void displayMagic(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Magic";
+        container.append(menu);
+    }
+
+    void displayCompanion(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Companion";
+        container.append(menu);
+    }
+
+    void displayBloodPrice(Element container) {
+        DivElement menu = new DivElement()..classes.add("menuItem")..text = "Blood Price >";
+        container.append(menu);
     }
 
 }
