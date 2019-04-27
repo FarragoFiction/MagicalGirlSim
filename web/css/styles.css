@@ -76,6 +76,13 @@ html, body {
     display: none;
 }
 
+.bloodMenu2{
+    left: 690px;
+    width: 575px;
+    display: none;
+}
+
+
 #output {
   padding: 20px;
   text-align: center;

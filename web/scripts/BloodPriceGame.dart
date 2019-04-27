@@ -19,6 +19,7 @@ class BloodPriceGame {
     BloodPriceGirl currentGirl;
     MonsterGirl monsterGirl;
     Element secondMenu;
+    Element thirdMenu;
 
 
     BloodPriceGame({BloodPriceGirl this.currentGirl,MonsterGirl this.monsterGirl});
@@ -34,6 +35,8 @@ class BloodPriceGame {
         await displayCurrentGirl(container);
         displayMenu(container);
         displayBloodPriceSub1(container);
+        displayBloodPriceSub2(container);
+
 
     }
 
@@ -81,6 +84,12 @@ class BloodPriceGame {
         displayLegacyBargainOpt(secondMenu);
     }
 
+    //defaults to hidden
+    void displayBloodPriceSub2(Element container) {
+        thirdMenu = new DivElement()..classes.add("bloodMenu2")..classes.add("menuHolder");
+        container.append(thirdMenu);
+    }
+
     void displayMenu(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuHolder");
         displayWeapon(menu);
@@ -112,13 +121,13 @@ class BloodPriceGame {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Blood Price >";
         menu.onClick.listen((Event e) {
             clickSound();
-            window.console.log("display is ${secondMenu.style.display}");
             if(secondMenu.style.display == "none" || secondMenu.style.display.isEmpty) {
                 secondMenu.style.display = 'block';
                 menu.style.backgroundColor = "#fdbee5";
                 menu.style.color = "#fff0f9";
             }else {
                 secondMenu.style.display = "none";
+                thirdMenu.style.display = "none";
                 menu.style.backgroundColor = "#fff0f9";
                 menu.style.color = "#fdbee5";
             }
@@ -126,29 +135,76 @@ class BloodPriceGame {
         container.append(menu);
     }
 
+    void unmarkChildren(Element menu) {
+        menu.children.forEach((Element e) {
+            e.style.backgroundColor = "#fff0f9";
+            e.style.color = "#fdbee5";
+        });
+    }
+
     void displayHealthBargainOpt(Element container) {
         final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Health Pact >";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            clickSound();
+            thirdMenu.style.display = 'block';
+            thirdMenu.text = "TODO: Health Pact";
+            unmarkChildren(container);
+            menu.style.backgroundColor = "#fdbee5";
+            menu.style.color = "#fff0f9";
+        });
     }
 
     void displayWeaponBargainOpt(Element container) {
         final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Weapon Pact >";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            clickSound();
+            thirdMenu.style.display = 'block';
+            thirdMenu.text = "TODO: Weapon Pact";
+            unmarkChildren(container);
+            menu.style.backgroundColor = "#fdbee5";
+            menu.style.color = "#fff0f9";
+        });
     }
 
     void displayMagicBargainOpt(Element container) {
         final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Magic Pact >";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            clickSound();
+            thirdMenu.style.display = 'block';
+            thirdMenu.text = "TODO: Magic Pact";
+            unmarkChildren(container);
+            menu.style.backgroundColor = "#fdbee5";
+            menu.style.color = "#fff0f9";
+        });
     }
 
     void displayCompanionBargainOpt(Element container) {
         final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Companion Pact >";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            clickSound();
+            thirdMenu.style.display = 'block';
+            thirdMenu.text = "TODO: Companion Pact";
+            unmarkChildren(container);
+            menu.style.backgroundColor = "#fdbee5";
+            menu.style.color = "#fff0f9";
+        });
     }
 
     void displayLegacyBargainOpt(Element container) {
         final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Legacy Pact >";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            clickSound();
+            thirdMenu.style.display = 'block';
+            thirdMenu.text = "TODO: Legacy Pact";
+            unmarkChildren(container);
+            menu.style.backgroundColor = "#fdbee5";
+            menu.style.color = "#fff0f9";
+        });
     }
 
 }
