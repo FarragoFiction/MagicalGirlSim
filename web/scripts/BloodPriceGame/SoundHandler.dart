@@ -3,6 +3,10 @@ import 'dart:html';
 abstract class SoundHandler {
     static AudioElement fx = new AudioElement();
 
+
+    static void meatSound() {
+        playSoundEffect("85846__mwlandi__meat-slap-2");
+    }
     static void moneySound() {
         playSoundEffect("121990__tomf__coinbag");
     }

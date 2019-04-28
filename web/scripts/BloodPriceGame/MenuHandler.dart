@@ -29,7 +29,7 @@ import 'SoundHandler.dart';
         container.append(menu);
     }
 
-    void commonClickShit([bool click]) {
+    void commonClickShit([bool click = true]) {
         if(click) SoundHandler.clickSound();
         secondMenu.style.display = "none";
         thirdMenu.style.display = "none";
