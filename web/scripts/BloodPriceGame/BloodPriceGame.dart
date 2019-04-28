@@ -40,11 +40,21 @@ class BloodPriceGame {
         instance = this;
     }
 
+    void retireGirl() {
+        formerGirls.add(currentGirl);
+        currentGirl = null;
+        Effects.damageCity();
+    }
+
     Future<void> spawnNewGirl() async {
         currentGirl = await BloodPriceGirl.randomGirl();
         await currentGirl.setShitUp();
         healthBar.updateGirlHP(currentGirl.hp);
         healthBar.updateBill(currentGirl.unpaidPacts);
+        if(currentMonster != null) {
+            currentMonster.hp = MonsterGirl.maxHP;
+            healthBar.updateMonsterHP(currentMonster.hp);
+        }
         await displayCurrentGirl(container);
 
     }

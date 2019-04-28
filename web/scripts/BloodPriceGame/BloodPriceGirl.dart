@@ -90,7 +90,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
         clearDebts();
         game.healthBar.popup("Unfortunately, ${name} has succumbed to her injuries. $debts. The city will be doomed without a protector. The 🐥 must find someone new to take up the mantle of a Magical Girl.",0);
         await Future.delayed(Duration(milliseconds: 2000));
-        game.formerGirls.add(this);
+        game.retireGirl();
         game.spawnNewGirl();
         game.showMenu();
 

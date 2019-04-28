@@ -12,6 +12,7 @@ import 'BloodPriceGirl.dart';
 class MonsterGirl extends BloodPriceGirl{
     @override
     int hp = 999;
+    static int maxHP = 999;
     //TODO method to spawn a monster from a magical girl, blood pacts and all
     MonsterGirl(String name, String dollString) : super(name, dollString);
 
