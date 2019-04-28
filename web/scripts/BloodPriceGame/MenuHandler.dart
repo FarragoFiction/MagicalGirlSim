@@ -19,27 +19,39 @@ import 'SoundHandler.dart';
         container.append(menu);
     }
 
+    void commonClickShit() {
+        SoundHandler.clickSound();
+        secondMenu.style.display = "none";
+        thirdMenu.style.display = "none";
+    }
+
 
 
     void displayWeapon(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Weapon";
         container.append(menu);
         menu.onClick.listen((Event e) {
-            SoundHandler.clickSound();
+            commonClickShit();
             BloodPriceGame.instance.handleWeapon();
-            secondMenu.style.display = "none";
-            thirdMenu.style.display = "none";
         });
     }
 
     void displayMagic(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Magic";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            commonClickShit();
+            BloodPriceGame.instance.handleMagic();
+        });
     }
 
     void displayCompanion(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Companion";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            commonClickShit();
+            BloodPriceGame.instance.handleCompanion();
+        });
     }
 
     void displayBloodPrice(Element container) {
