@@ -23,7 +23,10 @@ class BloodPriceGame {
         * menu shit???
      */
     BloodPriceGirl currentGirl;
+    Element container;
     MonsterGirl currentMonster;
+    List<BloodPriceGirl> formerGirls  = <BloodPriceGirl>[];
+    List<MonsterGirl> formerMonsters = <MonsterGirl>[];
     MenuHandler menuHandler = new MenuHandler();
     static const String MAGICDAMAGE = "MAGICDAMAGE";
     static const String PHYSICALDAMAGE = "PHYSICALDAMAGE";
@@ -37,21 +40,29 @@ class BloodPriceGame {
         instance = this;
     }
 
-    Future<void> display(Element parent) async {
-        currentGirl ??= await BloodPriceGirl.randomGirl();
+    Future<void> spawnNewGirl() async {
+        currentGirl = await BloodPriceGirl.randomGirl();
         await currentGirl.setShitUp();
+        healthBar.updateGirlHP(currentGirl.hp);
+        await displayCurrentGirl(container);
+
+    }
+
+    Future<void> display(Element parent) async {
+        healthBar = new HealthBar();
+        container = new DivElement()..classes.add("gameBox")..id="gameBox";
+
+        if(currentGirl == null) {
+            spawnNewGirl();
+        }
 
         currentMonster ??= await MonsterGirl.randomGirl(currentGirl.doll);
-        healthBar = new HealthBar();
-        healthBar.updateGirlHP(currentGirl.hp);
         healthBar.updateMonsterHP(currentMonster.hp);
 
         healthBar.display(parent);
-        final DivElement container = new DivElement()..classes.add("gameBox")..id="gameBox";
         parent.append(container);
         container.append(new DivElement()..className="voidGlow noIE");
         await displayMonster(container);
-        await displayCurrentGirl(container);
         final Element birb = new DivElement()..id="🐥";
         container
             ..append(birb)
@@ -71,12 +82,15 @@ class BloodPriceGame {
         dollCanvas.context2D.drawImageScaled(cacheCanvas, 0,0, dollCanvas.width, dollCanvas.height);
         dollCanvas.classes.add("bloodDoll");
         container.append(dollCanvas);
+        currentGirl.canvas = dollCanvas;
     }
 
     Future<void> displayMonster(Element container) async {
         final CanvasElement dollCanvas = await currentMonster.doll.getNewCanvas();
         dollCanvas.classes.add("monsterDoll");
         container.append(dollCanvas);
+        currentMonster.canvas = dollCanvas;
+
     }
 
 
@@ -107,8 +121,18 @@ class BloodPriceGame {
       healthBar.damageGraphicMonster(0,damage);
 
       //disable menu, in three seconds, have monster attack back. either physical or magical???
-        menuHandler.firstMenu.style.display = "none";
+        hideAllMenus();
         await currentMonster.takeTurn();
+        showMenu();
+
+    }
+
+    void hideAllMenus() {
+        menuHandler.firstMenu.style.display = "none";
+
+    }
+
+    void showMenu() {
         menuHandler.firstMenu.style.display = "block";
 
     }

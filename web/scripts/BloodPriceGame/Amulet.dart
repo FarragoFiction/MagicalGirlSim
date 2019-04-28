@@ -11,6 +11,10 @@ abstract class Amulet {
         return bloodPacts.where((LegacyBloodPact pact) =>pact.cost != 0 ).length;
     }
 
+    static void clearDebts() {
+        bloodPacts.where((BloodPact pact) =>pact.cost != 0 ).forEach((BloodPact pact) => pact.cost = 0);
+    }
+
     static int get damageMultiplier => bloodPacts.length;
     static List<LegacyBloodPact> bloodPacts = <LegacyBloodPact>[];
     static String get sacrificesWithin => bloodPacts.map((LegacyBloodPact bp) => bp.sacrificeName).toSet().join(",");
