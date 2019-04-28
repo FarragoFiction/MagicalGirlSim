@@ -59,10 +59,10 @@ import 'SoundHandler.dart';
     }
 
     void unmarkChildren(Element menu) {
-        menu.children.forEach((Element e) {
+        for(final Element e in menu.children) {
             e.style.backgroundColor = "#fff0f9";
             e.style.color = "#fdbee5";
-        });
+        }
     }
 
     void displayHealthBargainOpt(Element container) {
