@@ -1,5 +1,8 @@
 import 'package:CommonLib/Random.dart';
 
+import 'Amulet.dart';
+import 'Companion.dart';
+
 abstract class BloodPact {
 /*
     A magical girl can have 0 or more blood pacts running at a time, in several categories.
@@ -36,16 +39,31 @@ abstract class BloodPact {
 }
 
 class LegacyBloodPact extends BloodPact {
+    String sacrificeName;
 
-    LegacyBloodPact() {
-        cost = 75;
+    LegacyBloodPact(String this.sacrificeName) {
+        cost = 113;
         name = "Legacy Blood Pact";
-        flavorTexts = <String>["${BloodPact.NAME} fills the AMULET with their hopes for the future."];
+        flavorTexts = <String>["${BloodPact.NAME} fills the AMULET with their hopes for the future. They join the ranks of ${Amulet.sacrificesWithin}."];
+    }
+
+    @override
+  String toString() {
+        return sacrificeName;
     }
 }
 
 
 class CompanionBloodPact extends BloodPact {
+
+    @override
+  String get flavorText {
+        String ret = "";
+        for(BloodPact b in Companion.bloodPacts) {
+            ret = "$ret 🐥 ";
+        }
+        return ret;
+    }
 
     MagicBloodPact() {
         cost = 13;

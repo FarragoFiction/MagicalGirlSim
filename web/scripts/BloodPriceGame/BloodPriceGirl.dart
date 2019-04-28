@@ -1,10 +1,20 @@
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 import '../MagicalGirlCharacterObject.dart';
+import 'Amulet.dart';
+import 'BloodPact.dart';
+import 'Companion.dart';
 
 class BloodPriceGirl extends MagicalGirlCharacterObject{
     int hp = 113;
     BloodPriceGirl(String name, String dollString) : super(name, dollString);
+
+    List<WeaponBloodPact> weaponPacts = <WeaponBloodPact>[];
+    List<MagicBloodPact> magicPacts = <MagicBloodPact>[];
+
+    int get weaponMultiplier => Amulet.damageMultiplier *  weaponPacts.length + 1;
+    int get magicMultiplier => Amulet.damageMultiplier *magicPacts.length + 1;
+
 
 
     static Future<BloodPriceGirl> randomGirl() async {
@@ -19,15 +29,15 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     }
 
     int calculateWeaponDamage() {
-        return energetic.value.abs() + external.value.abs();
+        return (energetic.value.abs() + external.value.abs()) * (weaponMultiplier);
     }
 
     int calculateCompanionDamge() {
-        return curious.value.abs() + loyal.value.abs();
+        return (curious.value.abs() + loyal.value.abs()) * (Companion.damageMultiplier +1);
     }
 
     int calculateMagicDamage() {
-        return patience.value.abs() + idealistic.value.abs();
+        return (patience.value.abs() + idealistic.value.abs())*(magicMultiplier);
     }
 
 
