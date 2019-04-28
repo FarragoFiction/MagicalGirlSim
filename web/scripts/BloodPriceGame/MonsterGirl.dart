@@ -10,8 +10,9 @@ class MonsterGirl extends BloodPriceGirl{
     int hp = 9999;
     MonsterGirl(String name, String dollString) : super(name, dollString);
 
-    static Future<MonsterGirl> randomGirl() async {
-        final MagicalDoll doll = new MagicalDoll();
+    static Future<MonsterGirl> randomGirl(MagicalDoll origin) async {
+        final MonsterGirlDoll doll = origin.hatch();
+        doll.orientation = Doll.TURNWAYS;
         await doll.setNameFromEngine();
         return new MonsterGirl(doll.dollName, doll.toDataBytesX());
     }

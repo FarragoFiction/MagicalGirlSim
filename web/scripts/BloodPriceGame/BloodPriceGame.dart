@@ -38,7 +38,7 @@ class BloodPriceGame {
         currentGirl ??= await BloodPriceGirl.randomGirl();
         await currentGirl.setShitUp();
 
-        currentMonster ??= await MonsterGirl.randomGirl();
+        currentMonster ??= await MonsterGirl.randomGirl(currentGirl.doll);
         healthBar = new HealthBar();
         healthBar.updateGirlHP(currentGirl.hp);
         healthBar.updateMonsterHP(currentMonster.hp);
