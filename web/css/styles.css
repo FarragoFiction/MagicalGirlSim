@@ -283,6 +283,41 @@ button{
     transform: translate(-50%,-50%);
 }
 
+@keyframes pulse {
+    0% {
+        width: 800px;
+        height: 800px;
+    }
+    100% {
+        width:400px;
+        height:400px;
+    }
+}
+
+.voidGlow {
+    width:800px;
+    height:800px;
+    position:absolute;
+    background-image: radial-gradient(circle closest-side, rgba(40,0,20,0.8) 0%, rgba(40,0,20,0.575) 25%, rgba(40,0,20,0.25) 50%, rgba(40,0,20,0.075) 75%, rgba(0,0,0,0.0) 100%);
+    top:260px;
+    left:960px;
+
+    -ms-transform: translate(-50%,-50%);
+    -webkit-transform: translate(-50%,-50%);
+    transform: translate(-50%,-50%);
+
+    animation-iteration-count: infinite;
+    animation-name: pulse;
+    animation-direction: alternate;
+    animation-timing-function: ease-in-out;
+    animation-duration: 1.2s;
+
+    mix-blend-mode: multiply;
+
+    /*z-index:10000;*/
+
+}
+
 #🐥 {
     position:absolute;
     background-image: url('../images/protagonist.png');
@@ -311,28 +346,26 @@ button{
         background-position: 0px 0px;
     }
     100% {
-        background-position: 8192px 0px;
+        background-position: -8192px 0px;
     }
 }
 
 .hit {
     width:256px;
     height:256px;
-    background-image: url("../images/BloodPrice/hit1.png");
     background-position: 0px 0px;
 
     position: absolute;
     animation-iteration-count: 1;
     animation-name: hit;
     animation-timing-function: steps(32, end);
-    animation-direction:reverse;
-
-    animation-duration: 0.75s;
 
     -ms-transform: translate(-50%,-50%);
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+}
 
-    left:400px;
-    top:400px;
+.hit1 {
+    background-image: url("../images/BloodPrice/hit1.png");
+    animation-duration: 0.75s;
 }

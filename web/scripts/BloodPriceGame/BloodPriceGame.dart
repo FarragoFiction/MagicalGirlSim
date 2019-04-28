@@ -44,14 +44,15 @@ class BloodPriceGame {
         healthBar.updateMonsterHP(currentMonster.hp);
 
         healthBar.display(parent);
-        final DivElement container = new DivElement()..classes.add("gameBox");
+        final DivElement container = new DivElement()..classes.add("gameBox")..id="gameBox";
         parent.append(container);
+        container.append(new DivElement()..className="voidGlow noIE");
         await displayMonster(container);
         await displayCurrentGirl(container);
         final Element birb = new DivElement()..id="🐥";
         container
             ..append(birb)
-            ..append(new DivElement()..className="sunGlow");
+            ..append(new DivElement()..className="sunGlow noIE");
         menuHandler.displayMenu(container);
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
