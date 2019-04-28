@@ -8,6 +8,7 @@ import 'Companion.dart';
 import 'SoundHandler.dart';
 
  class MenuHandler {
+     Element firstMenu;
      Element secondMenu;
      Element thirdMenu;
      Element thirdMenuInsides;
@@ -19,14 +20,14 @@ import 'SoundHandler.dart';
 
 
      void displayMenu(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuHolder");
-        displayWeapon(menu);
-        displayMagic(menu);
-        displayCompanion(menu);
-        displayBloodPrice(menu);
+        firstMenu = new DivElement()..classes.add("menuHolder");
+        displayWeapon(firstMenu);
+        displayMagic(firstMenu);
+        displayCompanion(firstMenu);
+        displayBloodPrice(firstMenu);
         displayBloodPriceSub1(container);
         displayBloodPriceSub2(container);
-        container.append(menu);
+        container.append(firstMenu);
     }
 
     void commonClickShit([bool click = true]) {

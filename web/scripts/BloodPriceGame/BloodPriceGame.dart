@@ -94,7 +94,7 @@ class BloodPriceGame {
         healthBar.popup("${currentGirl.name} attacks with ${currentGirl.magical_attack} $attackText",0);
     }
 
-    void damageMonster(int damage, String damageType) {
+    Future<void> damageMonster(int damage, String damageType) async{
         //TODO should this be on a timer?
         if(damageType == MAGICDAMAGE) {
             Effects.magicHit(950, 250);
@@ -105,12 +105,24 @@ class BloodPriceGame {
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
       healthBar.damageGraphicMonster(0,damage);
+
+      //disable menu, in three seconds, have monster attack back. either physical or magical???
+        menuHandler.firstMenu.style.display = "none";
+        await currentMonster.takeTurn();
+        menuHandler.firstMenu.style.display = "block";
+
     }
 
     void damageGirl(int damage, String damageType) {
         currentGirl.damage(damage);
         healthBar.updateGirlHP(currentGirl.hp);
         healthBar.damageGraphicGirl(0,damage);
+        if(damageType == MAGICDAMAGE) {
+            Effects.magicHit(150, 250);
+        }else if (damageType == PHYSICALDAMAGE) {
+            Effects.weaponHit(150, 250);
+
+        }
     }
 
     Future<Null> handleCompanion() async {
