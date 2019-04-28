@@ -1,23 +1,35 @@
+import 'dart:html';
+
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 import '../MagicalGirlCharacterObject.dart';
 import 'Amulet.dart';
 import 'BloodPact.dart';
+import 'BloodPriceGame.dart';
 import 'Companion.dart';
 
 class BloodPriceGirl extends MagicalGirlCharacterObject{
     //TODO when a magic girl dies, zero out all unpaid pacts
 
     int hp = 113;
+    Element canvas;
 
     int get price {
-        int weapon =  weaponPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
-        int magic =  magicPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
-        int health =  healthPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
+        int weapon =  weaponPacts.map((BloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
+        int magic =  magicPacts.map((BloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
+        int health =  healthPacts.map((BloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
         int companion = Companion.price;
         int legacy = Amulet.price;
         return weapon + magic + health + companion + legacy;
 
+    }
+
+    void clearDebts() {
+        weaponPacts.where((BloodPact pact) =>pact.cost != 0 ).forEach((BloodPact pact) => pact.cost = 0);
+        magicPacts.where((BloodPact pact) =>pact.cost != 0 ).forEach((BloodPact pact) => pact.cost = 0);
+        healthPacts.where((BloodPact pact) =>pact.cost != 0 ).forEach((BloodPact pact) => pact.cost = 0);
+        Companion.clearDebts();
+        Amulet.clearDebts();
     }
 
     int get unpaidPacts {
@@ -50,7 +62,39 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
 
     void damage(int damagePoints) {
         hp += damagePoints;
-        //TODO if dead do thing
+        if(hp <= 0) {
+            totallyDiePure();
+        }
+    }
+
+    @override
+    Future<Null> totallyDiePure() async{
+        /*
+        TODO: hide the menu.
+        do a popup detailing your tragic but nobel death (eventually a cutscene???)
+        unpaid pacts should be cleared out
+        hide old girl.
+        girl should be added to list of former girls
+        new girl should be spawned (cutscene)
+        monster HEALED
+        menu shows back up
+         */
+        var game = BloodPriceGame.instance;
+        canvas.remove();
+        game.hideAllMenus();
+        String debts = "";
+        int debtAmount = price;
+        if(debtAmount > 0) {
+            debts = "Their ${debtAmount} blood debt is collected from what remains of their corpse.";
+        }
+        clearDebts();
+        game.healthBar.popup("Unfortunately, ${name} has succumbed to her injuries. $debts. The city will be doomed without a protector. The 🐥 must find someone new to take up the mantle of a Magical Girl.",0);
+        await Future.delayed(Duration(milliseconds: 2000));
+        game.formerGirls.add(this);
+        game.spawnNewGirl();
+        game.showMenu();
+
+
     }
 
     int calculateWeaponDamage() {

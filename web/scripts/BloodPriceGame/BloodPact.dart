@@ -61,6 +61,7 @@ class CompanionBloodPact extends BloodPact {
     @override
   String get flavorText {
         String ret = "";
+        cost = 9999;
         for(BloodPact b in Companion.bloodPacts) {
             ret = "$ret 🐥 ";
         }

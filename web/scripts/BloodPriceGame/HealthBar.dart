@@ -1,6 +1,11 @@
 import 'dart:async';
 import 'dart:html';
 
+import 'Amulet.dart';
+import 'BloodPriceGame.dart';
+import 'BloodPriceGirl.dart';
+import 'Companion.dart';
+
 class HealthBar {
     final DivElement container  = new DivElement();
     final DivElement girlHP  = new DivElement();
@@ -22,7 +27,8 @@ class HealthBar {
     }
 
     void updateBill(int number) {
-        billElement.text = "$number Unpaid Pacts.";
+        BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
+        billElement.text = "$number Unpaid Pacts. All Pacts: Weapon: ${girl.weaponPacts.length} Magic: ${girl.weaponPacts.length} Amulet: ${Amulet.bloodPacts.length} 🐥: ${Companion.bloodPacts.length}";
 
     }
 
