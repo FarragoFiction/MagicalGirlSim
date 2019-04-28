@@ -1,6 +1,8 @@
 import 'dart:async';
 import 'dart:html';
+import "dart:math" as Math;
 
+import "package:CommonLib/Random.dart";
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 import 'BloodPriceGirl.dart';
@@ -45,10 +47,13 @@ class BloodPriceGame {
         parent.append(container);
         await displayMonster(container);
         await displayCurrentGirl(container);
-        container.append(new DivElement()..className="sunGlow");
+        final Element birb = new DivElement()..id="🐥";
+        container
+            ..append(birb)
+            ..append(new DivElement()..className="sunGlow");
         menuHandler.displayMenu(container);
 
-
+        new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
 
 
     }
@@ -83,6 +88,28 @@ class BloodPriceGame {
     }
 
 
+    static Random _birbRand = new Random();
+    void birbChaos(Element birb) {
+        double angle = _birbRand.nextDouble() * _birbRand.nextDouble() * _birbRand.nextDouble() * _birbRand.nextDouble() * _birbRand.nextDouble() * _birbRand.nextDouble() * _birbRand.nextDouble();
+        angle *= 180;
+        if (_birbRand.nextInt(2) == 0) {
+            angle = 360 - angle;
+        }
+
+        double x = _birbRand.nextDouble() * _birbRand.nextDouble() * _birbRand.nextDouble();
+        x = 1-x;
+        x *= 2;
+        if (_birbRand.nextInt(2) == 0) {
+            x *= -1;
+        }
+
+        double y = _birbRand.nextDouble() * _birbRand.nextDouble() * _birbRand.nextDouble();
+        y = 1-y;
+        y *= -6;
+
+        final String t = "rotate(${angle}deg) translate(${x.floor()}px,${y.floor()}px)";
+        birb.style.transform = t;
+    }
 
 }
 
