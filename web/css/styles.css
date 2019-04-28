@@ -75,6 +75,7 @@ display: inline-block;
     animation-name: bobbing;
     animation-direction: alternate;
     animation-timing-function: ease-in-out;
+    z-index: 30;
 }
 
 .bloodDoll{
@@ -175,7 +176,7 @@ display: inline-block;
     color: #eb7cc1; /*#fdbee5;*/
     display: inline-block;
     border-radius: 13px;
-    z-index: 10;
+    z-index: 100;
 }
 
 .bloodMenu1{
@@ -296,6 +297,7 @@ button{
     -ms-transform: translate(-50%,-50%);
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+    z-index:50;
 }
 
 @keyframes pulse {
@@ -329,7 +331,7 @@ button{
 
     mix-blend-mode: multiply;
 
-    /*z-index:10000;*/
+    z-index:15;
 
 }
 
@@ -387,4 +389,23 @@ button{
 .hit2 {
     background-image: url("../images/BloodPrice/hit2.png");
     animation-duration: 0.75s;
+}
+
+.damage {
+    width: 1280px;
+    height: 720px;
+    position:absolute;
+    left:0;
+    top:0;
+    z-index:1;
+}
+
+.damage1 {
+    background-image: url('../images/BGs/damage1.png');
+}
+.damage2 {
+    background-image: url('../images/BGs/damage2.png');
+}
+.damage3 {
+    background-image: url('../images/BGs/damage3.png');
 }

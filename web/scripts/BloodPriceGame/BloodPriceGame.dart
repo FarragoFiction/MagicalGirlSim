@@ -59,8 +59,6 @@ class BloodPriceGame {
         menuHandler.displayMenu(container);
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
-
-
     }
 
     Future<void> displayCurrentGirl(Element container) async {
