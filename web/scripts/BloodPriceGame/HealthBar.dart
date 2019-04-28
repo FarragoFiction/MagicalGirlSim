@@ -18,19 +18,17 @@ class HealthBar {
 
 
     Future<void> damageGraphicMonster(int tick, int amount, [Element element]) async {
-        print("damage tick $tick amount $amount");
         int maxTicks = 2;
         if(element == null) {
             element = new DivElement()
                 ..classes.add("monsterDamageGraphic")
                 ..text = "-$amount";
             container.append(element);
-            element.classes.add("fadeOut");
-            element.style.fontSize = "100px"; //starts the fade out, hopefully
+            element.animate([{"opacity": 100},{"opacity": 0}], 3000);
         }
 
         if(tick < maxTicks) {
-            new Timer(new Duration(milliseconds: 10000), () =>
+            new Timer(new Duration(milliseconds: 1000), () =>
                 damageGraphicMonster(tick+1, amount, element));
         }else {
             element.remove();
