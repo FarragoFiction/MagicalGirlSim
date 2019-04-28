@@ -16,6 +16,25 @@ class HealthBar {
 
     }
 
+    Future<void> popup(String text, int tick, [Element element]) async {
+        int maxTicks = 2;
+        if(element == null) {
+            element = new DivElement()
+                ..classes.add("attackpopup")
+                ..text = text;
+            container.append(element);
+            element.animate([{"opacity": 100},{"opacity": 0}], 9000);
+        }
+
+        if(tick < maxTicks) {
+            new Timer(new Duration(milliseconds: 4000), () =>
+                popup(text, tick,element));
+        }else {
+            element.remove();
+        }
+
+    }
+
 
     Future<void> damageGraphicMonster(int tick, int amount, [Element element]) async {
         int maxTicks = 2;

@@ -22,6 +22,10 @@ class MagicalGirlCharacterObject extends CharacterObject {
   int cardHeight = 800;
   MagicalDoll magicDoll;
   CanvasElement statElement;
+  String magical_attack;
+  String weapon;
+  String animal;
+  String theme;
 
   //if you generally win more than you lose you'll win even more, sort of like momentum
   double get efficiencyRating {
@@ -197,28 +201,35 @@ class MagicalGirlCharacterObject extends CharacterObject {
       await displayTraits(canvas, fontSize, fontSize,currentY);
   }
 
-  Future displayTraits(CanvasElement canvas, int fontSize, int x, int currentY) async {
-     MagicalAdventure adventure = new MagicalAdventure(this);
-    Narrative narrative =  await adventure.getNarrative();
+  Future<void> setShitUp() async {
+      MagicalAdventure adventure = new MagicalAdventure(this);
+      Narrative narrative =  await adventure.getNarrative();
+      magical_attack = await adventure.getAttackName(narrative);
+      theme = await adventure.getAdj(narrative);
+      weapon = await adventure.getWeapon(narrative);
+      animal = await adventure.getCompanion(narrative);
 
-    String attack = await adventure.getAttackName(narrative);
-    String theme = await adventure.getAdj(narrative);
+
+  }
+
+  Future<int> displayTraits(CanvasElement canvas, int fontSize, int x, int currentY) async {
+    await setShitUp();
+
     canvas.context2D.fillText("Magical Attack:",x,currentY);
     currentY += (fontSize*1.2).round();
-    canvas.context2D.fillText("$theme $attack".toUpperCase(),x,currentY);
+    canvas.context2D.fillText("$theme $magical_attack".toUpperCase(),x,currentY);
     currentY += (fontSize*2.4).round();
 
-    String weapon = await adventure.getWeapon(narrative);
     canvas.context2D.fillText("Weapon:",x,currentY);
     currentY += (fontSize*1.2).round();
     canvas.context2D.fillText("$weapon".toUpperCase(),x,currentY);
     currentY += (fontSize*2.4).round();
 
-    String animal = await adventure.getCompanion(narrative);
     canvas.context2D.fillText("Magical Companion:",x,currentY);
     currentY += (fontSize*1.2).round();
     canvas.context2D.fillText("$animal".toUpperCase(),x,currentY);
     currentY += (fontSize*2.4).round();
+    return currentY;
 
   }
 

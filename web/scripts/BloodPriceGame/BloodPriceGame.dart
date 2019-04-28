@@ -85,6 +85,8 @@ class BloodPriceGame {
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
         healthBar.damageGraphicMonster(0,damage);
+        String noun = currentGirl.weapon.split(" ").last;
+        healthBar.popup("${currentGirl.name} attacks with ${currentGirl.weapon} (TODO have some procedural text about ${noun})",0);
     }
 
 

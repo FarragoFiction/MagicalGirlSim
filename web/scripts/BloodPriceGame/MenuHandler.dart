@@ -19,16 +19,20 @@ import 'SoundHandler.dart';
         container.append(menu);
     }
 
+    void commonClickShit() {
+        SoundHandler.clickSound();
+        secondMenu.style.display = "none";
+        thirdMenu.style.display = "none";
+    }
+
 
 
     void displayWeapon(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Weapon";
         container.append(menu);
         menu.onClick.listen((Event e) {
-            SoundHandler.clickSound();
+            commonClickShit();
             BloodPriceGame.instance.handleWeapon();
-            secondMenu.style.display = "none";
-            thirdMenu.style.display = "none";
         });
     }
 
