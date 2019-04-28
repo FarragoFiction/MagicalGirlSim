@@ -311,28 +311,26 @@ button{
         background-position: 0px 0px;
     }
     100% {
-        background-position: 8192px 0px;
+        background-position: -8192px 0px;
     }
 }
 
 .hit {
     width:256px;
     height:256px;
-    background-image: url("../images/BloodPrice/hit1.png");
     background-position: 0px 0px;
 
     position: absolute;
     animation-iteration-count: 1;
     animation-name: hit;
     animation-timing-function: steps(32, end);
-    animation-direction:reverse;
-
-    animation-duration: 0.75s;
 
     -ms-transform: translate(-50%,-50%);
     -webkit-transform: translate(-50%,-50%);
     transform: translate(-50%,-50%);
+}
 
-    left:400px;
-    top:400px;
+.hit1 {
+    background-image: url("../images/BloodPrice/hit1.png");
+    animation-duration: 0.75s;
 }

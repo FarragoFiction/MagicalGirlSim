@@ -44,7 +44,7 @@ class BloodPriceGame {
         healthBar.updateMonsterHP(currentMonster.hp);
 
         healthBar.display(parent);
-        final DivElement container = new DivElement()..classes.add("gameBox");
+        final DivElement container = new DivElement()..classes.add("gameBox")..id="gameBox";
         parent.append(container);
         await displayMonster(container);
         await displayCurrentGirl(container);
