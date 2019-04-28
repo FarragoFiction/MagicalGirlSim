@@ -22,11 +22,11 @@ class MagicalGirlCharacterObject extends CharacterObject {
   int cardHeight = 800;
   MagicalDoll magicDoll;
   CanvasElement statElement;
-  String magical_attack;
+  String attack;
   String weapon;
   String animal;
   String theme;
-  String get theme_weapon => "$theme $weapon";
+  String get magical_attack => "$theme $attack";
 
   //if you generally win more than you lose you'll win even more, sort of like momentum
   double get efficiencyRating {
@@ -205,7 +205,7 @@ class MagicalGirlCharacterObject extends CharacterObject {
   Future<void> setShitUp() async {
       MagicalAdventure adventure = new MagicalAdventure(this);
       Narrative narrative =  await adventure.getNarrative();
-      magical_attack = await adventure.getAttackName(narrative);
+      attack = await adventure.getAttackName(narrative).toUpperCase();;
       theme = await adventure.getAdj(narrative).toUpperCase();
       weapon = await adventure.getWeapon(narrative).toUpperCase();
       animal = await adventure.getCompanion(narrative).toUpperCase();

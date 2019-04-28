@@ -91,7 +91,7 @@ class BloodPriceGame {
     }
 
     Future<Null> handleMagic() async {
-        final int damage = currentGirl.calculateWeaponDamage();
+        final int damage = currentGirl.calculateMagicDamage();
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
         healthBar.damageGraphicMonster(0,damage);
@@ -100,7 +100,7 @@ class BloodPriceGame {
     }
 
     Future<Null> handleCompanion() async {
-        final int damage = currentGirl.calculateWeaponDamage();
+        final int damage = currentGirl.calculateCompanionDamge();
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
         healthBar.damageGraphicMonster(0,damage);
