@@ -6,7 +6,30 @@ import 'BloodPact.dart';
 import 'Companion.dart';
 
 class BloodPriceGirl extends MagicalGirlCharacterObject{
+    //TODO when a magic girl dies, zero out all unpaid pacts
+
     int hp = 113;
+
+    int get price {
+        int weapon =  weaponPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
+        int magic =  magicPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
+        int health =  healthPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
+        int companion = Companion.price;
+        int legacy = Amulet.price;
+        return weapon + magic + health + companion + legacy;
+
+    }
+
+    int get unpaidPacts {
+        int weapon = weaponPacts.where((BloodPact pact) =>pact.cost != 0 ).length;
+        int magic = magicPacts.where((BloodPact pact) =>pact.cost != 0 ).length;
+        int health = healthPacts.where((BloodPact pact) =>pact.cost != 0 ).length;
+        int companion = Companion.unpaidPacts;
+        int legacy = Amulet.unpaidPacts;
+        return weapon + magic + health + companion + legacy;
+
+    }
+
     BloodPriceGirl(String name, String dollString) : super(name, dollString);
 
     List<WeaponBloodPact> weaponPacts = <WeaponBloodPact>[];

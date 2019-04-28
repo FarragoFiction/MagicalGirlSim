@@ -6,6 +6,7 @@ import "package:CommonLib/Random.dart";
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 import 'BloodPriceGirl.dart';
+import 'Effects.dart';
 import 'HealthBar.dart';
 import 'MenuHandler.dart';
 import 'MonsterGirl.dart';
@@ -24,6 +25,8 @@ class BloodPriceGame {
     BloodPriceGirl currentGirl;
     MonsterGirl currentMonster;
     MenuHandler menuHandler = new MenuHandler();
+    static const String MAGICDAMAGE = "MAGICDAMAGE";
+    static const String PHYSICALDAMAGE = "PHYSICALDAMAGE";
 
     HealthBar healthBar;
     static BloodPriceGame instance;
@@ -79,25 +82,32 @@ class BloodPriceGame {
 
     Future<Null> handleWeapon() async {
         final int damage = currentGirl.calculateWeaponDamage();
-        damageMonster(damage);
+        damageMonster(damage, PHYSICALDAMAGE);
         String attackText = "(TODO have some procedural text about ${currentGirl.weapon})"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with ${currentGirl.weapon} $attackText",0);
     }
 
     Future<Null> handleMagic() async {
         final int damage = currentGirl.calculateMagicDamage();
-        damageMonster(damage);
+        damageMonster(damage, MAGICDAMAGE);
         String attackText = "(TODO have some procedural text about ${currentGirl.magical_attack})"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with ${currentGirl.magical_attack} $attackText",0);
     }
 
-    void damageMonster(int damage) {
+    void damageMonster(int damage, String damageType) {
+        //TODO should this be on a timer?
+        if(damageType == MAGICDAMAGE) {
+            Effects.magicHit(950, 250);
+        }else if (damageType == PHYSICALDAMAGE) {
+            Effects.weaponHit(950, 250);
+
+        }
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
       healthBar.damageGraphicMonster(0,damage);
     }
 
-    void damageGirl(int damage) {
+    void damageGirl(int damage, String damageType) {
         currentGirl.damage(damage);
         healthBar.updateGirlHP(currentGirl.hp);
         healthBar.damageGraphicGirl(0,damage);
@@ -105,7 +115,7 @@ class BloodPriceGame {
 
     Future<Null> handleCompanion() async {
         final int damage = currentGirl.calculateCompanionDamge();
-        damageMonster(damage);
+        damageMonster(damage, PHYSICALDAMAGE);
         String attackText = "(TODO have some procedural text about 🐥 )"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with 🐥  $attackText",0);
     }

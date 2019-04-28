@@ -11,6 +11,12 @@ html, body {
   font-family: 'cabin', sans-serif;
 }
 
+.billElement{
+    display: inline-block;
+    position: absolute;
+    left: 500px;
+}
+
 .healthBar{
     width: 1280px;
     height: 50px;

@@ -29,8 +29,8 @@ import 'SoundHandler.dart';
         container.append(menu);
     }
 
-    void commonClickShit() {
-        SoundHandler.clickSound();
+    void commonClickShit([bool click]) {
+        if(click) SoundHandler.clickSound();
         secondMenu.style.display = "none";
         thirdMenu.style.display = "none";
     }
@@ -178,6 +178,8 @@ import 'SoundHandler.dart';
          ButtonElement button = new ButtonElement()..text = "Pay Blood Price"..classes.add("bloodPriceButton");
          thirdMenu.append(button);
          button.onClick.listen((Event e){
+             SoundHandler.moneySound();
+             commonClickShit(false);
              performBloodRite();
          });
      }
@@ -196,6 +198,8 @@ import 'SoundHandler.dart';
              performHealthRite();
          }
 
+         BloodPriceGame.instance.healthBar.updateBill(BloodPriceGame.instance.currentGirl.unpaidPacts);
+
      }
 
 
@@ -203,7 +207,7 @@ import 'SoundHandler.dart';
          BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
          HealthBloodPact lp = new HealthBloodPact();
          girl.healthPacts.add(lp);
-         BloodPriceGame.instance.damageGirl(lp.healthToRestore);
+         BloodPriceGame.instance.damageGirl(lp.healthToRestore, BloodPriceGame.MAGICDAMAGE);
          BloodPriceGame.instance.healthBar.popup(lp.flavorText,0);
      }
 
