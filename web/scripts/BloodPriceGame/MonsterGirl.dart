@@ -22,6 +22,11 @@ class MonsterGirl extends BloodPriceGirl{
         return new MonsterGirl(doll.dollName, doll.toDataBytesX());
     }
 
+    @override
+    void totallyDie() {
+        //TODO
+    }
+
     //wait three seconds and then do physical or magical damage to your opponent
     Future<void> takeTurn() async {
         await Future.delayed(Duration(milliseconds: 2000));

@@ -53,6 +53,19 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
         //TODO if dead do thing
     }
 
+    @override
+    void totallyDiePure() {
+        /*
+        TODO: hide the menu.
+        do a popup detailing your tragic but nobel death (eventually a cutscene???)
+        unpaid pacts should be cleared out
+        girl should be added to list of former girls
+        new girl should be spawned (cutscene)
+        monster HEALED
+        menu shows back up
+         */
+    }
+
     int calculateWeaponDamage() {
         return -1*(energetic.value.abs() + external.value.abs()) * (weaponMultiplier);
     }
