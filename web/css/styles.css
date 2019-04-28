@@ -111,6 +111,11 @@ html, body {
 
 }
 
+.invertedItem{
+    background-color: #eb7cc1; /*#fdbee5;*/
+    color: #fff0f9;
+}
+
 
 
 .menuHolder{

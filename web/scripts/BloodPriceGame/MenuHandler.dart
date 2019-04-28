@@ -27,6 +27,8 @@ import 'SoundHandler.dart';
         menu.onClick.listen((Event e) {
             SoundHandler.clickSound();
             BloodPriceGame.instance.handleWeapon();
+            secondMenu.style.display = "none";
+            thirdMenu.style.display = "none";
         });
     }
 
@@ -46,13 +48,12 @@ import 'SoundHandler.dart';
             SoundHandler.clickSound();
             if(secondMenu.style.display == "none" || secondMenu.style.display.isEmpty) {
                 secondMenu.style.display = 'block';
-                menu.style.backgroundColor = "#fdbee5";
-                menu.style.color = "#fff0f9";
+                menu.classes.remove("invertedItem");
+
             }else {
                 secondMenu.style.display = "none";
                 thirdMenu.style.display = "none";
-                menu.style.backgroundColor = "#fff0f9";
-                menu.style.color = "#fdbee5";
+                menu.classes.add("invertedItem");
             }
         });
         container.append(menu);
@@ -60,8 +61,8 @@ import 'SoundHandler.dart';
 
     void unmarkChildren(Element menu) {
         for(final Element e in menu.children) {
-            e.style.backgroundColor = "#fff0f9";
-            e.style.color = "#fdbee5";
+            e.classes.remove("invertedItem");
+
         }
     }
 
@@ -73,8 +74,8 @@ import 'SoundHandler.dart';
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text = ("Trade future health for current health. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.style.backgroundColor = "#fdbee5";
-            menu.style.color = "#fff0f9";
+            menu.classes.add("invertedItem");
+
         });
     }
 
@@ -86,8 +87,8 @@ import 'SoundHandler.dart';
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text =("Trade future health for current weapon strength. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.style.backgroundColor = "#fdbee5";
-            menu.style.color = "#fff0f9";
+            menu.classes.add("invertedItem");
+
         });
     }
 
@@ -99,8 +100,7 @@ import 'SoundHandler.dart';
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text =("Trade future health for current magic strength. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.style.backgroundColor = "#fdbee5";
-            menu.style.color = "#fff0f9";
+            menu.classes.add("invertedItem");
         });
     }
 
@@ -112,8 +112,8 @@ import 'SoundHandler.dart';
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text =("Trade future health for current companion strength. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.style.backgroundColor = "#fdbee5";
-            menu.style.color = "#fff0f9";
+            menu.classes.add("invertedItem");
+
         });
     }
 
@@ -125,8 +125,8 @@ import 'SoundHandler.dart';
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text =("Trade future health for the ability to better help those who come after you. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.style.backgroundColor = "#fdbee5";
-            menu.style.color = "#fff0f9";
+            menu.classes.add("invertedItem");
+
         });
     }
 
