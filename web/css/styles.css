@@ -378,3 +378,7 @@ button{
     background-image: url("../images/BloodPrice/hit1.png");
     animation-duration: 0.75s;
 }
+.hit2 {
+    background-image: url("../images/BloodPrice/hit2.png");
+    animation-duration: 0.75s;
+}
