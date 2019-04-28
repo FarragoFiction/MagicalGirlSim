@@ -94,13 +94,13 @@ class BloodPriceGame {
     void damageMonster(int damage) {
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
-      healthBar.damageGraphicMonster(0,-1*damage);
+      healthBar.damageGraphicMonster(0,damage);
     }
 
     void damageGirl(int damage) {
         currentGirl.damage(damage);
         healthBar.updateGirlHP(currentGirl.hp);
-        healthBar.damageGraphicGirl(0,-1*damage);
+        healthBar.damageGraphicGirl(0,damage);
     }
 
     Future<Null> handleCompanion() async {

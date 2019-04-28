@@ -26,20 +26,20 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     }
 
     void damage(int damagePoints) {
-        hp += -1 * damagePoints;
+        hp += damagePoints;
         //TODO if dead do thing
     }
 
     int calculateWeaponDamage() {
-        return (energetic.value.abs() + external.value.abs()) * (weaponMultiplier);
+        return -1*(energetic.value.abs() + external.value.abs()) * (weaponMultiplier);
     }
 
     int calculateCompanionDamge() {
-        return (curious.value.abs() + loyal.value.abs()) * (Companion.damageMultiplier +1);
+        return -1*(curious.value.abs() + loyal.value.abs()) * (Companion.damageMultiplier +1);
     }
 
     int calculateMagicDamage() {
-        return (patience.value.abs() + idealistic.value.abs())*(magicMultiplier);
+        return -1*(patience.value.abs() + idealistic.value.abs())*(magicMultiplier);
     }
 
 

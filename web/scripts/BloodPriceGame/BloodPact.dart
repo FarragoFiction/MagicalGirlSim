@@ -80,16 +80,16 @@ class MagicBloodPact extends BloodPact {
     MagicBloodPact() {
         cost = 13;
         name = "Magic Blood Pact";
-        flavorTexts = <String>["Shining in the center of the ${BloodPact.MAGICATTACK}} is the face of ${BloodPact.NAME}}, screaming. ", "You could swear you faintly hear the screams of ${BloodPact.NAME} from the ${BloodPact.MAGICATTACK}}}."];
+        flavorTexts = <String>["Shining in the center of the ${BloodPact.MAGICATTACK} is the face of ${BloodPact.NAME}, screaming. ", "You could swear you faintly hear the screams of ${BloodPact.NAME} from the ${BloodPact.MAGICATTACK}."];
     }
 }
 
 class WeaponBloodPact extends BloodPact {
 
-    HealthBloodPact() {
+    WeaponBloodPact() {
         cost = 13;
         name = "Weapon Blood Pact";
-        flavorTexts = <String>["The ${BloodPact.WEAPON}} glows ominously.", "You could swear you faintly hear the screams of ${BloodPact.NAME} from the ${BloodPact.WEAPON}}}."];
+        flavorTexts = <String>["The ${BloodPact.WEAPON} glows ominously.", "You could swear you faintly hear the screams of ${BloodPact.NAME} from the ${BloodPact.WEAPON}."];
     }
 }
 
