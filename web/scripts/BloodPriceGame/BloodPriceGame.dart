@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'dart:html';
 
 import 'package:DollLibCorrect/DollRenderer.dart';
@@ -68,11 +69,17 @@ class BloodPriceGame {
         container.append(dollCanvas);
     }
 
+    //jitter? pulse?
+    void damageGraphicGirl(int tick, int amount) {
+        int maxTicks = 13;
+    }
+
+
     void handleWeapon() {
         final int damage = currentGirl.calculateWeaponDamage();
-        //TODO display damage
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
+        healthBar.damageGraphicMonster(0,damage);
     }
 
 

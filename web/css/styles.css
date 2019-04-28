@@ -26,6 +26,31 @@ html, body {
     left: 100px;
 }
 
+.fadeOut {
+  font-size: 39px;
+  top: 0px;
+
+}
+.monsterDamageGraphic:hover{
+
+}
+
+.monsterDamageGraphic{
+   display: inline-block;
+   position: absolute;
+   left: 970px;
+   color: #fff0f9;
+   top: 80px;
+   z-index: 13;
+   -webkit-transition: width 2s; /* For Safari 3.1 to 6.0 */
+     transition: width 2s;
+    -webkit-transition: opacity 4s ease-out 2s;
+    -moz-transition: opacity 4s ease-out 2s;
+    -ms-transition: opactiy 4s ease-out 2s;
+    -o-transition: opacity 4s ease-out 2s;
+    transition: opacity 4s ease-out 2s;
+}
+
 .monsterHP{
    display: inline-block;
    position: absolute;
