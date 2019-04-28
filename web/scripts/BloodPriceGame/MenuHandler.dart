@@ -1,14 +1,24 @@
 import 'dart:html';
 
+import 'Amulet.dart';
+import 'BloodPact.dart';
 import 'BloodPriceGame.dart';
+import 'BloodPriceGirl.dart';
+import 'Companion.dart';
 import 'SoundHandler.dart';
 
  class MenuHandler {
      Element secondMenu;
      Element thirdMenu;
      Element thirdMenuInsides;
+     Element legacyChoice;
+     Element healthChoice;
+     Element weaponChoice;
+     Element magicChoice;
+     Element companionChoice;
 
-    void displayMenu(Element container) {
+
+     void displayMenu(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuHolder");
         displayWeapon(menu);
         displayMagic(menu);
@@ -79,65 +89,65 @@ import 'SoundHandler.dart';
     }
 
     void displayHealthBargainOpt(Element container) {
-        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Health Pact >";
-        container.append(menu);
-        menu.onClick.listen((Event e) {
+        healthChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Health Pact >";
+        container.append(healthChoice);
+        healthChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text = ("Trade future health for current health. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.classes.add("invertedItem");
+            healthChoice.classes.add("invertedItem");
 
         });
     }
 
     void displayWeaponBargainOpt(Element container) {
-        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Weapon Pact >";
-        container.append(menu);
-        menu.onClick.listen((Event e) {
+        weaponChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Weapon Pact >";
+        container.append(weaponChoice);
+        weaponChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text =("Trade future health for current weapon strength. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.classes.add("invertedItem");
+            weaponChoice.classes.add("invertedItem");
 
         });
     }
 
     void displayMagicBargainOpt(Element container) {
-        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Magic Pact >";
-        container.append(menu);
-        menu.onClick.listen((Event e) {
+        magicChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Magic Pact >";
+        container.append(magicChoice);
+        magicChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text =("Trade future health for current magic strength. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.classes.add("invertedItem");
+            magicChoice.classes.add("invertedItem");
         });
     }
 
     void displayCompanionBargainOpt(Element container) {
-        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Companion Pact >";
-        container.append(menu);
-        menu.onClick.listen((Event e) {
+        companionChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Companion Pact >";
+        container.append(companionChoice);
+        companionChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text =("Trade future health for current companion strength. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.classes.add("invertedItem");
+            companionChoice.classes.add("invertedItem");
 
         });
     }
 
     void displayLegacyBargainOpt(Element container) {
-        final DivElement menu = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Legacy Pact >";
-        container.append(menu);
-        menu.onClick.listen((Event e) {
+        legacyChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Legacy Pact >";
+        container.append(legacyChoice);
+        legacyChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
             thirdMenuInsides.text =("Trade future health for the ability to better help those who come after you. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
-            menu.classes.add("invertedItem");
+            legacyChoice.classes.add("invertedItem");
 
         });
     }
@@ -168,8 +178,60 @@ import 'SoundHandler.dart';
          ButtonElement button = new ButtonElement()..text = "Pay Blood Price"..classes.add("bloodPriceButton");
          thirdMenu.append(button);
          button.onClick.listen((Event e){
-             window.alert("TODO: determine which child is selected, do shit.");
+             performBloodRite();
          });
+     }
+
+     void performBloodRite() {
+         //you're selected if you have invertedItem class.
+         if(legacyChoice.classes.toList().contains("invertedItem")){
+             performLegacyRite();
+         }else if(companionChoice.classes.toList().contains("invertedItem")) {
+             performCompanionRite();
+         }else if(magicChoice.classes.toList().contains("invertedItem")) {
+             performMagicRite();
+         }else if(weaponChoice.classes.toList().contains("invertedItem")) {
+             performWeaponRite();
+         }else if(healthChoice.classes.toList().contains("invertedItem")) {
+             performHealthRite();
+         }
+
+     }
+
+
+     void performHealthRite() {
+         BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
+         HealthBloodPact lp = new HealthBloodPact();
+         girl.healthPacts.add(lp);
+         BloodPriceGame.instance.damageGirl(lp.healthToRestore);
+         BloodPriceGame.instance.healthBar.popup(lp.flavorText,0);
+     }
+
+     void performMagicRite() {
+         BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
+         MagicBloodPact lp = new MagicBloodPact();
+         girl.magicPacts.add(lp);
+         BloodPriceGame.instance.healthBar.popup(lp.flavorText,0);
+     }
+
+     void performWeaponRite() {
+         BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
+         WeaponBloodPact lp = new WeaponBloodPact();
+         girl.weaponPacts.add(lp);
+         BloodPriceGame.instance.healthBar.popup(lp.flavorText,0);
+     }
+
+     void performLegacyRite() {
+         BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
+         LegacyBloodPact lp = new LegacyBloodPact(girl.name);
+         Amulet.bloodPacts.add(lp);
+         BloodPriceGame.instance.healthBar.popup(lp.flavorText,0);
+     }
+
+     void performCompanionRite() {
+         CompanionBloodPact cp = new CompanionBloodPact();
+         Companion.bloodPacts.add(cp);
+         BloodPriceGame.instance.healthBar.popup(cp.flavorText,0);
      }
 
 

@@ -76,35 +76,36 @@ class BloodPriceGame {
         container.append(dollCanvas);
     }
 
-    //jitter? pulse?
-    void damageGraphicGirl(int tick, int amount) {
-        int maxTicks = 13;
-    }
-
 
     Future<Null> handleWeapon() async {
         final int damage = currentGirl.calculateWeaponDamage();
-        currentMonster.damage(damage);
-        healthBar.updateMonsterHP(currentMonster.hp);
-        healthBar.damageGraphicMonster(0,damage);
+        damageMonster(damage);
         String attackText = "(TODO have some procedural text about ${currentGirl.weapon})"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with ${currentGirl.weapon} $attackText",0);
     }
 
     Future<Null> handleMagic() async {
         final int damage = currentGirl.calculateMagicDamage();
-        currentMonster.damage(damage);
-        healthBar.updateMonsterHP(currentMonster.hp);
-        healthBar.damageGraphicMonster(0,damage);
+        damageMonster(damage);
         String attackText = "(TODO have some procedural text about ${currentGirl.magical_attack})"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with ${currentGirl.magical_attack} $attackText",0);
     }
 
-    Future<Null> handleCompanion() async {
-        final int damage = currentGirl.calculateCompanionDamge();
+    void damageMonster(int damage) {
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
-        healthBar.damageGraphicMonster(0,damage);
+      healthBar.damageGraphicMonster(0,-1*damage);
+    }
+
+    void damageGirl(int damage) {
+        currentGirl.damage(damage);
+        healthBar.updateGirlHP(currentGirl.hp);
+        healthBar.damageGraphicGirl(0,-1*damage);
+    }
+
+    Future<Null> handleCompanion() async {
+        final int damage = currentGirl.calculateCompanionDamge();
+        damageMonster(damage);
         String attackText = "(TODO have some procedural text about 🐥 )"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with 🐥  $attackText",0);
     }

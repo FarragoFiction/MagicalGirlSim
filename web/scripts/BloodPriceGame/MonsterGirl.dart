@@ -7,7 +7,7 @@ import 'BloodPriceGirl.dart';
 
 class MonsterGirl extends BloodPriceGirl{
     @override
-    int hp = 9999;
+    int hp = 999;
     MonsterGirl(String name, String dollString) : super(name, dollString);
 
     static Future<MonsterGirl> randomGirl(MagicalDoll origin) async {

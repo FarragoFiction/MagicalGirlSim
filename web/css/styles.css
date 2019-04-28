@@ -31,6 +31,15 @@ html, body {
   top: 0px;
 
 }
+
+.girlDamageGraphic{
+display: inline-block;
+   position: absolute;
+   left: 170px;
+   color: #fff0f9;
+   top: 80px;
+   z-index: 13;
+}
 .monsterDamageGraphic{
    display: inline-block;
    position: absolute;

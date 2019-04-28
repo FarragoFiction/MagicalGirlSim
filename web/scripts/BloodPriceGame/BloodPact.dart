@@ -1,6 +1,8 @@
 import 'package:CommonLib/Random.dart';
 
 import 'Amulet.dart';
+import 'BloodPriceGame.dart';
+import 'BloodPriceGirl.dart';
 import 'Companion.dart';
 
 abstract class BloodPact {
@@ -27,10 +29,10 @@ abstract class BloodPact {
     String get flavorText {
         Random rand = new Random();
         String ret = rand.pickFrom(flavorTexts);
-        ret = ret.replaceAll(WEAPON,ret);
-        ret = ret.replaceAll(MAGICATTACK,ret);
-        ret = ret.replaceAll(NAME,ret);
-
+        BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
+        ret = ret.replaceAll(WEAPON,girl.weapon);
+        ret = ret.replaceAll(MAGICATTACK,girl.magical_attack);
+        ret = ret.replaceAll(NAME,girl.name);
         return ret;
 
     }
@@ -92,6 +94,8 @@ class WeaponBloodPact extends BloodPact {
 }
 
 class HealthBloodPact extends BloodPact {
+
+    int healthToRestore = 75;
 
     HealthBloodPact() {
         cost = 75;

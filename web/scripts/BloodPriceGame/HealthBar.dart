@@ -17,12 +17,14 @@ class HealthBar {
     }
 
     Future<void> popup(String text, int tick, [Element element]) async {
-        int maxTicks = 2;
+        int maxTicks = 3;
         if(element == null) {
             element = new DivElement()
                 ..classes.add("attackpopup")
                 ..text = text;
             container.append(element);
+        }
+        if(tick == 1) {
             element.animate([{"opacity": 100},{"opacity": 0}], 9000);
         }
 
@@ -35,13 +37,32 @@ class HealthBar {
 
     }
 
+    //jitter? pulse?
+    Future<void> damageGraphicGirl(int tick, int amount, [Element element]) async {
+        int maxTicks = 2;
+        if(element == null) {
+            element = new DivElement()
+                ..classes.add("girlDamageGraphic")
+                ..text = "$amount";
+            container.append(element);
+            element.animate([{"opacity": 100},{"opacity": 0}], 3000);
+        }
+
+        if(tick < maxTicks) {
+            new Timer(new Duration(milliseconds: 1000), () =>
+                damageGraphicMonster(tick+1, amount, element));
+        }else {
+            element.remove();
+        }
+    }
+
 
     Future<void> damageGraphicMonster(int tick, int amount, [Element element]) async {
         int maxTicks = 2;
         if(element == null) {
             element = new DivElement()
                 ..classes.add("monsterDamageGraphic")
-                ..text = "-$amount";
+                ..text = "$amount";
             container.append(element);
             element.animate([{"opacity": 100},{"opacity": 0}], 3000);
         }
