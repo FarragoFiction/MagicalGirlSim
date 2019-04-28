@@ -27,6 +27,7 @@ class MonsterGirl extends BloodPriceGirl{
         await Future.delayed(Duration(milliseconds: 2000));
         Random rand = new Random();
         rand.nextInt(); //init
+        int easinessQuotient = 10;
         int damage = 0;
         String type = "";
         //companion damage now counts as monstrous strength owo
@@ -36,8 +37,8 @@ class MonsterGirl extends BloodPriceGirl{
         }else {
             damage = calculateMagicDamage() + calculateCompanionDamge();
             type = BloodPriceGame.MAGICDAMAGE;
-
         }
+        damage = (damage/easinessQuotient).ceil();
         BloodPriceGame.instance.damageGirl(damage, type);
     }
 
