@@ -3,7 +3,7 @@ import 'BloodPact.dart';
 abstract class Amulet {
 
     static int get price {
-        return bloodPacts.map((LegacyBloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
+        return bloodPacts.map((LegacyBloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
     }
 
     //if a pact is in play and its cost is not zero, its unpaid

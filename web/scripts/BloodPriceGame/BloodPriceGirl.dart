@@ -15,9 +15,9 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     Element canvas;
 
     int get price {
-        int weapon =  weaponPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
-        int magic =  magicPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
-        int health =  healthPacts.map((BloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
+        int weapon =  weaponPacts.map((BloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
+        int magic =  magicPacts.map((BloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
+        int health =  healthPacts.map((BloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
         int companion = Companion.price;
         int legacy = Amulet.price;
         return weapon + magic + health + companion + legacy;
@@ -62,7 +62,9 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
 
     void damage(int damagePoints) {
         hp += damagePoints;
-        //TODO if dead do thing
+        if(hp <= 0) {
+            totallyDiePure();
+        }
     }
 
     @override
@@ -87,6 +89,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
         }
         clearDebts();
         game.healthBar.popup("Unfortunately, ${name} has succumbed to her injuries. $debts. The city will be doomed without a protector. The 🐥 must find someone new to take up the mantle of a Magical Girl.",0);
+        await Future.delayed(Duration(milliseconds: 2000));
         game.formerGirls.add(this);
         game.spawnNewGirl();
         game.showMenu();

@@ -4,7 +4,7 @@ import 'BloodPact.dart';
 abstract class Companion {
 
     static int get price {
-        return bloodPacts.map((CompanionBloodPact pact) =>pact.cost ).reduce((int value, int element) => value + element);
+        return bloodPacts.map((CompanionBloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
     }
 
     static int get unpaidPacts {

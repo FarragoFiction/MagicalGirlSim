@@ -14,7 +14,9 @@ html, body {
 .billElement{
     display: inline-block;
     position: absolute;
-    left: 500px;
+    left: 250px;
+    top: 6px;
+    font-size: 24px;
 }
 
 .healthBar{

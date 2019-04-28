@@ -44,6 +44,7 @@ class BloodPriceGame {
         currentGirl = await BloodPriceGirl.randomGirl();
         await currentGirl.setShitUp();
         healthBar.updateGirlHP(currentGirl.hp);
+        healthBar.updateBill(currentGirl.unpaidPacts);
         await displayCurrentGirl(container);
 
     }
@@ -53,7 +54,7 @@ class BloodPriceGame {
         container = new DivElement()..classes.add("gameBox")..id="gameBox";
 
         if(currentGirl == null) {
-            spawnNewGirl();
+            await spawnNewGirl();
         }
 
         currentMonster ??= await MonsterGirl.randomGirl(currentGirl.doll);
