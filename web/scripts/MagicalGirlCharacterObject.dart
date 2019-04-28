@@ -26,6 +26,7 @@ class MagicalGirlCharacterObject extends CharacterObject {
   String weapon;
   String animal;
   String theme;
+  String get theme_weapon => "$theme $weapon";
 
   //if you generally win more than you lose you'll win even more, sort of like momentum
   double get efficiencyRating {
@@ -205,9 +206,9 @@ class MagicalGirlCharacterObject extends CharacterObject {
       MagicalAdventure adventure = new MagicalAdventure(this);
       Narrative narrative =  await adventure.getNarrative();
       magical_attack = await adventure.getAttackName(narrative);
-      theme = await adventure.getAdj(narrative);
-      weapon = await adventure.getWeapon(narrative);
-      animal = await adventure.getCompanion(narrative);
+      theme = await adventure.getAdj(narrative).toUpperCase();
+      weapon = await adventure.getWeapon(narrative).toUpperCase();
+      animal = await adventure.getCompanion(narrative).toUpperCase();
 
 
   }

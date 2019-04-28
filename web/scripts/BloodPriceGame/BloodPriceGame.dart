@@ -36,6 +36,7 @@ class BloodPriceGame {
 
     Future<void> display(Element parent) async {
         currentGirl ??= await BloodPriceGirl.randomGirl();
+        await currentGirl.setShitUp();
 
         currentMonster ??= await MonsterGirl.randomGirl();
         healthBar = new HealthBar();
@@ -85,8 +86,7 @@ class BloodPriceGame {
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
         healthBar.damageGraphicMonster(0,damage);
-        String noun = currentGirl.weapon.split(" ").last;
-        healthBar.popup("${currentGirl.name} attacks with ${currentGirl.weapon} (TODO have some procedural text about ${noun})",0);
+        healthBar.popup("${currentGirl.name} attacks with ${currentGirl.theme_weapon} (TODO have some procedural text about ${currentGirl.weapon})",0);
     }
 
 
