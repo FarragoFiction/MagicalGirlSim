@@ -81,12 +81,31 @@ class BloodPriceGame {
     }
 
 
-    void handleWeapon() {
+    Future<Null> handleWeapon() async {
         final int damage = currentGirl.calculateWeaponDamage();
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
         healthBar.damageGraphicMonster(0,damage);
-        healthBar.popup("${currentGirl.name} attacks with ${currentGirl.theme_weapon} (TODO have some procedural text about ${currentGirl.weapon})",0);
+        String attackText = "(TODO have some procedural text about ${currentGirl.weapon})"; //TODO load this from text engine
+        healthBar.popup("${currentGirl.name} attacks with ${currentGirl.weapon} $attackText",0);
+    }
+
+    Future<Null> handleMagic() async {
+        final int damage = currentGirl.calculateWeaponDamage();
+        currentMonster.damage(damage);
+        healthBar.updateMonsterHP(currentMonster.hp);
+        healthBar.damageGraphicMonster(0,damage);
+        String attackText = "(TODO have some procedural text about ${currentGirl.magical_attack})"; //TODO load this from text engine
+        healthBar.popup("${currentGirl.name} attacks with ${currentGirl.magical_attack} $attackText",0);
+    }
+
+    Future<Null> handleCompanion() async {
+        final int damage = currentGirl.calculateWeaponDamage();
+        currentMonster.damage(damage);
+        healthBar.updateMonsterHP(currentMonster.hp);
+        healthBar.damageGraphicMonster(0,damage);
+        String attackText = "(TODO have some procedural text about 🐥 )"; //TODO load this from text engine
+        healthBar.popup("${currentGirl.name} attacks with 🐥  $attackText",0);
     }
 
 

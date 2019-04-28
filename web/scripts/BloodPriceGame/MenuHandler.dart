@@ -39,11 +39,19 @@ import 'SoundHandler.dart';
     void displayMagic(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Magic";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            commonClickShit();
+            BloodPriceGame.instance.handleMagic();
+        });
     }
 
     void displayCompanion(Element container) {
         final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Companion";
         container.append(menu);
+        menu.onClick.listen((Event e) {
+            commonClickShit();
+            BloodPriceGame.instance.handleCompanion();
+        });
     }
 
     void displayBloodPrice(Element container) {

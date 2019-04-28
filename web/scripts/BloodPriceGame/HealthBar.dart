@@ -28,7 +28,7 @@ class HealthBar {
 
         if(tick < maxTicks) {
             new Timer(new Duration(milliseconds: 4000), () =>
-                popup(text, tick,element));
+                popup(text, tick+1,element));
         }else {
             element.remove();
         }
