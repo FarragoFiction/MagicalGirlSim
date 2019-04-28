@@ -1,6 +1,8 @@
 import 'package:CommonLib/Random.dart';
 
 import 'Amulet.dart';
+import 'BloodPriceGame.dart';
+import 'BloodPriceGirl.dart';
 import 'Companion.dart';
 
 abstract class BloodPact {
@@ -27,10 +29,10 @@ abstract class BloodPact {
     String get flavorText {
         Random rand = new Random();
         String ret = rand.pickFrom(flavorTexts);
-        ret = ret.replaceAll(WEAPON,ret);
-        ret = ret.replaceAll(MAGICATTACK,ret);
-        ret = ret.replaceAll(NAME,ret);
-
+        BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
+        ret = ret.replaceAll(WEAPON,girl.weapon);
+        ret = ret.replaceAll(MAGICATTACK,girl.magical_attack);
+        ret = ret.replaceAll(NAME,girl.name);
         return ret;
 
     }
@@ -66,7 +68,7 @@ class CompanionBloodPact extends BloodPact {
     }
 
     MagicBloodPact() {
-        cost = 13;
+        cost = 33;
         name = "Companion Blood Pact";
         //TODO just loop on how many blood pacts are attached to the 🐥  and then have that many print out.
         flavorTexts = <String>["🐥 ", "🐥 🐥 ","🐥 🐥 🐥 ","🐥 🐥 🐥 🐥 "];
@@ -76,25 +78,27 @@ class CompanionBloodPact extends BloodPact {
 class MagicBloodPact extends BloodPact {
 
     MagicBloodPact() {
-        cost = 13;
+        cost = 33;
         name = "Magic Blood Pact";
-        flavorTexts = <String>["Shining in the center of the ${BloodPact.MAGICATTACK}} is the face of ${BloodPact.NAME}}, screaming. ", "You could swear you faintly hear the screams of ${BloodPact.NAME} from the ${BloodPact.MAGICATTACK}}}."];
+        flavorTexts = <String>["Shining in the center of the ${BloodPact.MAGICATTACK} is the face of ${BloodPact.NAME}, screaming. ", "You could swear you faintly hear the screams of ${BloodPact.NAME} from the ${BloodPact.MAGICATTACK}."];
     }
 }
 
 class WeaponBloodPact extends BloodPact {
 
-    HealthBloodPact() {
-        cost = 13;
+    WeaponBloodPact() {
+        cost = 33;
         name = "Weapon Blood Pact";
-        flavorTexts = <String>["The ${BloodPact.WEAPON}} glows ominously.", "You could swear you faintly hear the screams of ${BloodPact.NAME} from the ${BloodPact.WEAPON}}}."];
+        flavorTexts = <String>["The ${BloodPact.WEAPON} glows ominously.", "You could swear you faintly hear the screams of ${BloodPact.NAME} from the ${BloodPact.WEAPON}."];
     }
 }
 
 class HealthBloodPact extends BloodPact {
 
+    int healthToRestore = 75;
+
     HealthBloodPact() {
-        cost = 75;
+        cost = 90;
         name = "Health Blood Pact";
         flavorTexts = <String>["A terrible surge of borrowed life fills ${BloodPact.NAME}."];
     }

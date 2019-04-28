@@ -6,6 +6,7 @@ import "package:CommonLib/Random.dart";
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 import 'BloodPriceGirl.dart';
+import 'Effects.dart';
 import 'HealthBar.dart';
 import 'MenuHandler.dart';
 import 'MonsterGirl.dart';
@@ -24,6 +25,8 @@ class BloodPriceGame {
     BloodPriceGirl currentGirl;
     MonsterGirl currentMonster;
     MenuHandler menuHandler = new MenuHandler();
+    static const String MAGICDAMAGE = "MAGICDAMAGE";
+    static const String PHYSICALDAMAGE = "PHYSICALDAMAGE";
 
     HealthBar healthBar;
     static BloodPriceGame instance;
@@ -76,35 +79,55 @@ class BloodPriceGame {
         container.append(dollCanvas);
     }
 
-    //jitter? pulse?
-    void damageGraphicGirl(int tick, int amount) {
-        int maxTicks = 13;
-    }
-
 
     Future<Null> handleWeapon() async {
         final int damage = currentGirl.calculateWeaponDamage();
-        currentMonster.damage(damage);
-        healthBar.updateMonsterHP(currentMonster.hp);
-        healthBar.damageGraphicMonster(0,damage);
+        damageMonster(damage, PHYSICALDAMAGE);
         String attackText = "(TODO have some procedural text about ${currentGirl.weapon})"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with ${currentGirl.weapon} $attackText",0);
     }
 
     Future<Null> handleMagic() async {
         final int damage = currentGirl.calculateMagicDamage();
-        currentMonster.damage(damage);
-        healthBar.updateMonsterHP(currentMonster.hp);
-        healthBar.damageGraphicMonster(0,damage);
+        damageMonster(damage, MAGICDAMAGE);
         String attackText = "(TODO have some procedural text about ${currentGirl.magical_attack})"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with ${currentGirl.magical_attack} $attackText",0);
     }
 
-    Future<Null> handleCompanion() async {
-        final int damage = currentGirl.calculateCompanionDamge();
+    Future<void> damageMonster(int damage, String damageType) async{
+        //TODO should this be on a timer?
+        if(damageType == MAGICDAMAGE) {
+            Effects.magicHit(950, 250);
+        }else if (damageType == PHYSICALDAMAGE) {
+            Effects.weaponHit(950, 250);
+
+        }
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
-        healthBar.damageGraphicMonster(0,damage);
+      healthBar.damageGraphicMonster(0,damage);
+
+      //disable menu, in three seconds, have monster attack back. either physical or magical???
+        menuHandler.firstMenu.style.display = "none";
+        await currentMonster.takeTurn();
+        menuHandler.firstMenu.style.display = "block";
+
+    }
+
+    void damageGirl(int damage, String damageType) {
+        currentGirl.damage(damage);
+        healthBar.updateGirlHP(currentGirl.hp);
+        healthBar.damageGraphicGirl(0,damage);
+        if(damageType == MAGICDAMAGE) {
+            Effects.magicHit(150, 250);
+        }else if (damageType == PHYSICALDAMAGE) {
+            Effects.weaponHit(150, 250);
+
+        }
+    }
+
+    Future<Null> handleCompanion() async {
+        final int damage = currentGirl.calculateCompanionDamge();
+        damageMonster(damage, PHYSICALDAMAGE);
         String attackText = "(TODO have some procedural text about 🐥 )"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with 🐥  $attackText",0);
     }
