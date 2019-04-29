@@ -59,11 +59,11 @@ class MonsterGirl extends BloodPriceGirl{
         bool spawnMonster = false;
         Element scene;
         if(girl.price > girl.hp) {
-            butWaitTheresMore = "But it is too soon for happiness. There is a sickening crack. ${girl.name} falls over, dead, from the weight of their Blood Debt of ${girl.price}. The 🐥 continues celebrating... The city is safe!";
+            butWaitTheresMore = "<br><br>But it is too soon for happiness. There is a sickening crack. ${girl.name} falls over, dead, from the weight of their Blood Debt of ${girl.price}. The 🐥 continues celebrating... The city is safe!";
             spawnMonster = true;
             scene = await game.deathScene();
         }else if(girl.price > 0) {
-            butWaitTheresMore = "They wince with the pain of the their ${girl.price} Blood Debt being collected, but know in their heart it was worth it.";
+            butWaitTheresMore = "<br><br>They wince with the pain of the their ${girl.price} Blood Debt being collected, but know in their heart it was worth it.";
             scene = await game.celebrationScene();
 
         }else {

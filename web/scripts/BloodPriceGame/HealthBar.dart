@@ -40,6 +40,7 @@ class HealthBar {
         Element scene = new DivElement()..classes.add("cutscene");
         DivElement textElement = new DivElement()..innerHtml = text..classes.add("cutsceneText");
         scene.append(textElement);
+
         scene.append(sceneContents);
         container.append(scene);
         final Completer<void> completer = new Completer();
@@ -48,6 +49,16 @@ class HealthBar {
                 scene.remove();
                 completer.complete();
             });
+        }else {
+            StreamSubscription<Event> listener;
+            listener = scene.onClick.listen((Event event) {
+                ButtonElement button = new ButtonElement()..text = "Replay?"..classes.add("replayButton");
+                scene.append(button);
+                button.onClick.listen((Event e) => window.location.href = window.location.href);
+                listener.cancel(); //only dot it once plz
+
+            });
+
         }
         return completer.future;
     }
