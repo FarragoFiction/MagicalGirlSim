@@ -208,15 +208,19 @@ class BloodPriceGame {
 
     Future<void> damageMonster(int damage, String damageType) async{
         //TODO should this be on a timer?
+        int weaponBonus = 0;
+        int magicBonus = 0;
         if(damageType == MAGICDAMAGE) {
+            magicBonus = currentGirl.magicPacts.length;
             Effects.magicHit(950, 250);
         }else if (damageType == PHYSICALDAMAGE) {
+            weaponBonus = currentGirl.weaponPacts.length;
             Effects.weaponHit(950, 250);
 
         }
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
-      healthBar.damageGraphicMonster(0,damage);
+      healthBar.damageGraphicMonster(0,damage,magicBonus,weaponBonus);
 
       //disable menu, in three seconds, have monster attack back. either physical or magical???
         hideAllMenus();
@@ -238,13 +242,20 @@ class BloodPriceGame {
     void damageGirl(int damage, String damageType) {
         currentGirl.damage(damage);
         healthBar.updateGirlHP(currentGirl.hp);
-        healthBar.damageGraphicGirl(0,damage);
+
+        int magicBonus = 0;
+        int weaponBonus = 0;
         if(damageType == MAGICDAMAGE) {
             Effects.magicHit(260, 250);
+            weaponBonus = currentMonster.weaponPacts.length;
+
         }else if (damageType == PHYSICALDAMAGE) {
             Effects.weaponHit(260, 250);
+            weaponBonus = currentMonster.weaponPacts.length;
 
         }
+        healthBar.damageGraphicGirl(0,damage, magicBonus, weaponBonus);
+
     }
 
     Future<Null> handleCompanion() async {

@@ -78,38 +78,66 @@ class HealthBar {
     }
 
     //jitter? pulse?
-    Future<void> damageGraphicGirl(int tick, int amount, [Element element]) async {
+    Future<void> damageGraphicGirl(int tick, int amount, int magicBonus, int weaponBonus, [Element element]) async {
         int maxTicks = 2;
         if(element == null) {
+            String bonus = getBonus(magicBonus,weaponBonus);
             element = new DivElement()
                 ..classes.add("girlDamageGraphic")
-                ..text = "$amount";
+                ..text = "$amount $bonus";
             container.append(element);
             element.animate([{"opacity": 100},{"opacity": 0}], 3000);
         }
 
         if(tick < maxTicks) {
             new Timer(new Duration(milliseconds: 1000), () =>
-                damageGraphicMonster(tick+1, amount, element));
+                damageGraphicMonster(tick+1, amount, magicBonus, weaponBonus,element));
         }else {
             element.remove();
         }
     }
 
+    String getBonus(int magicBonus, int weaponBonus) {
+        String ret = "";
 
-    Future<void> damageGraphicMonster(int tick, int amount, [Element element]) async {
+        int eggBonus = Amulet.bloodPacts.length;
+        int companionBonus = Companion.bloodPacts.length;
+
+        if(weaponBonus > 0) {
+            ret = "$ret x ${weaponBonus}⚔ ";
+        }
+
+        if(magicBonus > 0) {
+            ret = "$ret x ${magicBonus}✨ ";
+        }
+
+        if(eggBonus > 0) {
+            ret = "$ret x ${eggBonus}🥚 ";
+        }
+
+        if(companionBonus > 0) {
+            ret = "$ret x ${companionBonus}🐥 ";
+        }
+
+        return ret;
+
+    }
+
+
+    Future<void> damageGraphicMonster(int tick, int amount, int magicBonus, int weaponBonus, [Element element]) async {
         int maxTicks = 2;
         if(element == null) {
+            String bonus = getBonus(magicBonus,weaponBonus);
             element = new DivElement()
                 ..classes.add("monsterDamageGraphic")
-                ..text = "$amount";
+                ..text = "$amount $bonus";
             container.append(element);
             element.animate([{"opacity": 100},{"opacity": 0}], 3000);
         }
 
         if(tick < maxTicks) {
             new Timer(new Duration(milliseconds: 1000), () =>
-                damageGraphicMonster(tick+1, amount, element));
+                damageGraphicMonster(tick+1, amount,magicBonus, weaponBonus, element));
         }else {
             element.remove();
         }
