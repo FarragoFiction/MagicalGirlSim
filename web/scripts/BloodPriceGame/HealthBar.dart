@@ -100,11 +100,11 @@ class HealthBar {
     String getBonus(int magicBonus, int weaponBonus) {
         String ret = "";
 
-        int eggBonus = Amulet.bloodPacts.length;
-        int companionBonus = Companion.bloodPacts.length;
+        final int eggBonus = Amulet.bloodPacts.length;
+        final int companionBonus = Companion.bloodPacts.length;
 
         if(weaponBonus > 0) {
-            ret = "$ret x ${weaponBonus}⚔ ";
+            ret = "$ret x ${weaponBonus}⚔️";
         }
 
         if(magicBonus > 0) {
@@ -125,7 +125,7 @@ class HealthBar {
 
 
     Future<void> damageGraphicMonster(int tick, int amount, int magicBonus, int weaponBonus, [Element element]) async {
-        int maxTicks = 2;
+        final int maxTicks = 2;
         if(element == null) {
             String bonus = getBonus(magicBonus,weaponBonus);
             element = new DivElement()

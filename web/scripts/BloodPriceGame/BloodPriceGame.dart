@@ -218,12 +218,11 @@ class BloodPriceGame {
             Effects.weaponHit(950, 250);
 
         }
-        currentMonster.damage(damage);
-        healthBar.updateMonsterHP(currentMonster.hp);
-      healthBar.damageGraphicMonster(0,damage,magicBonus,weaponBonus);
-
       //disable menu, in three seconds, have monster attack back. either physical or magical???
         hideAllMenus();
+        currentMonster.damage(damage);
+        healthBar.updateMonsterHP(currentMonster.hp);
+        healthBar.damageGraphicMonster(0,damage,magicBonus,weaponBonus);
         await currentMonster.takeTurn();
         showMenu();
 
@@ -240,8 +239,7 @@ class BloodPriceGame {
     }
 
     void damageGirl(int damage, String damageType) {
-        currentGirl.damage(damage);
-        healthBar.updateGirlHP(currentGirl.hp);
+
 
         int magicBonus = 0;
         int weaponBonus = 0;
@@ -255,6 +253,8 @@ class BloodPriceGame {
 
         }
         healthBar.damageGraphicGirl(0,damage, magicBonus, weaponBonus);
+        currentGirl.damage(damage);
+        healthBar.updateGirlHP(currentGirl.hp);
 
     }
 
