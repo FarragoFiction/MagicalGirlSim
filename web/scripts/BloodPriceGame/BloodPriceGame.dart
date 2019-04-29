@@ -81,12 +81,13 @@ class BloodPriceGame {
         SoundHandler.monsterSound();
     }
 
-    void spreadCorruption() {
+    //you can pass a specific step in to get a birb of the right size
+    void spreadCorruption(Element ele, [int steps = 1]) {
 
-        String cssWidth = birb.style.width;
-        String cssHeight = birb.style.height;
-        String cssTop =birb.style.top;
-        String cssLeft =birb.style.left;
+        String cssWidth = ele.style.width;
+        String cssHeight = ele.style.height;
+        String cssTop =ele.style.top;
+        String cssLeft =ele.style.left;
         if(cssWidth.isEmpty) {
             cssWidth = "41px";
             cssHeight = "41px";
@@ -98,26 +99,26 @@ class BloodPriceGame {
         final int height = int.parse(cssHeight.replaceAll("px", ""));
         int top = int.parse(cssTop.replaceAll("px", ""));
         int left = int.parse(cssLeft.replaceAll("px", ""));
-        top += (-1*height/4).round();
-        left += (-1*width/4).round();
+        top += steps * (-1*height/3).round();
+        left += steps * (-1*width/3).round();
 
-        birb.style.top = "${top}px";
-        birb.style.left = "${left}px";
-        birb.style.width = "${(width*1.8).round()}px";
-        birb.style.height = "${(height*1.8).round()}px";
+        ele.style.top = "${top}px";
+        ele.style.left = "${left}px";
+        ele.style.width = "${steps * (width*1.8).round()}px";
+        ele.style.height = "${steps * (height*1.8).round()}px";
     }
 
     void goodEnding() async {
         SoundHandler.musicTier = 0;
         SoundHandler.playTier();
 
-        healthBar.cutscene("${currentGirl.name} wins! The city is finally safe! All it took was the death of ${formerGirls.length} Magical Girls!<br><br> Congratulations!", await winningScene(),true);
+        healthBar.cutscene("${currentGirl.name} wins! The city is finally safe! All it took was the death of ${formerGirls.length} Magical Girls!<br><br> Congratulations!", await winningScene(false),true);
     }
 
     void badEnding() async {
         SoundHandler.musicTier = 13;
         SoundHandler.playTier();
-        healthBar.cutscene("🐥 doesn't need anyone anymore. All it took was the death of ${formerGirls.length} meaningless Magical Girls, some of which were foolish enough to trade life for power, and not even keep the power! <br><br>Congratulations!", await winningScene(),true);
+        healthBar.cutscene("🐥 doesn't need anyone anymore. All it took was the death of ${formerGirls.length} meaningless Magical Girls, some of which were foolish enough to trade life for power, and not even keep the power! <br><br>Congratulations!", await winningScene(true),true);
     }
 
     Completer<void> handleStart(Element parent) {
@@ -208,12 +209,14 @@ class BloodPriceGame {
         return scene;
     }
 
-    Future<Element> winningScene() async{
+    Future<Element> winningScene(bool corruption) async{
         final DivElement scene = new DivElement()..classes.add("ending");
-        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("birbCutscene");
-        new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
-
-        scene.append(birb);
+        final ImageElement cutsceneBirb = new ImageElement(src: "images/protagonist.png")..classes.add("birbCutscene");
+        new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(cutsceneBirb); });
+        if(corruption) {
+            spreadCorruption(cutsceneBirb, 4);
+        }
+        scene.append(cutsceneBirb);
         final DivElement scrollyThingy = new DivElement()..classes.add("autoscroller");
         scene.append(scrollyThingy);
         currentGirl.canvas.remove();
