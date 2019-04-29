@@ -247,7 +247,7 @@ class BloodPriceGame {
         int weaponBonus = 0;
         if(damageType == MAGICDAMAGE) {
             Effects.magicHit(260, 250);
-            weaponBonus = currentMonster.weaponPacts.length;
+            magicBonus = currentMonster.magicPacts.length;
 
         }else if (damageType == PHYSICALDAMAGE) {
             Effects.weaponHit(260, 250);
