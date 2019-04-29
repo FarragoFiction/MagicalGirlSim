@@ -70,7 +70,7 @@ class BloodPriceGame {
             retireGirl();
             await spawnNewGirl();
             //TODO have a popup you must click to explain why thers a new monster
-            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. You know you can find a way to stop the cycle of monsters. Until then, 🐥 must find a new girl to protect the city! 🐥 finds ${currentGirl.name}!", await companionEggGirlScene());
+            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. <br><br>You know you can find a way to stop the cycle of monsters. Until then, 🐥 must find a new girl to protect the city! 🐥 finds ${currentGirl.name}!", await companionEggGirlScene());
         }else {
             currentMonster = await MonsterGirl.randomGirl(new MagicalDoll());
         }
@@ -145,8 +145,8 @@ class BloodPriceGame {
             ..append(new DivElement()..className="sunGlow noIE");
         menuHandler.displayMenu(container);
         await completer.future;
-        await healthBar.cutscene("A monster is rampaging and threatening the city! 🐥 will not allow this! 🐥 recruits ${currentGirl.name}! With the power of the GALAXY EGG, they transform into a MAGICAL GIRL and attack the terrible monster!",await companionEggGirlScene());
         //container.style.display = "block";
+        await healthBar.cutscene("A monster is rampaging and threatening the city! 🐥 will not allow this! 🐥 recruits ${currentGirl.name}!<br><br> With the power of the GALAXY EGG, they transform into a MAGICAL GIRL and attack the terrible monster!",await companionEggGirlScene());
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
     }
