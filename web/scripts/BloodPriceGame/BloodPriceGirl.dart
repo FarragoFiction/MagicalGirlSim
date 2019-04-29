@@ -134,7 +134,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
             thoughts = "$thoughts 🐥 knows the next girl should be more open to BLOODPACTS.";
         }
         if(game.currentMonster.pactCount  > 0) {
-            thoughts = "$thoughts 🐥 knows that this monster is too powerful. 🐥 blames that last girl's greed. What was their name? Oh right, ${game.currentMonster.name}.";
+            thoughts = "$thoughts 🐥 knows that this monster is too powerful. 🐥 blames ${game.currentMonster.name} greed.";
         }
         clearDebts();
         game.retireGirl();

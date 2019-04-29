@@ -102,8 +102,10 @@ class BloodPriceGame {
         top += steps * (-1*height/3).round();
         left += steps * (-1*width/3).round();
 
-        ele.style.top = "${top}px";
-        ele.style.left = "${left}px";
+        if(steps ==1) {
+            ele.style.top = "${top}px";
+            ele.style.left = "${left}px";
+        }
         ele.style.width = "${steps * (width*1.8).round()}px";
         ele.style.height = "${steps * (height*1.8).round()}px";
     }
@@ -214,7 +216,9 @@ class BloodPriceGame {
         final ImageElement cutsceneBirb = new ImageElement(src: "images/protagonist.png")..classes.add("birbCutscene");
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(cutsceneBirb); });
         if(corruption) {
-            spreadCorruption(cutsceneBirb, 4);
+            cutsceneBirb.style.left = "300px";
+            cutsceneBirb.style.top = "100px";
+            spreadCorruption(cutsceneBirb, 8);
         }
         scene.append(cutsceneBirb);
         final DivElement scrollyThingy = new DivElement()..classes.add("autoscroller");
