@@ -10,6 +10,7 @@ import 'Effects.dart';
 import 'HealthBar.dart';
 import 'MenuHandler.dart';
 import 'MonsterGirl.dart';
+import 'SoundHandler.dart';
 
 class BloodPriceGame {
     /*TODO
@@ -44,6 +45,7 @@ class BloodPriceGame {
         formerGirls.add(currentGirl);
         currentGirl = null;
         Effects.damageCity();
+        SoundHandler.bumpTier();
     }
 
     Future<void> spawnNewGirl() async {
@@ -59,9 +61,24 @@ class BloodPriceGame {
 
     }
 
+    Completer<void> handleStart(Element parent) {
+        Element startScreen = new DivElement()..classes.add("startScreen");
+        parent.append(startScreen);
+
+        final Completer<void> completer = new Completer();
+        startScreen.onClick.listen((Event e){
+            startScreen.remove();
+            SoundHandler.playTier();
+            completer.complete();
+        });
+        return completer;
+    }
+
     Future<void> display(Element parent) async {
         healthBar = new HealthBar();
         container = new DivElement()..classes.add("gameBox")..id="gameBox";
+        container.style.display = "none";
+        Completer<void> completer = handleStart(parent);
 
         if(currentGirl == null) {
             await spawnNewGirl();
@@ -79,6 +96,8 @@ class BloodPriceGame {
             ..append(birb)
             ..append(new DivElement()..className="sunGlow noIE");
         menuHandler.displayMenu(container);
+        await completer.future;
+        container.style.display = "block";
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
     }

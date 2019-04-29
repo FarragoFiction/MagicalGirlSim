@@ -19,6 +19,12 @@ html, body {
     font-size: 24px;
 }
 
+.startScreen{
+    background-color: white;
+    width: 1280px;
+    height: 800px;
+}
+
 .healthBar{
     width: 1280px;
     height: 50px;
