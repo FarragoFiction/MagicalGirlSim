@@ -242,6 +242,28 @@ display: inline-block;
    box-shadow: 0 5px 14px rgba(0,0,0,0.7);
 }
 
+.replayButton{
+    position: absolute;
+   box-sizing:border-box;
+   border: 6px solid #eb7cc1;
+   opacity: 0.9;
+   left: 400px;
+   color: #fff0f9;
+   top: 100px;
+   padding: 15px;
+   z-index: 1001;
+   background-color: #fff0f9;
+   width: 500px;
+   height: 300px;
+   vertical-align: top;
+   font-family: 'cabin', sans-serif;
+   color: #eb7cc1; /*#fdbee5;*/
+   font-size: 72px;
+   display: inline-block;
+   border-radius: 13px;
+   cursor:pointer;
+}
+
 .cutscene{
    position: absolute;
    box-sizing:border-box;

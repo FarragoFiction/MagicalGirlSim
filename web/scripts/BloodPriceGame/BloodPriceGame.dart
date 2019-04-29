@@ -221,8 +221,7 @@ class BloodPriceGame {
             spreadCorruption(cutsceneBirb, 8);
         }
         scene.append(cutsceneBirb);
-        ButtonElement button = new ButtonElement()..text = "Replay?";
-        scene.append(button);
+
         final DivElement scrollyThingy = new DivElement()..classes.add("autoscroller");
         scene.append(scrollyThingy);
         currentGirl.canvas.remove();
