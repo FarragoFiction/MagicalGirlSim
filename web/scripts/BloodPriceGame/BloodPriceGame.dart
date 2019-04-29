@@ -165,15 +165,37 @@ class BloodPriceGame {
 
     Future<Element> winningScene() async{
         final DivElement scene = new DivElement()..classes.add("ending");
+        final DivElement scrollyThingy = new DivElement()..classes.add("autoscroller");
+        scene.append(scrollyThingy);
         currentGirl.canvas.remove();
         //TODO make this auto scroll and loop
         int startX = 0;
         formerGirls.forEach((BloodPriceGirl girl){
-            scene.append(girl.endingScene(startX));
+            scrollyThingy.append(girl.endingScene(startX));
             startX += 300;
         });
-        scene.append(currentGirl.endingScene(startX));
+        scrollyThingy.style.width = "${startX}px";
+        scrollyThingy.style.left = "0px";
+
+        if(startX > 1280) {
+            scrollThing(scrollyThingy);
+        }
+        scrollyThingy.append(currentGirl.endingScene(startX));
         return scene;
+    }
+
+    Future<void> scrollThing(Element thing) async {
+        await window.animationFrame;
+        window.console.log("left is ${thing.style.left} and if i try to get just a number i get ${thing.style.left.replaceAll("px", "")}");
+        int currentX = int.parse(thing.style.left.replaceAll("px", ""));
+        window.console.log("scrolling from $currentX");
+
+        if(currentX < -1280) {
+            currentX = 0;
+        }
+        thing.style.left = "${currentX-10}px";
+        await Future<void>.delayed(Duration(milliseconds: 300));
+        scrollThing(thing);
     }
 
 
@@ -221,7 +243,6 @@ class BloodPriceGame {
     }
 
     Future<void> damageMonster(int damage, String damageType) async{
-        //TODO should this be on a timer?
         int weaponBonus = 0;
         int magicBonus = 0;
         int companionBonus = 0;

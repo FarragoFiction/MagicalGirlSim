@@ -186,6 +186,12 @@ display: inline-block;
     left: 0px;
 }
 
+.autoscroller{
+    position: relative;
+    top: 0px;
+    left: 0px;
+}
+
 .attackpopup{
    display: inline-block;
    position: absolute;
