@@ -87,7 +87,7 @@ class BloodPriceGame {
         parent.append(startScreen);
         final Completer<void> completer = new Completer();
 
-        ButtonElement startButton = new ButtonElement()..text = "Mahou Shoujo Monster: Promised Fate";
+        ImageElement startButton = new ImageElement(src: "images/BloodPrice/logo.png");
         parent.append(startButton);
         startButton.classes.add("startButton");
 
