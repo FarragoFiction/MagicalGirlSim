@@ -24,6 +24,7 @@ class MonsterGirl extends BloodPriceGirl{
         monster.copyStatsFrom(girl);
         monster.copyPactsFrom(girl);
         monster.healthPacts.forEach((HealthBloodPact pact) => monster.hp += 113);
+        return monster;
     }
 
     static Future<MonsterGirl> randomGirl(MagicalDoll origin) async {
