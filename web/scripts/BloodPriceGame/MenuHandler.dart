@@ -141,7 +141,7 @@ import 'SoundHandler.dart';
     }
 
     void displayLegacyBargainOpt(Element container) {
-        legacyChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "👶 Legacy Pact >";
+        legacyChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "🥚 Legacy Pact >";
         container.append(legacyChoice);
         legacyChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();

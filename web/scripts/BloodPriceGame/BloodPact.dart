@@ -46,7 +46,7 @@ class LegacyBloodPact extends BloodPact {
     LegacyBloodPact(String this.sacrificeName) {
         cost = 113;
         name = "Legacy Blood Pact";
-        flavorTexts = <String>["${BloodPact.NAME} fills the AMULET with their hopes for the future. They join the ranks of ${Amulet.sacrificesWithin}."];
+        flavorTexts = <String>["${BloodPact.NAME} fills the 🥚 with their hopes for the future. They join the ranks of ${Amulet.sacrificesWithin}."];
     }
 
     @override
