@@ -77,6 +77,7 @@ class MonsterGirl extends BloodPriceGirl{
 
     //wait three seconds and then do physical or magical damage to your opponent
     Future<void> takeTurn() async {
+        if(hp <= 0) return; //stop making phyric victories that also glitch shit out plz
         await Future.delayed(Duration(milliseconds: 2000));
         Random rand = new Random();
         rand.nextInt(); //init
