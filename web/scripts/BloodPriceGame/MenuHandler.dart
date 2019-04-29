@@ -95,7 +95,7 @@ import 'SoundHandler.dart';
         healthChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
-            thirdMenuInsides.text = ("Trade future health for current health. Beware offering up more health than future you can spare.");
+            thirdMenuInsides.text = ("Trade future health for current health, just for you. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
             healthChoice.classes.add("invertedItem");
 
@@ -108,7 +108,7 @@ import 'SoundHandler.dart';
         weaponChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
-            thirdMenuInsides.text =("Trade future health for current weapon strength. Beware offering up more health than future you can spare.");
+            thirdMenuInsides.text =("Trade future health for current weapon strength, just for you. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
             weaponChoice.classes.add("invertedItem");
 
@@ -121,7 +121,7 @@ import 'SoundHandler.dart';
         magicChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
-            thirdMenuInsides.text =("Trade future health for current magic strength. Beware offering up more health than future you can spare.");
+            thirdMenuInsides.text =("Trade future health for current magic strength, just for you. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
             magicChoice.classes.add("invertedItem");
         });
@@ -133,7 +133,7 @@ import 'SoundHandler.dart';
         companionChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
-            thirdMenuInsides.text =("Trade future health for current companion strength. Beware offering up more health than future you can spare.");
+            thirdMenuInsides.text =("Trade future health for current 🐥 strength, which benefits all magical girls,even those who come after you. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
             companionChoice.classes.add("invertedItem");
 
@@ -146,7 +146,7 @@ import 'SoundHandler.dart';
         legacyChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
             thirdMenu.style.display = 'block';
-            thirdMenuInsides.text =("Trade future health for the ability to better help those who come after you. Beware offering up more health than future you can spare.");
+            thirdMenuInsides.text =("Trade future health for the ability to better help all magical girls, even those who come after you. Beware offering up more health than future you can spare.");
             unmarkChildren(container);
             legacyChoice.classes.add("invertedItem");
 

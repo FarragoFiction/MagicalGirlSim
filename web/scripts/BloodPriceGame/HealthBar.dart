@@ -30,7 +30,7 @@ class HealthBar {
 
     void updateBill(int number) {
         BloodPriceGirl girl = BloodPriceGame.instance.currentGirl;
-        billElement.text = "$number Unpaid Pacts. All Pacts: Weapon: ${girl.weaponPacts.length} Magic: ${girl.magicPacts.length} Amulet: ${Amulet.bloodPacts.length} 🐥: ${Companion.bloodPacts.length}";
+        billElement.innerHtml = "$number Unpaid Pacts.&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; All Pacts: ⚔️: ${girl.weaponPacts.length} ✨: ${girl.magicPacts.length} 🥚: ${Amulet.bloodPacts.length} 🐥: ${Companion.bloodPacts.length}";
 
     }
 
