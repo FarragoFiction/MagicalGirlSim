@@ -50,10 +50,13 @@ class HealthBar {
                 completer.complete();
             });
         }else {
-            scene.onClick.listen((Event event) {
+            StreamSubscription<Event> listener;
+            listener = scene.onClick.listen((Event event) {
                 ButtonElement button = new ButtonElement()..text = "Replay?"..classes.add("replayButton");
                 scene.append(button);
                 button.onClick.listen((Event e) => window.location.href = window.location.href);
+                listener.cancel(); //only dot it once plz
+
             });
 
         }
