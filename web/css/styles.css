@@ -218,7 +218,7 @@ display: inline-block;
 }
 
 .menuInsides{
-    font-size: 29px;
+    font-size: 23px;
     margin-top: 25px;
     height: 130px;
 }
@@ -502,7 +502,7 @@ button{
     background-size:100% 100%;
     top:340px;
     left:120px;
-    z-index: 30;
+    z-index: 31;
 }
 
 .friend {
