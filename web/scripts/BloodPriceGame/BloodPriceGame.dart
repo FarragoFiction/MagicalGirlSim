@@ -70,7 +70,7 @@ class BloodPriceGame {
             retireGirl();
             await spawnNewGirl();
             //TODO have a popup you must click to explain why thers a new monster
-            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. 🐥 must find a new girl to protect the city! 🐥 finds ${currentGirl.name}!", await companionEggGirlScene());
+            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. You know you can find a way to stop the cycle of monsters. Until then, 🐥 must find a new girl to protect the city! 🐥 finds ${currentGirl.name}!", await companionEggGirlScene());
         }else {
             currentMonster = await MonsterGirl.randomGirl(new MagicalDoll());
         }
