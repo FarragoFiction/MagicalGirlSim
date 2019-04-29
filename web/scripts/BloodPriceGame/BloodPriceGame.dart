@@ -120,7 +120,7 @@ class BloodPriceGame {
     void badEnding() async {
         SoundHandler.musicTier = 13;
         SoundHandler.playTier();
-        healthBar.cutscene("🐥 doesn't need anyone anymore. All it took was the death of ${formerGirls.length} meaningless Magical Girls, some of which were foolish enough to trade life for power, and not even keep the power! <br><br>Congratulations!", await winningScene(true),true);
+        healthBar.cutscene("🐥 doesn't need anyone anymore. ${currentGirl.name} is dead.  All it took was the death of ${formerGirls.length +1} meaningless Magical Girls, some of which were foolish enough to trade life for power, and not even keep the power! <br><br>Congratulations!", await winningScene(true),true);
     }
 
     Completer<void> handleStart(Element parent) {
