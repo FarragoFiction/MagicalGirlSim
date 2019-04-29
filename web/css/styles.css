@@ -387,18 +387,27 @@ button{
 }
 
 .eggCutscene{
-    width: 100px;
-    left: 300px;
+    width: 200px;
+    left: 500px;
+    bottom: 0px;
     position: absolute;
 }
 
 .girlCutscene{
     bottom: -100px;
     position: absolute;
+    -moz-transform: scaleX(-1);
+    -o-transform: scaleX(-1);
+    -webkit-transform: scaleX(-1);
+    transform: scaleX(-1);
+    filter: FlipH;
+    -ms-filter: "FlipH";
 }
 
 .🐥Cutscene{
-
+    left: 300px;
+    bottom: 0px;
+    position: absolute;
 }
 
 
