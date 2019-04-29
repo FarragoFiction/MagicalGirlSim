@@ -15,6 +15,6 @@ abstract class Companion {
         bloodPacts.where((CompanionBloodPact pact) =>pact.cost != 0 ).forEach((BloodPact pact) => pact.cost = 0);
     }
 
-    static int get damageMultiplier => Amulet.damageMultiplier *bloodPacts.length + 1;
+    static int get damageMultiplier => Amulet.damageMultiplier *(bloodPacts.length + 1);
     static List<CompanionBloodPact> bloodPacts = <CompanionBloodPact>[];
 }

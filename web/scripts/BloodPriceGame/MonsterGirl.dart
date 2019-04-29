@@ -25,6 +25,7 @@ class MonsterGirl extends BloodPriceGirl{
         monster.copyPactsFrom(girl);
         print("after copying ${girl.pactCount} pacts from the girl, the monster has ${monster.pactCount}");
         monster.healthPacts.forEach((HealthBloodPact pact) => monster.hp += 113);
+        print("after getting hp for ${monster.healthPacts.length} healtpacts, my hp is ${monster.hp}");
         return monster;
     }
 

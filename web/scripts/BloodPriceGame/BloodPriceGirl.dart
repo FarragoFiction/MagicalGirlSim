@@ -66,8 +66,8 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     //applies immediately so just for the eventual bill
     List<HealthBloodPact> healthPacts = <HealthBloodPact>[];
 
-    int get weaponMultiplier => Amulet.damageMultiplier *  weaponPacts.length + 1;
-    int get magicMultiplier => Amulet.damageMultiplier *magicPacts.length + 1;
+    int get weaponMultiplier => Amulet.damageMultiplier *  (weaponPacts.length + 1);
+    int get magicMultiplier => Amulet.damageMultiplier *(magicPacts.length + 1);
 
 
 

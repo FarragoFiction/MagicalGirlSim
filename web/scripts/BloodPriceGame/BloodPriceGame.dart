@@ -4,7 +4,6 @@ import "dart:math" as Math;
 
 import "package:CommonLib/Random.dart";
 import 'package:DollLibCorrect/DollRenderer.dart';
-
 import 'BloodPriceGirl.dart';
 import 'Effects.dart';
 import 'HealthBar.dart';
@@ -56,7 +55,7 @@ class BloodPriceGame {
         healthBar.updateGirlHP(currentGirl.hp);
         healthBar.updateBill(currentGirl.unpaidPacts);
         if(currentMonster != null) {
-            currentMonster.hp = MonsterGirl.maxHP;
+            currentMonster.hp = Math.max(currentMonster.hp, MonsterGirl.maxHP);
             healthBar.updateMonsterHP(currentMonster.hp);
         }
         await displayCurrentGirl(container);
@@ -73,6 +72,7 @@ class BloodPriceGame {
         }else {
             currentMonster = await MonsterGirl.randomGirl(new MagicalDoll());
         }
+        window.console.log("goint to update monster hp with ${currentMonster.hp}");
         healthBar.updateMonsterHP(currentMonster.hp);
         await displayMonster(container);
         SoundHandler.monsterSound();
