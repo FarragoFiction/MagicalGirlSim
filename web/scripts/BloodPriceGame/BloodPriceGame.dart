@@ -141,6 +141,8 @@ class BloodPriceGame {
         //TODO 🐥 on left, egg in middle, girl on right
         DivElement scene = new DivElement();
         final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
+
         scene.append(birb);
         final ImageElement egg = new ImageElement(src: "images/BloodPrice/egg.png")..classes.add("eggCutscene");
         scene.append(egg);
@@ -152,6 +154,8 @@ class BloodPriceGame {
     Future<Element> celebrationScene() async{
         DivElement scene = new DivElement();
         final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
+
         scene.append(birb);
         CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
         scene.append(canvas);
@@ -161,6 +165,8 @@ class BloodPriceGame {
     Future<Element> deathScene() async{
         DivElement scene = new DivElement();
         final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
+
         scene.append(birb);
         return scene;
     }
