@@ -104,12 +104,19 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
         if(debtAmount > 0) {
             debts = "Their ${debtAmount} blood debt is collected from what remains of their corpse.";
         }
+
+        String thoughts = "";
+        if(debtAmount == 0) {
+            thoughts = "🐥 knows the next girl should be more open to BLOODPACTS.";
+        }else if(game.currentMonster.pactCount  > 0) {
+            thoughts = "🐥 knows that this monster is too powerful. 🐥 blames that last girl's greed. What was their name? Oh right, ${game.currentMonster.name}.";
+        }
         clearDebts();
         game.retireGirl();
         await Future<void>.delayed(Duration(milliseconds: 2000));
         await game.spawnNewGirl();
         SoundHandler.monsterSound();
-        await game.healthBar.cutscene("Unfortunately, ${name} has succumbed to her injuries. $debts. The city will be doomed without a protector. 🐥 must find someone new to take up the mantle of a Magical Girl. 🐥  finds ${game.currentGirl.name}.", await game.companionEggGirlScene());
+        await game.healthBar.cutscene("Unfortunately, ${name} has succumbed to her injuries. $debts. $thoughts The city will be doomed without a protector. 🐥 must find someone new to take up the mantle of a Magical Girl. 🐥  finds ${game.currentGirl.name}.", await game.companionEggGirlScene());
 
         game.showMenu();
 

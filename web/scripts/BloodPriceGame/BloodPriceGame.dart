@@ -239,8 +239,6 @@ class BloodPriceGame {
     }
 
     void damageGirl(int damage, String damageType) {
-
-
         int magicBonus = 0;
         int weaponBonus = 0;
         if(damageType == MAGICDAMAGE) {
