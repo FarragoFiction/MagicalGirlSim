@@ -55,6 +55,7 @@ html, body {
 
 .monstersona{
     position: absolute;
+    opacity: 0.5;
 }
 
 .girlDamageGraphic{

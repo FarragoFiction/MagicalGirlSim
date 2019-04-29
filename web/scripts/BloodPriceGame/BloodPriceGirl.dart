@@ -14,7 +14,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     //TODO when a magic girl dies, zero out all unpaid pacts
 
     int hp = 113;
-    Element canvas;
+    CanvasElement canvas;
 
     //you did this. I hope it was worth it.
     MonsterGirl monstersona;
@@ -54,13 +54,20 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     }
 
     //if you have a monster sona, flicker in and out of it
-    Future<Element> endingScene() async {
-        DivElement div = new DivElement()..classes.add("epilogueEntry");
-        div.append(canvas);
+    Element endingScene(int x) {
+        DivElement div = new DivElement()..classes.add("epilogueEntry")..id = "$name";
+        canvas.style.left = "${x}px";
+        canvas.style.top = "300px";
+
         if(monstersona != null) {
             monstersona.canvas.classes.add("monstersona");
             div.append(monstersona.canvas);
+            monstersona.canvas.style.left = "${x -150}px";
+            monstersona.canvas.style.top = "200px";
+
         }
+        //ghost of monster behind her
+        div.append(canvas);
 
         return div;
     }

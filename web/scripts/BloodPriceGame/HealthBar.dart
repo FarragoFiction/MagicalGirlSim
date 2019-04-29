@@ -35,7 +35,7 @@ class HealthBar {
     }
 
     //todo maybe images?
-    Future<void> cutscene(String text, Element sceneContents) async {
+    Future<void> cutscene(String text, Element sceneContents, [bool cantskip = false]) async {
         //have to click to get past it or something.
         Element scene = new DivElement()..classes.add("cutscene");
         DivElement textElement = new DivElement()..innerHtml = text..classes.add("cutsceneText");
@@ -43,10 +43,12 @@ class HealthBar {
         scene.append(sceneContents);
         container.append(scene);
         final Completer<void> completer = new Completer();
-        scene.onClick.listen((Event event) {
-            scene.remove();
-            completer.complete();
-        });
+        if(!cantskip) {
+            scene.onClick.listen((Event event) {
+                scene.remove();
+                completer.complete();
+            });
+        }
         return completer.future;
     }
 

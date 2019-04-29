@@ -79,7 +79,7 @@ class BloodPriceGame {
     }
 
     void goodEnding() async {
-        healthBar.cutscene("${currentGirl.name} wins! The city is finally safe! All it took was the death of ${formerGirls.length} Magical Girls! Congratulations!", await winningScene());
+        healthBar.cutscene("${currentGirl.name} wins! The city is finally safe! All it took was the death of ${formerGirls.length} Magical Girls! Congratulations!", await winningScene(),true);
     }
 
     Completer<void> handleStart(Element parent) {
@@ -162,13 +162,15 @@ class BloodPriceGame {
     }
 
     Future<Element> winningScene() async{
-        final DivElement scene = new DivElement();
-        final CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
-        scene.append(canvas);
-        formerGirls.forEach((BloodPriceGirl girl)
-        async {
-            scene.append(await girl.endingScene());
+        final DivElement scene = new DivElement()..classes.add("ending");
+        currentGirl.canvas.remove();
+        //TODO make this auto scroll and loop
+        int startX = 0;
+        formerGirls.forEach((BloodPriceGirl girl){
+            scene.append(girl.endingScene(startX));
+            startX += 300;
         });
+        scene.append(currentGirl.endingScene(startX));
         return scene;
     }
 
