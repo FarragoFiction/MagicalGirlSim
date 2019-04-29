@@ -61,6 +61,19 @@ class BloodPriceGame {
 
     }
 
+    Future<void> spawnNewMonster([BloodPriceGirl sacrifice]) async {
+        if(sacrifice != null) {
+            currentMonster = await MonsterGirl.corruptGirl(sacrifice);
+        }else {
+            currentMonster = await MonsterGirl.randomGirl(currentGirl.doll);
+        }
+
+        await currentGirl.setShitUp();
+        healthBar.updateMonsterHP(currentMonster.hp);
+        await displayMonster(container);
+
+    }
+
     Completer<void> handleStart(Element parent) {
         Element startScreen = new DivElement()..classes.add("startScreen");
         parent.append(startScreen);
@@ -84,13 +97,13 @@ class BloodPriceGame {
             await spawnNewGirl();
         }
 
-        currentMonster ??= await MonsterGirl.randomGirl(currentGirl.doll);
-        healthBar.updateMonsterHP(currentMonster.hp);
+        if(currentMonster == null) {
+            await spawnNewMonster();
+        }
 
         healthBar.display(parent);
         parent.append(container);
         container.append(new DivElement()..className="voidGlow noIE");
-        await displayMonster(container);
         final Element birb = new DivElement()..id="🐥";
         container
             ..append(birb)

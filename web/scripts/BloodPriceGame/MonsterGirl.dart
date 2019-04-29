@@ -6,6 +6,7 @@ import 'package:CommonLib/Random.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
 
 import '../MagicalGirlCharacterObject.dart';
+import 'BloodPact.dart';
 import 'BloodPriceGame.dart';
 import 'BloodPriceGirl.dart';
 
@@ -16,6 +17,14 @@ class MonsterGirl extends BloodPriceGirl{
     //TODO method to spawn a monster from a magical girl, blood pacts and all
     MonsterGirl(String name, String dollString) : super(name, dollString);
 
+    //i'm so sorry
+    static Future<MonsterGirl> corruptGirl(BloodPriceGirl girl) async {
+        MonsterGirl monster = await randomGirl(girl.doll);
+        monster.copyStatsFrom(girl);
+        monster.copyPactsFrom(girl);
+        monster.healthPacts.forEach((HealthBloodPact pact) => monster.hp += 113);
+    }
+
     static Future<MonsterGirl> randomGirl(MagicalDoll origin) async {
         final MonsterGirlDoll doll = origin.hatch();
         doll.orientation = Doll.TURNWAYS;
@@ -24,8 +33,14 @@ class MonsterGirl extends BloodPriceGirl{
     }
 
     @override
-    void totallyDie() {
-        //TODO
+    Future<Null> totallyDiePure() async{
+        /** it is removed from the screen
+         * A POPUP (eventually cutscene) describing the BLOOD BILL happens
+         * magical girl either DIES FROM BLOOD DEBT or WINNING SCREEN (wtf does this look like? at least should list what your score is. )
+         * if the magical girl DIES FROM BLOOD DEBT, a new monster based on their design is spawned (with the same blood pacts). this nulls out the current girl.
+         * the :hatched_chick:  goes recruiting for a new magical girl.
+         *
+         */
     }
 
     //wait three seconds and then do physical or magical damage to your opponent

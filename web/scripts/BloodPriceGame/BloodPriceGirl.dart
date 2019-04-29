@@ -24,6 +24,20 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
 
     }
 
+    void copyPactsFrom(BloodPriceGirl otherGirl) {
+        for(int i = 0; i< weaponPacts.length; i++) {
+            weaponPacts[i] = otherGirl.weaponPacts[i];
+        }
+
+        for(int i = 0; i< magicPacts.length; i++) {
+            magicPacts[i] = otherGirl.magicPacts[i];
+        }
+
+        for(int i = 0; i< weaponPacts.length; i++) {
+            healthPacts[i] = otherGirl.healthPacts[i];
+        }
+    }
+
     void clearDebts() {
         weaponPacts.where((BloodPact pact) =>pact.cost != 0 ).forEach((BloodPact pact) => pact.cost = 0);
         magicPacts.where((BloodPact pact) =>pact.cost != 0 ).forEach((BloodPact pact) => pact.cost = 0);
@@ -70,7 +84,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     @override
     Future<Null> totallyDiePure() async{
         /*
-        TODO: hide the menu.
+        hide the menu.
         do a popup detailing your tragic but nobel death (eventually a cutscene???)
         unpaid pacts should be cleared out
         hide old girl.
@@ -79,7 +93,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
         monster HEALED
         menu shows back up
          */
-        var game = BloodPriceGame.instance;
+        BloodPriceGame game = BloodPriceGame.instance;
         canvas.remove();
         game.hideAllMenus();
         String debts = "";

@@ -118,6 +118,12 @@ class MagicalGirlCharacterObject extends CharacterObject {
     return ret;
   }
 
+  void copyStatsFrom(MagicalGirlCharacterObject otherGirl) {
+      for(int i = 0; i< stats.length; i++) {
+            stats[i].value = otherGirl.stats[i].value;
+      }
+  }
+
   @override
   void initializeStats() {
       print("trying to initialize stats with doll $doll");

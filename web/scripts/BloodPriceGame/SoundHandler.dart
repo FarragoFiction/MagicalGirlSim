@@ -8,6 +8,11 @@ abstract class SoundHandler {
     static void meatSound() {
         playSoundEffect("85846__mwlandi__meat-slap-2");
     }
+
+    static void magicSound() {
+        playSoundEffect("magicattack");
+    }
+
     static void moneySound() {
         playSoundEffect("121990__tomf__coinbag");
     }
