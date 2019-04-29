@@ -84,6 +84,10 @@ class BloodPriceGame {
         healthBar.cutscene("${currentGirl.name} wins! The city is finally safe! All it took was the death of ${formerGirls.length} Magical Girls! Congratulations!", await winningScene(),true);
     }
 
+    void badEnding() async {
+        healthBar.cutscene("🐥 doesn't need anyone anymore. All it took was the death of ${formerGirls.length} meaningless Magical Girls! Congratulations!", await winningScene(),true);
+    }
+
     Completer<void> handleStart(Element parent) {
         Element startScreen = new DivElement()..classes.add("startScreen");
         parent.append(startScreen);
@@ -165,6 +169,10 @@ class BloodPriceGame {
 
     Future<Element> winningScene() async{
         final DivElement scene = new DivElement()..classes.add("ending");
+        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
+
+        scene.append(birb);
         final DivElement scrollyThingy = new DivElement()..classes.add("autoscroller");
         scene.append(scrollyThingy);
         currentGirl.canvas.remove();

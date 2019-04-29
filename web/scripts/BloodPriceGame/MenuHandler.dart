@@ -39,7 +39,7 @@ import 'SoundHandler.dart';
 
 
     void displayWeapon(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Weapon";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = " ⚔️Sword";
         container.append(menu);
         menu.onClick.listen((Event e) {
             commonClickShit();
@@ -48,7 +48,7 @@ import 'SoundHandler.dart';
     }
 
     void displayMagic(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Magic";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "✨ Magic";
         container.append(menu);
         menu.onClick.listen((Event e) {
             commonClickShit();
@@ -57,7 +57,7 @@ import 'SoundHandler.dart';
     }
 
     void displayCompanion(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Companion";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "🐥";
         container.append(menu);
         menu.onClick.listen((Event e) {
             commonClickShit();
@@ -66,7 +66,7 @@ import 'SoundHandler.dart';
     }
 
     void displayBloodPrice(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "Blood Price >";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "💉 Blood Price >";
         menu.onClick.listen((Event e) {
             SoundHandler.clickSound();
             if(secondMenu.style.display == "none" || secondMenu.style.display.isEmpty) {
@@ -90,7 +90,7 @@ import 'SoundHandler.dart';
     }
 
     void displayHealthBargainOpt(Element container) {
-        healthChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Health Pact >";
+        healthChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "🚑 Health Pact >";
         container.append(healthChoice);
         healthChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
@@ -103,7 +103,7 @@ import 'SoundHandler.dart';
     }
 
     void displayWeaponBargainOpt(Element container) {
-        weaponChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Weapon Pact >";
+        weaponChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "⚔️Weapon Pact >";
         container.append(weaponChoice);
         weaponChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
@@ -116,7 +116,7 @@ import 'SoundHandler.dart';
     }
 
     void displayMagicBargainOpt(Element container) {
-        magicChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Magic Pact >";
+        magicChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "✨ Magic Pact >";
         container.append(magicChoice);
         magicChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
@@ -128,7 +128,7 @@ import 'SoundHandler.dart';
     }
 
     void displayCompanionBargainOpt(Element container) {
-        companionChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Companion Pact >";
+        companionChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "🐥 Pact >";
         container.append(companionChoice);
         companionChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
@@ -141,7 +141,7 @@ import 'SoundHandler.dart';
     }
 
     void displayLegacyBargainOpt(Element container) {
-        legacyChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "Legacy Pact >";
+        legacyChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "👶 Legacy Pact >";
         container.append(legacyChoice);
         legacyChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
@@ -236,6 +236,9 @@ import 'SoundHandler.dart';
      void performCompanionRite() {
          CompanionBloodPact cp = new CompanionBloodPact();
          Companion.bloodPacts.add(cp);
+         if(Companion.bloodPacts.length >= Companion.neededPower) {
+             BloodPriceGame.instance.badEnding();
+         }
          BloodPriceGame.instance.healthBar.popup(cp.flavorText,0);
      }
 

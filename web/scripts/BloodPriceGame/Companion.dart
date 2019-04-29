@@ -3,6 +3,8 @@ import 'BloodPact.dart';
 
 abstract class Companion {
 
+    static int neededPower = 5;
+
     static int get price {
         return bloodPacts.map((CompanionBloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
     }

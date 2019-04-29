@@ -53,6 +53,7 @@ class MonsterGirl extends BloodPriceGirl{
         BloodPriceGirl girl = game.currentGirl;
         canvas.remove();
         game.hideAllMenus();
+        await Future<void>.delayed(Duration(milliseconds: 2000));
         String butWaitTheresMore = "";
         bool spawnMonster = false;
         Element scene;
