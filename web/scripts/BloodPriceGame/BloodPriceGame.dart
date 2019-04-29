@@ -102,6 +102,7 @@ class BloodPriceGame {
 
         startScreen.onClick.listen((Event e){
             startScreen.remove();
+            startButton.remove();
             SoundHandler.playTier();
             completer.complete();
         });
