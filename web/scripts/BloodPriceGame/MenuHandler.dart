@@ -39,11 +39,12 @@ import 'SoundHandler.dart';
 
 
     void displayWeapon(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = " ⚔️Sword";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "⚔️ Weapon";
         container.append(menu);
         menu.onClick.listen((Event e) {
             commonClickShit();
             BloodPriceGame.instance.handleWeapon();
+            unmarkChildren(container);
         });
     }
 
@@ -53,15 +54,18 @@ import 'SoundHandler.dart';
         menu.onClick.listen((Event e) {
             commonClickShit();
             BloodPriceGame.instance.handleMagic();
+            unmarkChildren(container);
         });
     }
 
     void displayCompanion(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "🐥";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "🐥 Friend";
+        //menu.append(new SpanElement()..className="friend"..text="Friend");
         container.append(menu);
         menu.onClick.listen((Event e) {
             commonClickShit();
             BloodPriceGame.instance.handleCompanion();
+            unmarkChildren(container);
         });
     }
 
@@ -71,12 +75,12 @@ import 'SoundHandler.dart';
             SoundHandler.clickSound();
             if(secondMenu.style.display == "none" || secondMenu.style.display.isEmpty) {
                 secondMenu.style.display = 'block';
-                menu.classes.remove("invertedItem");
-
+                menu.classes.add("invertedItem");
+                unmarkChildren(secondMenu);
             }else {
                 secondMenu.style.display = "none";
                 thirdMenu.style.display = "none";
-                menu.classes.add("invertedItem");
+                menu.classes.remove("invertedItem");
             }
         });
         container.append(menu);
@@ -103,7 +107,7 @@ import 'SoundHandler.dart';
     }
 
     void displayWeaponBargainOpt(Element container) {
-        weaponChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "⚔️Weapon Pact >";
+        weaponChoice = new DivElement()..classes.add("bloodItem")..classes.add("menuItem")..text = "⚔️ Weapon Pact >";
         container.append(weaponChoice);
         weaponChoice.onClick.listen((Event e) {
             SoundHandler.clickSound();
@@ -163,6 +167,8 @@ import 'SoundHandler.dart';
          displayMagicBargainOpt(secondMenu);
          displayCompanionBargainOpt(secondMenu);
          displayLegacyBargainOpt(secondMenu);
+         unmarkChildren(secondMenu);
+         unmarkChildren(firstMenu);
      }
 
      //defaults to hidden
@@ -199,6 +205,7 @@ import 'SoundHandler.dart';
              performHealthRite();
          }
 
+         unmarkChildren(secondMenu);
          BloodPriceGame.instance.healthBar.updateBill(BloodPriceGame.instance.currentGirl.unpaidPacts);
 
      }

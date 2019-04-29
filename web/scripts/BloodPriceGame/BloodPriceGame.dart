@@ -89,35 +89,43 @@ class BloodPriceGame {
     }
 
     Completer<void> handleStart(Element parent) {
-        Element startScreen = new DivElement()..classes.add("startScreen");
+        final Element startScreen = new DivElement()..className = "startScreen";
         parent.append(startScreen);
         final Completer<void> completer = new Completer();
 
-        ImageElement startButton = new ImageElement(src: "images/BloodPrice/logo.png");
-        parent.append(startButton);
-        startButton.classes.add("startButton");
+        final Element startButton = new DivElement()..className = "startButton startScreenText"..text="Accept?";
+        startScreen.append(startButton);
+
+        final Element deal = new DivElement()..className="startScreenText"..text="The pact is sealed...";
+
+        final Element barcover = new DivElement()..className="barcover";
+        healthBar.container.append(barcover);
 
         startButton.onClick.listen((Event e){
-            startScreen.remove();
-            startButton.remove();
             SoundHandler.playTier();
-            completer.complete();
+            startButton.remove();
+            startScreen
+                ..append(deal)
+                ..append(new DivElement()..className="startFade");
+
+            new Timer(Duration(seconds: 2), ()
+            {
+                startScreen.remove();
+                completer.complete();
+                barcover.remove();
+            });
         });
 
-        startScreen.onClick.listen((Event e){
-            startScreen.remove();
-            startButton.remove();
-            SoundHandler.playTier();
-            completer.complete();
-        });
         return completer;
     }
 
     Future<void> display(Element parent) async {
+        Element outer = new DivElement()..className="outerBox";
+
         healthBar = new HealthBar();
         container = new DivElement()..classes.add("gameBox")..id="gameBox";
-        container.style.display = "none";
-        Completer<void> completer = handleStart(parent);
+        //container.style.display = "none";
+        Completer<void> completer = handleStart(container);
 
         if(currentGirl == null) {
             await spawnNewGirl();
@@ -127,49 +135,50 @@ class BloodPriceGame {
             await spawnNewMonster();
         }
 
-        healthBar.display(parent);
-        parent.append(container);
+        healthBar.display(outer);
+        outer.append(container);
+        parent.append(outer);
         container.append(new DivElement()..className="voidGlow noIE");
-        final Element birb = new DivElement()..id="🐥";
+        final Element birb = new DivElement()..id="birb";
         container
             ..append(birb)
             ..append(new DivElement()..className="sunGlow noIE");
         menuHandler.displayMenu(container);
         await completer.future;
         await healthBar.cutscene("A monster is rampaging and threatening the city! 🐥 will not allow this! 🐥 recruits ${currentGirl.name}! With the power of the GALAXY EGG, they transform into a MAGICAL GIRL and attack the terrible monster!",await companionEggGirlScene());
-        container.style.display = "block";
+        //container.style.display = "block";
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
     }
 
     Future<Element> companionEggGirlScene() async{
         //TODO 🐥 on left, egg in middle, girl on right
-        DivElement scene = new DivElement();
-        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        DivElement scene = new DivElement()..className="scene";
+        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("birbCutscene");
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
 
         scene.append(birb);
         final ImageElement egg = new ImageElement(src: "images/BloodPrice/egg.png")..classes.add("eggCutscene");
         scene.append(egg);
-        CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
+        CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");
         scene.append(canvas);
         return scene;
     }
 
     Future<Element> celebrationScene() async{
-        final DivElement scene = new DivElement();
-        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        final DivElement scene = new DivElement()..className="scene";
+        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("birbCutscene");
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
 
         scene.append(birb);
-        final CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
+        final CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");
         scene.append(canvas);
         return scene;
     }
 
     Future<Element> winningScene() async{
         final DivElement scene = new DivElement()..classes.add("ending");
-        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("birbCutscene");
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
 
         scene.append(birb);
@@ -211,7 +220,7 @@ class BloodPriceGame {
 
 
     Future<Element> deathScene() async{
-        final DivElement scene = new DivElement();
+        final DivElement scene = new DivElement()..className="scene";
         final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
 

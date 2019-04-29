@@ -2,6 +2,15 @@
     font-family: cabin;
     src: url("../Fonts/cabin.regular.ttf");
 }
+@font-face {
+    font-family: arista;
+    src: url("../Fonts/arista.ttf");
+}
+@font-face {
+    font-family: rune;
+    src: url("../Fonts/rune.ttf");
+}
+
 html, body {
   width: 100%;
   height: 100%;
@@ -20,12 +29,75 @@ html, body {
 }
 
 .startScreen{
+    position:relative;
     background-color: white;
     width: 1280px;
     height: 720px;
-    opacity: 0.3;
-    background: url('../images/BGs/cityscape.png');
+    background-image: url('../images/BloodPrice/logo.png');
+    z-index:1000;
+}
 
+.startScreenText {
+    position: absolute;
+    top: 482px;
+    left: 515px;
+    cursor:normal;
+
+    -ms-transform: translate(-50%,0);
+    -webkit-transform: translate(-50%,0);
+    transform: translate(-50%,0);
+
+    font:40px arista;
+    color: red;
+}
+
+.startButton {
+    cursor:pointer;
+    -webkit-transition: color 0.5s;
+    transition: color 0.5s;
+    color: #ff80b2;
+}
+
+.startButton:hover {
+    color:red;
+}
+
+.barcover {
+    position:absolute;
+    width:100%;
+    height:100%;
+    top: 0;
+    left: 0;
+    background-color:white;
+    z-index:1000;
+}
+
+@keyframes startFade {
+    0% {
+        opacity:0;
+    }
+    100% {
+        opacity:1;
+    }
+}
+
+.startFade {
+    background-color:white;
+
+    position:absolute;
+    width: 1280px;
+    height: 720px;
+    z-index:1000;
+
+    top:0;
+    left:0;
+
+    animation-name: startFade;
+    animation-duration: 1.5s;
+    animation-timing-function: ease-in;
+    animation-fill-mode: forwards;
+    z-index:1000;
+    opacity:0;
 }
 
 .healthBar{
@@ -81,6 +153,13 @@ display: inline-block;
    left: 950px;
 }
 
+.outerBox {
+    width: 1280px;
+    height: 790px;
+    position: relative;
+    overflow:hidden;
+}
+
 .gameBox{
     background: url('../images/BGs/cityscape.png');
     width: 1280px;
@@ -89,7 +168,7 @@ display: inline-block;
     overflow:hidden;
 }
 
-.bloodDoll, .monsterDoll, .startButton {
+.bloodDoll, .monsterDoll{
     position: absolute;
     animation-iteration-count: infinite;
     animation-name: bobbing;
@@ -123,6 +202,11 @@ display: inline-block;
     width: 301px;
     font-size: 39px;
     z-index: 13;
+    cursor:pointer;
+}
+
+.menuItem::first-letter {
+    font-size: 85%;
 }
 
 .menuHeader{
@@ -135,55 +219,59 @@ display: inline-block;
 
 .menuInsides{
     font-size: 29px;
-    margin-top: 30px;
+    margin-top: 25px;
     height: 130px;
 }
 
-.bloodPriceButton{
+.bloodPriceButton {
     padding: 5px;
     font-size: 39px;
     background-color: #a10000;
     color: #330000;
     border: 3px solid #aa0000;
     border-radius: 13px;
-
+    cursor:pointer;
+    margin-top:5px;
 }
-.cutsceneText{
+
+.cutsceneText {
    background-color: #fff0f9;
    border-radius: 13px;
    border: 3px solid #eb7cc1;
-
-
-
+   padding: 8px;
+   box-shadow: 0 5px 14px rgba(0,0,0,0.7);
 }
+
 .cutscene{
    position: absolute;
+   box-sizing:border-box;
    border: 6px solid #eb7cc1;
-   left: 0px;
+   left: 10px;
    color: #fff0f9;
-   top: 0px;
+   top: 10px;
    padding: 15px;
    z-index: 1000;
-   box-shadow: 0px 3px 13px #000000;
+   box-shadow: 0 0 0 20px #000000;
    background-color: #fff0f9;
    background: url('../images/BGs/cityscape.png');
    background-size: 4000px;
    background-position: -200px -300px;
-   width: 1280px;
-   height: 720px;
+   width: 1260px;
+   height: 770px;
    vertical-align: top;
    font-family: 'cabin', sans-serif;
    color: #eb7cc1; /*#fdbee5;*/
    font-size: 34px;
    display: inline-block;
    border-radius: 13px;
+   cursor:pointer;
 }
 
-.startButton{
-    opacity: 1.0;
+.scene {
+    width:1280px;
+    height:770px;
     position: absolute;
-    top: 0px;
-    left: 0px;
+    top:0px;
 }
 
 .autoscroller{
@@ -240,6 +328,7 @@ display: inline-block;
     display: inline-block;
     border-radius: 13px;
     z-index: 100;
+    overflow:hidden;
 }
 
 .bloodMenu1{
@@ -288,7 +377,7 @@ button{
     border: 3px solid #eb7cc1; /*#fdbee5;*/
     border-radius: 5px;
     padding: 5px;
-    margin: 10px;
+    margin: 5px;
   font-family: 'cabin', sans-serif;
   color: #eb7cc1;
 }
@@ -403,7 +492,7 @@ button{
 
 }
 
-#🐥 {
+#birb {
     position:absolute;
     background-image: url('../images/protagonist.png');
     width:41px;
@@ -412,6 +501,12 @@ button{
     top:340px;
     left:120px;
     z-index: 30;
+}
+
+.friend {
+    font-family: rune;
+    position:relative;
+    top:3px;
 }
 
 .eggCutscene{
@@ -432,7 +527,7 @@ button{
     -ms-filter: "FlipH";
 }
 
-.🐥Cutscene{
+.birbCutscene{
     left: 300px;
     bottom: 100px;
     position: absolute;

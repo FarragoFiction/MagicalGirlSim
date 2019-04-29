@@ -88,7 +88,7 @@ class HealthBar {
             String bonus = getBonus(magicBonus,weaponBonus, companionBonus);
             element = new DivElement()
                 ..classes.add("girlDamageGraphic")
-                ..text = "$amount $bonus";
+                ..text = "${amount > 0 ? "+":""}$amount $bonus";
             container.append(element);
             element.animate([{"opacity": 100},{"opacity": 0}], 3000);
         }
