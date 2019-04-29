@@ -57,17 +57,18 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     Element endingScene(int x) {
         DivElement div = new DivElement()..classes.add("epilogueEntry")..id = "$name";
         canvas.style.left = "${x}px";
-        canvas.style.top = "300px";
-
+        canvas.style.top = "200px";
+        //ghost of monster behind her
+        div.append(canvas);
         if(monstersona != null) {
             monstersona.canvas.classes.add("monstersona");
             div.append(monstersona.canvas);
             monstersona.canvas.style.left = "${x -150}px";
-            monstersona.canvas.style.top = "200px";
+            monstersona.canvas.style.top = "100px";
+            monstersona.canvas.animate([{"opacity": 10},{"opacity": 0},{"opacity": 50},{"opacity": 0},{"opacity": 75},{"opacity": 0}], 13000);
 
         }
-        //ghost of monster behind her
-        div.append(canvas);
+
 
         return div;
     }
