@@ -243,6 +243,7 @@ import 'SoundHandler.dart';
      void performCompanionRite() {
          CompanionBloodPact cp = new CompanionBloodPact();
          Companion.bloodPacts.add(cp);
+         BloodPriceGame.instance.spreadCorruption();
          if(Companion.bloodPacts.length >= Companion.neededPower) {
              BloodPriceGame.instance.badEnding();
          }

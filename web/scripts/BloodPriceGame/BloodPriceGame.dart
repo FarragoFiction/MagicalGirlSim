@@ -35,6 +35,7 @@ class BloodPriceGame {
 
     HealthBar healthBar;
     static BloodPriceGame instance;
+    Element birb;
 
 
 
@@ -78,6 +79,32 @@ class BloodPriceGame {
         healthBar.updateMonsterHP(currentMonster.hp);
         await displayMonster(container);
         SoundHandler.monsterSound();
+    }
+
+    void spreadCorruption() {
+
+        String cssWidth = birb.style.width;
+        String cssHeight = birb.style.height;
+        String cssTop =birb.style.top;
+        String cssLeft =birb.style.left;
+        if(cssWidth.isEmpty) {
+            cssWidth = "41px";
+            cssHeight = "41px";
+            cssTop ="340px";
+            cssLeft = "120px";
+        }
+        window.console.log("css width $cssWidth");
+        final int width = int.parse(cssWidth.replaceAll("px", ""));
+        final int height = int.parse(cssHeight.replaceAll("px", ""));
+        int top = int.parse(cssTop.replaceAll("px", ""));
+        int left = int.parse(cssLeft.replaceAll("px", ""));
+        top += (-1*height/4).round();
+        left += (-1*width/4).round();
+
+        birb.style.top = "${top}px";
+        birb.style.left = "${left}px";
+        birb.style.width = "${(width*1.8).round()}px";
+        birb.style.height = "${(height*1.8).round()}px";
     }
 
     void goodEnding() async {
@@ -144,7 +171,7 @@ class BloodPriceGame {
         outer.append(container);
         parent.append(outer);
         container.append(new DivElement()..className="voidGlow noIE");
-        final Element birb = new DivElement()..id="birb";
+        birb = new DivElement()..id="birb";
         container
             ..append(birb)
             ..append(new DivElement()..className="sunGlow noIE");
