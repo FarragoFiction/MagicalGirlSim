@@ -22,7 +22,10 @@ html, body {
 .startScreen{
     background-color: white;
     width: 1280px;
-    height: 800px;
+    height: 720px;
+    opacity: 0.3;
+    background: url('../images/BGs/cityscape.png');
+
 }
 
 .healthBar{
@@ -77,7 +80,7 @@ display: inline-block;
     overflow:hidden;
 }
 
-.bloodDoll, .monsterDoll {
+.bloodDoll, .monsterDoll, .startButton {
     position: absolute;
     animation-iteration-count: infinite;
     animation-name: bobbing;
@@ -154,6 +157,16 @@ display: inline-block;
    font-size: 34px;
    display: inline-block;
    border-radius: 13px;
+}
+
+.startButton{
+    font-size: 72px;
+    border-radius: 13px;
+    border: 6px solid #eb7cc1;
+    opacity: 1.0;
+    position: absolute;
+    top: 300px;
+    left: 70px;
 }
 
 .attackpopup{
@@ -254,7 +267,7 @@ button{
     padding: 5px;
     margin: 10px;
   font-family: 'cabin', sans-serif;
-  color: #ef9ace;
+  color: #eb7cc1;
 }
 .portrait{
     border: 3px solid #eb7cc1; /*#fdbee5;*/

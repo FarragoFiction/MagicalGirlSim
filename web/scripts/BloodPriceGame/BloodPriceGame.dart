@@ -86,8 +86,19 @@ class BloodPriceGame {
     Completer<void> handleStart(Element parent) {
         Element startScreen = new DivElement()..classes.add("startScreen");
         parent.append(startScreen);
-
         final Completer<void> completer = new Completer();
+
+        ButtonElement startButton = new ButtonElement()..text = "START MAGICAL GIRL BLOOD PRICE";
+        parent.append(startButton);
+        startButton.classes.add("startButton");
+
+        startButton.onClick.listen((Event e){
+            startScreen.remove();
+            startButton.remove();
+            SoundHandler.playTier();
+            completer.complete();
+        });
+
         startScreen.onClick.listen((Event e){
             startScreen.remove();
             SoundHandler.playTier();
