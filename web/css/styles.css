@@ -49,6 +49,14 @@ html, body {
 
 }
 
+.epilogueEntry{
+    display: inline-block;
+}
+
+.monstersona{
+    position: absolute;
+}
+
 .girlDamageGraphic{
 display: inline-block;
    position: absolute;

@@ -27,8 +27,11 @@ class MonsterGirl extends BloodPriceGirl{
         print("after copying ${girl.pactCount} pacts from the girl, the monster has ${monster.pactCount}");
         monster.healthPacts.forEach((HealthBloodPact pact) => monster.hp += 113);
         print("after getting hp for ${monster.healthPacts.length} healtpacts, my hp is ${monster.hp}");
+        girl.monstersona = monster;
         return monster;
     }
+
+
 
     static Future<MonsterGirl> randomGirl(MagicalDoll origin) async {
         final MonsterGirlDoll doll = origin.hatch();
@@ -75,6 +78,8 @@ class MonsterGirl extends BloodPriceGirl{
         }
 
     }
+
+
 
     //wait three seconds and then do physical or magical damage to your opponent
     Future<void> takeTurn() async {

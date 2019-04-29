@@ -79,9 +79,7 @@ class BloodPriceGame {
     }
 
     void goodEnding() async {
-        String text = "You win!!! TODO MORE SHIT";
-        Element scene = new DivElement()..text = text..classes.add("cutscene");
-        container.append(scene);
+        healthBar.cutscene("${currentGirl.name} wins! The city is finally safe! All it took was the death of ${formerGirls.length} Magical Girls! Congratulations!", await winningScene());
     }
 
     Completer<void> handleStart(Element parent) {
@@ -153,18 +151,31 @@ class BloodPriceGame {
     }
 
     Future<Element> celebrationScene() async{
-        DivElement scene = new DivElement();
+        final DivElement scene = new DivElement();
         final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
 
         scene.append(birb);
-        CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
+        final CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
         scene.append(canvas);
         return scene;
     }
 
+    Future<Element> winningScene() async{
+        final DivElement scene = new DivElement();
+        final CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
+        scene.append(canvas);
+        formerGirls.forEach((BloodPriceGirl girl)
+        async {
+            scene.append(await girl.endingScene());
+        });
+        return scene;
+    }
+
+
+
     Future<Element> deathScene() async{
-        DivElement scene = new DivElement();
+        final DivElement scene = new DivElement();
         final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
 

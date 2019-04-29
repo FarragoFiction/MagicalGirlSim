@@ -7,6 +7,7 @@ import 'Amulet.dart';
 import 'BloodPact.dart';
 import 'BloodPriceGame.dart';
 import 'Companion.dart';
+import 'MonsterGirl.dart';
 import 'SoundHandler.dart';
 
 class BloodPriceGirl extends MagicalGirlCharacterObject{
@@ -14,6 +15,9 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
 
     int hp = 113;
     Element canvas;
+
+    //you did this. I hope it was worth it.
+    MonsterGirl monstersona;
 
     int get pactCount => weaponPacts.length + magicPacts.length + healthPacts.length;
 
@@ -47,6 +51,18 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
         healthPacts.where((BloodPact pact) =>pact.cost != 0 ).forEach((BloodPact pact) => pact.cost = 0);
         Companion.clearDebts();
         Amulet.clearDebts();
+    }
+
+    //if you have a monster sona, flicker in and out of it
+    Future<Element> endingScene() async {
+        DivElement div = new DivElement()..classes.add("epilogueEntry");
+        div.append(canvas);
+        if(monstersona != null) {
+            monstersona.canvas.classes.add("monstersona");
+            div.append(monstersona.canvas);
+        }
+
+        return div;
     }
 
     int get unpaidPacts {
