@@ -89,7 +89,7 @@ class BloodPriceGame {
         parent.append(startScreen);
         final Completer<void> completer = new Completer();
 
-        ButtonElement startButton = new ButtonElement()..text = "START MAGICAL GIRL BLOOD PRICE";
+        ButtonElement startButton = new ButtonElement()..text = "Mahou Shoujo Monster: Promised Fate";
         parent.append(startButton);
         startButton.classes.add("startButton");
 

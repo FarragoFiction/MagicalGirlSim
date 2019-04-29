@@ -139,9 +139,18 @@ display: inline-block;
     border-radius: 13px;
 
 }
+.cutsceneText{
+   background-color: #fff0f9;
+   padding: 15px;
+   border-radius: 13px;
+   border: 3px solid #eb7cc1;
 
+
+
+}
 .cutscene{
    position: absolute;
+   border: 6px solid #eb7cc1;
    left: 0px;
    color: #fff0f9;
    top: 0px;
@@ -149,6 +158,9 @@ display: inline-block;
    z-index: 1000;
    box-shadow: 0px 3px 13px #000000;
    background-color: #fff0f9;
+   background: url('../images/BGs/cityscape.png');
+   background-size: 4000px;
+   background-position: -200px -300px;
    width: 1280px;
    height: 720px;
    vertical-align: top;
@@ -166,7 +178,7 @@ display: inline-block;
     opacity: 1.0;
     position: absolute;
     top: 300px;
-    left: 70px;
+    left: 50px;
 }
 
 .attackpopup{
@@ -389,12 +401,12 @@ button{
 .eggCutscene{
     width: 200px;
     left: 500px;
-    bottom: 0px;
+    bottom: 100px;
     position: absolute;
 }
 
 .girlCutscene{
-    bottom: -100px;
+    bottom: 0px;
     position: absolute;
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
@@ -406,7 +418,7 @@ button{
 
 .🐥Cutscene{
     left: 300px;
-    bottom: 0px;
+    bottom: 100px;
     position: absolute;
 }
 

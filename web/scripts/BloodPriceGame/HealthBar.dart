@@ -38,7 +38,7 @@ class HealthBar {
     Future<void> cutscene(String text, Element sceneContents) async {
         //have to click to get past it or something.
         Element scene = new DivElement()..classes.add("cutscene");
-        DivElement textElement = new DivElement()..innerHtml = text;
+        DivElement textElement = new DivElement()..innerHtml = text..classes.add("cutsceneText");
         scene.append(textElement);
         scene.append(sceneContents);
         container.append(scene);
