@@ -188,13 +188,15 @@ class BloodPriceGame {
         await window.animationFrame;
         window.console.log("left is ${thing.style.left} and if i try to get just a number i get ${thing.style.left.replaceAll("px", "")}");
         int currentX = int.parse(thing.style.left.replaceAll("px", ""));
+        int width = int.parse(thing.style.width.replaceAll("px", ""));
+
         window.console.log("scrolling from $currentX");
 
-        if(currentX < -1280) {
-            currentX = 0;
+        if(currentX < -1 * width) {
+            currentX = 1280;
         }
-        thing.style.left = "${currentX-10}px";
-        await Future<void>.delayed(Duration(milliseconds: 300));
+        thing.style.left = "${currentX-5}px";
+        await Future<void>.delayed(Duration(milliseconds:60));
         scrollThing(thing);
     }
 
