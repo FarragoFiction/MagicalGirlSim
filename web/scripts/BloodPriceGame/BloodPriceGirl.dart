@@ -26,16 +26,16 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     }
 
     void copyPactsFrom(BloodPriceGirl otherGirl) {
-        for(int i = 0; i< weaponPacts.length; i++) {
-            weaponPacts[i] = otherGirl.weaponPacts[i];
+        for(int i = 0; i< otherGirl.weaponPacts.length; i++) {
+            weaponPacts.add(otherGirl.weaponPacts[i]);
         }
 
-        for(int i = 0; i< magicPacts.length; i++) {
-            magicPacts[i] = otherGirl.magicPacts[i];
+        for(int i = 0; i< otherGirl.magicPacts.length; i++) {
+            magicPacts.add(otherGirl.magicPacts[i]);
         }
 
-        for(int i = 0; i< weaponPacts.length; i++) {
-            healthPacts[i] = otherGirl.healthPacts[i];
+        for(int i = 0; i< otherGirl.weaponPacts.length; i++) {
+            healthPacts.add(otherGirl.healthPacts[i]);
         }
     }
 
