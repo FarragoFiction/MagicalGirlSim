@@ -17,6 +17,10 @@ abstract class SoundHandler {
         playSoundEffect("121990__tomf__coinbag");
     }
 
+    static void monsterSound() {
+        playSoundEffect("weed");
+    }
+
     static void clickSound() {
         playSoundEffect("254286__jagadamba__mechanical-switch");
     }

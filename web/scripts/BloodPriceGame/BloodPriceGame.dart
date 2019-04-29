@@ -64,18 +64,17 @@ class BloodPriceGame {
     Future<void> spawnNewMonster([BloodPriceGirl sacrifice]) async {
         if(sacrifice != null) {
             currentMonster = await MonsterGirl.corruptGirl(sacrifice);
+            currentGirl.canvas.remove();
+            currentGirl.clearDebts();
             await spawnNewGirl();
             //TODO have a popup you must click to explain why thers a new monster
-            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. The 🐥 must find a new girl to protect the city! ", await companionEggGirlScene());
+            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. 🐥 must find a new girl to protect the city! 🐥 finds ${currentGirl.name}!", await companionEggGirlScene());
         }else {
             currentMonster = await MonsterGirl.randomGirl(new MagicalDoll());
         }
-
-        await currentGirl.setShitUp();
         healthBar.updateMonsterHP(currentMonster.hp);
         await displayMonster(container);
-
-
+        SoundHandler.monsterSound();
     }
 
     void goodEnding() async {
@@ -150,12 +149,18 @@ class BloodPriceGame {
     }
 
     Future<Element> celebrationScene() async{
-        //TODO 🐥 on left, egg in middle, girl on right
         DivElement scene = new DivElement();
         final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
         scene.append(birb);
         CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
         scene.append(canvas);
+        return scene;
+    }
+
+    Future<Element> deathScene() async{
+        DivElement scene = new DivElement();
+        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        scene.append(birb);
         return scene;
     }
 
@@ -227,9 +232,9 @@ class BloodPriceGame {
         healthBar.updateGirlHP(currentGirl.hp);
         healthBar.damageGraphicGirl(0,damage);
         if(damageType == MAGICDAMAGE) {
-            Effects.magicHit(150, 250);
+            Effects.magicHit(260, 250);
         }else if (damageType == PHYSICALDAMAGE) {
-            Effects.weaponHit(150, 250);
+            Effects.weaponHit(260, 250);
 
         }
     }

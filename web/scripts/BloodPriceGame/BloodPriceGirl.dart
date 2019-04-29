@@ -7,6 +7,7 @@ import 'Amulet.dart';
 import 'BloodPact.dart';
 import 'BloodPriceGame.dart';
 import 'Companion.dart';
+import 'SoundHandler.dart';
 
 class BloodPriceGirl extends MagicalGirlCharacterObject{
     //TODO when a magic girl dies, zero out all unpaid pacts
@@ -104,6 +105,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
         clearDebts();
         game.retireGirl();
         await game.spawnNewGirl();
+        SoundHandler.monsterSound();
         await game.healthBar.cutscene("Unfortunately, ${name} has succumbed to her injuries. $debts. The city will be doomed without a protector. 🐥 must find someone new to take up the mantle of a Magical Girl. 🐥  finds ${game.currentGirl.name}.", await game.companionEggGirlScene());
         await Future<void>.delayed(Duration(milliseconds: 2000));
 
