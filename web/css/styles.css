@@ -265,6 +265,7 @@ display: inline-block;
    display: inline-block;
    border-radius: 13px;
    cursor:pointer;
+   overflow:hidden;
 }
 
 .scene {
