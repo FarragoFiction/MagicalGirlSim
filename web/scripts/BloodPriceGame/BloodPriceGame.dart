@@ -5,6 +5,7 @@ import "dart:math" as Math;
 import "package:CommonLib/Random.dart";
 import 'package:DollLibCorrect/DollRenderer.dart';
 import 'BloodPriceGirl.dart';
+import 'Companion.dart';
 import 'Effects.dart';
 import 'HealthBar.dart';
 import 'MenuHandler.dart';
@@ -30,6 +31,7 @@ class BloodPriceGame {
     MenuHandler menuHandler = new MenuHandler();
     static const String MAGICDAMAGE = "MAGICDAMAGE";
     static const String PHYSICALDAMAGE = "PHYSICALDAMAGE";
+    static const String COMPANIONDAMAGE = "COMPANIONDAMAGE";
 
     HealthBar healthBar;
     static BloodPriceGame instance;
@@ -201,7 +203,6 @@ class BloodPriceGame {
         dollCanvas.classes.add("monsterDoll");
         container.append(dollCanvas);
         currentMonster.canvas = dollCanvas;
-
     }
 
 
@@ -223,6 +224,7 @@ class BloodPriceGame {
         //TODO should this be on a timer?
         int weaponBonus = 0;
         int magicBonus = 0;
+        int companionBonus = 0;
         if(damageType == MAGICDAMAGE) {
             magicBonus = currentGirl.magicPacts.length;
             Effects.magicHit(950, 250);
@@ -230,12 +232,16 @@ class BloodPriceGame {
             weaponBonus = currentGirl.weaponPacts.length;
             Effects.weaponHit(950, 250);
 
-        }
+        }else if (damageType == COMPANIONDAMAGE) {
+            companionBonus = Companion.bloodPacts.length;
+            Effects.weaponHit(950, 250);
+
+    }
       //disable menu, in three seconds, have monster attack back. either physical or magical???
         hideAllMenus();
         currentMonster.damage(damage);
         healthBar.updateMonsterHP(currentMonster.hp);
-        healthBar.damageGraphicMonster(0,damage,magicBonus,weaponBonus);
+        healthBar.damageGraphicMonster(0,damage,magicBonus,weaponBonus,companionBonus);
         await currentMonster.takeTurn();
         showMenu();
 
@@ -271,7 +277,7 @@ class BloodPriceGame {
 
     Future<Null> handleCompanion() async {
         final int damage = currentGirl.calculateCompanionDamge();
-        damageMonster(damage, PHYSICALDAMAGE);
+        damageMonster(damage, COMPANIONDAMAGE);
         String attackText = "(TODO have some procedural text about 🐥 )"; //TODO load this from text engine
         healthBar.popup("${currentGirl.name} attacks with 🐥  $attackText",0);
     }

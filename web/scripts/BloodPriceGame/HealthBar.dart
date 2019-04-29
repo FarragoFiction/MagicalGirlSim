@@ -82,8 +82,10 @@ class HealthBar {
     //jitter? pulse?
     Future<void> damageGraphicGirl(int tick, int amount, int magicBonus, int weaponBonus, [Element element]) async {
         int maxTicks = 2;
+        final int companionBonus = Companion.bloodPacts.length; //monster always has this active
+
         if(element == null) {
-            String bonus = getBonus(magicBonus,weaponBonus);
+            String bonus = getBonus(magicBonus,weaponBonus, companionBonus);
             element = new DivElement()
                 ..classes.add("girlDamageGraphic")
                 ..text = "$amount $bonus";
@@ -93,17 +95,16 @@ class HealthBar {
 
         if(tick < maxTicks) {
             new Timer(new Duration(milliseconds: 1000), () =>
-                damageGraphicMonster(tick+1, amount, magicBonus, weaponBonus,element));
+                damageGraphicGirl(tick+1, amount, magicBonus, weaponBonus, element));
         }else {
             element.remove();
         }
     }
 
-    String getBonus(int magicBonus, int weaponBonus) {
+    String getBonus(int magicBonus, int weaponBonus, int companionBonus) {
         String ret = "";
 
         final int eggBonus = Amulet.bloodPacts.length;
-        final int companionBonus = Companion.bloodPacts.length;
 
         if(weaponBonus > 0) {
             ret = "$ret x ${weaponBonus}⚔️";
@@ -126,10 +127,10 @@ class HealthBar {
     }
 
 
-    Future<void> damageGraphicMonster(int tick, int amount, int magicBonus, int weaponBonus, [Element element]) async {
+    Future<void> damageGraphicMonster(int tick, int amount, int magicBonus, int weaponBonus,int companionBonus, [Element element]) async {
         final int maxTicks = 2;
         if(element == null) {
-            String bonus = getBonus(magicBonus,weaponBonus);
+            String bonus = getBonus(magicBonus,weaponBonus, companionBonus);
             element = new DivElement()
                 ..classes.add("monsterDamageGraphic")
                 ..text = "$amount $bonus";
@@ -139,7 +140,7 @@ class HealthBar {
 
         if(tick < maxTicks) {
             new Timer(new Duration(milliseconds: 1000), () =>
-                damageGraphicMonster(tick+1, amount,magicBonus, weaponBonus, element));
+                damageGraphicMonster(tick+1, amount,magicBonus, weaponBonus, companionBonus, element));
         }else {
             element.remove();
         }
