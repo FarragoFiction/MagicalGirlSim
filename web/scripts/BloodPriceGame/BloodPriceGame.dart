@@ -64,6 +64,8 @@ class BloodPriceGame {
     Future<void> spawnNewMonster([BloodPriceGirl sacrifice]) async {
         if(sacrifice != null) {
             currentMonster = await MonsterGirl.corruptGirl(sacrifice);
+            //TODO have a popup you must click to explain why thers a new monster
+            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. The 🐥 must find a new girl to protect the city! ");
         }else {
             currentMonster = await MonsterGirl.randomGirl(currentGirl.doll);
         }
@@ -72,6 +74,13 @@ class BloodPriceGame {
         healthBar.updateMonsterHP(currentMonster.hp);
         await displayMonster(container);
 
+
+    }
+
+    void goodEnding() async {
+        String text = "You win!!! TODO MORE SHIT";
+        Element scene = new DivElement()..text = text..classes.add("cutscene");
+        container.append(scene);
     }
 
     Completer<void> handleStart(Element parent) {

@@ -41,6 +41,28 @@ class MonsterGirl extends BloodPriceGirl{
          * the :hatched_chick:  goes recruiting for a new magical girl.
          *
          */
+        BloodPriceGame game = BloodPriceGame.instance;
+        BloodPriceGirl girl = game.currentGirl;
+        canvas.remove();
+        game.hideAllMenus();
+        String butWaitTheresMore = "";
+        bool spawnMonster = false;
+        if(girl.price > girl.hp) {
+            butWaitTheresMore = "But it is too soon for happiness. There is a sickening crack. ${girl.name} falls over, dead, from the weight of their Blood Debt of ${girl.price}. The 🐥 continues celebrating... The city is safe!";
+            spawnMonster = true;
+        }else if(girl.price > 0) {
+            butWaitTheresMore = "They wince with the pain of the their ${girl.price} Blood Debt being collected, but know in their heart it was worth it.";
+        }else {
+            butWaitTheresMore = "They bask in the knowledge they never gave in to corruption.";
+        }
+        game.healthBar.popup("The horrific monster is finally defeated. ${girl.name} celebrates! $butWaitTheresMore",0);
+
+        if(spawnMonster) {
+            game.spawnNewMonster(girl);
+        }else {
+            game.goodEnding();
+        }
+
     }
 
     //wait three seconds and then do physical or magical damage to your opponent
