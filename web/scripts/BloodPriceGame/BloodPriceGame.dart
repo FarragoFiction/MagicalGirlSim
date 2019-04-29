@@ -136,7 +136,7 @@ class BloodPriceGame {
             ..append(new DivElement()..className="sunGlow noIE");
         menuHandler.displayMenu(container);
         await completer.future;
-        await healthBar.cutscene("A monster is rampaging and threatening the city! 🐥 will not allow this! 🐥 recruits ${currentGirl.name}! With the power of the GALAXY EGG, they transform into a MAGICAL GIRL and attack the terrible monster!",await companionEggGirlScene());
+        await healthBar.cutscene("A monster is rampaging and threatening the city! 🐥 will not allow this! 🐥 recruits ${currentGirl.name}!<br><br> With the power of the GALAXY EGG, they transform into a MAGICAL GIRL and attack the terrible monster!",await companionEggGirlScene());
         container.style.display = "block";
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
