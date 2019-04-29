@@ -436,6 +436,7 @@ button{
     left: 300px;
     bottom: 100px;
     position: absolute;
+    z-index: 100;
 }
 
 
