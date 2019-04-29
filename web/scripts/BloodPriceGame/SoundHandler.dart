@@ -2,7 +2,7 @@ import 'dart:html';
 
 abstract class SoundHandler {
     static AudioElement fx = new AudioElement();
-    static AudioElement music = new AudioElement();
+    static AudioElement music = new AudioElement()..loop = true;
     static int musicTier = 0;
 
     static void meatSound() {

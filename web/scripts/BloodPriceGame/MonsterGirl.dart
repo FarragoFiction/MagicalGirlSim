@@ -23,6 +23,7 @@ class MonsterGirl extends BloodPriceGirl{
         MonsterGirl monster = await randomGirl(girl.doll);
         monster.copyStatsFrom(girl);
         monster.copyPactsFrom(girl);
+        print("after copying ${girl.pactCount} pacts from the girl, the monster has ${monster.pactCount}");
         monster.healthPacts.forEach((HealthBloodPact pact) => monster.hp += 113);
         return monster;
     }

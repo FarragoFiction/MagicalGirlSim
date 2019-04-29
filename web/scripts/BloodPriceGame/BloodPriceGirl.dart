@@ -15,6 +15,8 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
     int hp = 113;
     Element canvas;
 
+    int get pactCount => weaponPacts.length + magicPacts.length + healthPacts.length;
+
     int get price {
         int weapon =  weaponPacts.map((BloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
         int magic =  magicPacts.map((BloodPact pact) =>pact.cost ).fold(0,(int value, int element) => value + element);
@@ -34,7 +36,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
             magicPacts.add(otherGirl.magicPacts[i]);
         }
 
-        for(int i = 0; i< otherGirl.weaponPacts.length; i++) {
+        for(int i = 0; i< otherGirl.healthPacts.length; i++) {
             healthPacts.add(otherGirl.healthPacts[i]);
         }
     }
