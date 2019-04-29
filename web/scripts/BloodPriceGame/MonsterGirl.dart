@@ -1,6 +1,7 @@
 
 //TODO make actually a monster dollset not a magical girl (its a subset tho???)
 import 'dart:html';
+import 'package:CreditsLib/src/StatObject.dart';
 
 import 'package:CommonLib/Random.dart';
 import 'package:DollLibCorrect/DollRenderer.dart';
@@ -101,6 +102,19 @@ class MonsterGirl extends BloodPriceGirl{
         }
         damage = (damage/easinessQuotient).ceil();
         BloodPriceGame.instance.damageGirl(damage, type);
+    }
+
+
+    @override
+    void initializeStats() {
+        stats.clear();
+        magicDoll = doll as MonsterGirlDoll;
+        stats.add(new StatObject(this, StatObject.PATIENCE,StatObject.IMPATIENCE,85));
+        stats.add(new StatObject(this, StatObject.ENERGETIC,StatObject.CALM,85));
+        stats.add(new StatObject(this, StatObject.IDEALISTIC,StatObject.REALISTIC,85));
+        stats.add(new StatObject(this, StatObject.CURIOUS,StatObject.ACCEPTING,85));
+        stats.add(new StatObject(this, StatObject.LOYAL,StatObject.FREE,85));
+        stats.add(new StatObject(this, StatObject.EXTERNAL,StatObject.INTERNAL,85));
     }
 
 }

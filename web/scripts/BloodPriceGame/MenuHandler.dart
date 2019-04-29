@@ -70,7 +70,7 @@ import 'SoundHandler.dart';
     }
 
     void displayBloodPrice(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "💉 Blood Price >";
+        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "💖 Blood Price >";
         menu.onClick.listen((Event e) {
             SoundHandler.clickSound();
             if(secondMenu.style.display == "none" || secondMenu.style.display.isEmpty) {

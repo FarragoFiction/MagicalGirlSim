@@ -39,7 +39,6 @@ class MagicalGirlCharacterObject extends CharacterObject {
   }
 
   bool dirty = true;
-    //TODO wire these up
   int get externalClothesModifier {
       int numberOne = magicDoll.skirt.imgNumber;
       int numberTwo = magicDoll.shoes.imgNumber;
