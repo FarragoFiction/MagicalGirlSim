@@ -65,7 +65,7 @@ class BloodPriceGame {
         if(sacrifice != null) {
             currentMonster = await MonsterGirl.corruptGirl(sacrifice);
             //TODO have a popup you must click to explain why thers a new monster
-            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. The 🐥 must find a new girl to protect the city! ");
+            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. The 🐥 must find a new girl to protect the city! ", await companionEggGirlScene());
         }else {
             currentMonster = await MonsterGirl.randomGirl(currentGirl.doll);
         }
@@ -130,9 +130,22 @@ class BloodPriceGame {
             ..append(new DivElement()..className="sunGlow noIE");
         menuHandler.displayMenu(container);
         await completer.future;
+        await healthBar.cutscene("A monster is rampaging and threatening the city! 🐥 will not allow this! 🐥 recruits ${currentGirl.name}! With the power of the GALAXY EGG, they transform into a MAGICAL GIRL and attack the terrible monster!",await companionEggGirlScene());
         container.style.display = "block";
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
+    }
+
+    Future<Element> companionEggGirlScene() async{
+        //TODO 🐥 on left, egg in middle, girl on right
+        DivElement scene = new DivElement();
+        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        scene.append(birb);
+        final ImageElement egg = new ImageElement(src: "images/BloodPrice/egg.png")..classes.add("eggCutscene");
+        scene.append(egg);
+        CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
+        scene.append(canvas);
+        return scene;
     }
 
     Future<void> displayCurrentGirl(Element container) async {

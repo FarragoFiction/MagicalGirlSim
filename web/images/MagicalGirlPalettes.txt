@@ -1,0 +1,64 @@
+Pink Magical Girl
+Shirt1: #f587d6
+Shirt2: #eb6ab4
+Pants1: #eb1f85
+Pants2: #d21f5a
+Aspect1: #fffdde
+Aspect2: #eee495
+Cloak1: #d11575
+Cloak2: #f169b6
+Cloak3: #aa004d
+Shoe1: #ff2a5b
+Shoe2: #c5002d
+
+Blue Magical Girl
+Shirt1: #73dafe
+Shirt2: #52b0dc
+Pants1: #3965e4 
+Pants2: #1933cc
+Aspect1: #c4fcf3
+Aspect2: #78f1e4
+Cloak1: #3babef
+Cloak2: #90e2ff
+Cloak3: #0060cb
+Shoe1: #2538bd
+Shoe2: #000785
+
+Orange Magical Girl
+Shirt1: #f9ed8c
+Shirt2: #e1bc54
+Pants1: #f08c00
+Pants2: #d36a00
+Aspect1: #fac100
+Aspect2: #dc8300
+Cloak1:  #fdcb00
+Cloak2: #fae74e
+Cloak3: #d88000
+Shoe1: #ff6200
+Shoe2: #b93700
+
+Green Magical Girl
+Shirt1: #00a25b
+Shirt2: #008a4d
+Pants1: #00533b
+Pants2: #002422
+Aspect1: #97f1c7
+Aspect2: #3ec78f
+Cloak1:  #45dcab
+Cloak2: #8cf8ab
+Cloak3: #16b683
+Shoe1: #00b889
+Shoe2: #008465
+
+Purple Magical Girl
+Shirt1: #2a1932
+Shirt2: #13041a
+Pants1: #13041a
+Pants2: #522665
+Aspect1: #f7effe
+Aspect2: #cfa5f0
+Cloak1: #7820ae
+Cloak2: #9c00cb
+Cloak3: #570093
+Shoe1: #480080
+Shoe2: #2a004c

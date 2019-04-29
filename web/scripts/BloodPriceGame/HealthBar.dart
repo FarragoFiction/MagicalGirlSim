@@ -35,9 +35,12 @@ class HealthBar {
     }
 
     //todo maybe images?
-    Future<void> cutscene(String text) async {
+    Future<void> cutscene(String text, Element sceneContents) async {
         //have to click to get past it or something.
-        Element scene = new DivElement()..text = text..classes.add("cutscene");
+        Element scene = new DivElement()..classes.add("cutscene");
+        DivElement textElement = new DivElement()..text = text;
+        scene.append(textElement);
+        scene.append(sceneContents);
         container.append(scene);
         final Completer<void> completer = new Completer();
         scene.onClick.listen((Event event) {
