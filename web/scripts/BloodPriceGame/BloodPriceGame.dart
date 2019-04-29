@@ -64,10 +64,11 @@ class BloodPriceGame {
     Future<void> spawnNewMonster([BloodPriceGirl sacrifice]) async {
         if(sacrifice != null) {
             currentMonster = await MonsterGirl.corruptGirl(sacrifice);
+            await spawnNewGirl();
             //TODO have a popup you must click to explain why thers a new monster
             await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. The 🐥 must find a new girl to protect the city! ", await companionEggGirlScene());
         }else {
-            currentMonster = await MonsterGirl.randomGirl(currentGirl.doll);
+            currentMonster = await MonsterGirl.randomGirl(new MagicalDoll());
         }
 
         await currentGirl.setShitUp();
@@ -143,6 +144,16 @@ class BloodPriceGame {
         scene.append(birb);
         final ImageElement egg = new ImageElement(src: "images/BloodPrice/egg.png")..classes.add("eggCutscene");
         scene.append(egg);
+        CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
+        scene.append(canvas);
+        return scene;
+    }
+
+    Future<Element> celebrationScene() async{
+        //TODO 🐥 on left, egg in middle, girl on right
+        DivElement scene = new DivElement();
+        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        scene.append(birb);
         CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");;
         scene.append(canvas);
         return scene;

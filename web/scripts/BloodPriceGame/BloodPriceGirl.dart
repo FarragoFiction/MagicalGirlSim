@@ -102,10 +102,11 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
             debts = "Their ${debtAmount} blood debt is collected from what remains of their corpse.";
         }
         clearDebts();
-        game.healthBar.cutscene("Unfortunately, ${name} has succumbed to her injuries. $debts. The city will be doomed without a protector. The 🐥 must find someone new to take up the mantle of a Magical Girl.", await game.companionEggGirlScene());
-        await Future.delayed(Duration(milliseconds: 2000));
         game.retireGirl();
-        game.spawnNewGirl();
+        await game.spawnNewGirl();
+        await game.healthBar.cutscene("Unfortunately, ${name} has succumbed to her injuries. $debts. The city will be doomed without a protector. 🐥 must find someone new to take up the mantle of a Magical Girl. 🐥  finds ${game.currentGirl.name}.", await game.companionEggGirlScene());
+        await Future<void>.delayed(Duration(milliseconds: 2000));
+
         game.showMenu();
 
 

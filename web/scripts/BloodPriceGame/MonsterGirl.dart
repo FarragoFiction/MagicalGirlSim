@@ -55,10 +55,10 @@ class MonsterGirl extends BloodPriceGirl{
         }else {
             butWaitTheresMore = "They bask in the knowledge they never gave in to corruption.";
         }
-        game.healthBar.popup("The horrific monster is finally defeated. ${girl.name} celebrates! $butWaitTheresMore",0);
+        await game.healthBar.cutscene("The horrific monster is finally defeated. ${girl.name} celebrates! $butWaitTheresMore",celebrationScene());
 
         if(spawnMonster) {
-            game.spawnNewMonster(girl);
+            await game.spawnNewMonster(girl);
         }else {
             game.goodEnding();
         }
