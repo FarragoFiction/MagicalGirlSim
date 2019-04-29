@@ -43,6 +43,8 @@ class BloodPriceGame {
 
     void retireGirl() {
         formerGirls.add(currentGirl);
+        currentGirl.canvas.remove();
+        currentGirl.clearDebts();
         currentGirl = null;
         Effects.damageCity();
         SoundHandler.bumpTier();
@@ -64,8 +66,7 @@ class BloodPriceGame {
     Future<void> spawnNewMonster([BloodPriceGirl sacrifice]) async {
         if(sacrifice != null) {
             currentMonster = await MonsterGirl.corruptGirl(sacrifice);
-            currentGirl.canvas.remove();
-            currentGirl.clearDebts();
+            retireGirl();
             await spawnNewGirl();
             //TODO have a popup you must click to explain why thers a new monster
             await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. 🐥 must find a new girl to protect the city! 🐥 finds ${currentGirl.name}!", await companionEggGirlScene());
