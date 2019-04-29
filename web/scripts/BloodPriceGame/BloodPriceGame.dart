@@ -262,7 +262,7 @@ class BloodPriceGame {
 
     Future<Element> deathScene() async{
         final DivElement scene = new DivElement()..className="scene";
-        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("🐥Cutscene");
+        final ImageElement birb = new ImageElement(src: "images/protagonist.png")..classes.add("birbCutscene");
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
 
         scene.append(birb);

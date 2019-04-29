@@ -265,6 +265,7 @@ display: inline-block;
    display: inline-block;
    border-radius: 13px;
    cursor:pointer;
+   overflow:hidden;
 }
 
 .scene {
@@ -439,8 +440,10 @@ button{
 .ending{
     height: 650px;
     overflow: hidden;
-    width: 1270px;
-    position: relative;
+    width: 1248px;
+    position: absolute;
+    left: 0;
+    bottom: 0;
 }
 .sunGlow {
     width:2000px;
