@@ -11,6 +11,8 @@ class HealthBar {
     final DivElement girlHP  = new DivElement();
     final DivElement monsterHP  = new DivElement();
     final DivElement billElement  = new DivElement();
+
+    Element currentPopup;
     HealthBar();
 
     //if a pact is in play and its cost is not zero, its unpaid
@@ -32,23 +34,42 @@ class HealthBar {
 
     }
 
-    Future<void> popup(String text, int tick, [Element element]) async {
+    //todo maybe images?
+    Future<void> cutscene(String text) async {
+        //have to click to get past it or something.
+        Element scene = new DivElement()..text = text..classes.add("cutscene");
+        container.append(scene);
+        final Completer<void> completer = new Completer();
+        scene.onClick.listen((Event event) {
+            scene.remove();
+            completer.complete();
+        });
+        return completer.future;
+    }
+
+    Future<void> popup(String text, int tick) async {
         int maxTicks = 3;
-        if(element == null) {
-            element = new DivElement()
+
+        if(currentPopup != null && tick == 0) {
+            currentPopup.remove();
+            currentPopup = null;
+        }
+
+        if(currentPopup == null) {
+            currentPopup = new DivElement()
                 ..classes.add("attackpopup")
                 ..text = text;
-            container.append(element);
+            container.append(currentPopup);
         }
         if(tick == 1) {
-            element.animate([{"opacity": 100},{"opacity": 0}], 9000);
+            currentPopup.animate([{"opacity": 100},{"opacity": 0}], 9000);
         }
 
         if(tick < maxTicks) {
             new Timer(new Duration(milliseconds: 4000), () =>
-                popup(text, tick+1,element));
+                popup(text, tick+1));
         }else {
-            element.remove();
+            currentPopup.remove();
         }
 
     }

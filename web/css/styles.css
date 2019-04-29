@@ -19,6 +19,15 @@ html, body {
     font-size: 24px;
 }
 
+.startScreen{
+    background-color: white;
+    width: 1280px;
+    height: 720px;
+    opacity: 0.3;
+    background: url('../images/BGs/cityscape.png');
+
+}
+
 .healthBar{
     width: 1280px;
     height: 50px;
@@ -71,7 +80,7 @@ display: inline-block;
     overflow:hidden;
 }
 
-.bloodDoll, .monsterDoll {
+.bloodDoll, .monsterDoll, .startButton {
     position: absolute;
     animation-iteration-count: infinite;
     animation-name: bobbing;
@@ -129,6 +138,35 @@ display: inline-block;
     border: 3px solid #aa0000;
     border-radius: 13px;
 
+}
+
+.cutscene{
+   position: absolute;
+   left: 370px;
+   color: #fff0f9;
+   top: 80px;
+   padding: 15px;
+   z-index: 100;
+   box-shadow: 0px 3px 13px #000000;
+   background-color: #fff0f9;
+   width: 1280px;
+   height: 800;
+   vertical-align: top;
+   font-family: 'cabin', sans-serif;
+   color: #eb7cc1; /*#fdbee5;*/
+   font-size: 34px;
+   display: inline-block;
+   border-radius: 13px;
+}
+
+.startButton{
+    font-size: 72px;
+    border-radius: 13px;
+    border: 6px solid #eb7cc1;
+    opacity: 1.0;
+    position: absolute;
+    top: 300px;
+    left: 70px;
 }
 
 .attackpopup{
@@ -229,7 +267,7 @@ button{
     padding: 5px;
     margin: 10px;
   font-family: 'cabin', sans-serif;
-  color: #ef9ace;
+  color: #eb7cc1;
 }
 .portrait{
     border: 3px solid #eb7cc1; /*#fdbee5;*/

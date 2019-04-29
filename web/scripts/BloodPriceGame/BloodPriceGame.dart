@@ -10,6 +10,7 @@ import 'Effects.dart';
 import 'HealthBar.dart';
 import 'MenuHandler.dart';
 import 'MonsterGirl.dart';
+import 'SoundHandler.dart';
 
 class BloodPriceGame {
     /*TODO
@@ -44,6 +45,7 @@ class BloodPriceGame {
         formerGirls.add(currentGirl);
         currentGirl = null;
         Effects.damageCity();
+        SoundHandler.bumpTier();
     }
 
     Future<void> spawnNewGirl() async {
@@ -59,26 +61,76 @@ class BloodPriceGame {
 
     }
 
+    Future<void> spawnNewMonster([BloodPriceGirl sacrifice]) async {
+        if(sacrifice != null) {
+            currentMonster = await MonsterGirl.corruptGirl(sacrifice);
+            //TODO have a popup you must click to explain why thers a new monster
+            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. The 🐥 must find a new girl to protect the city! ");
+        }else {
+            currentMonster = await MonsterGirl.randomGirl(currentGirl.doll);
+        }
+
+        await currentGirl.setShitUp();
+        healthBar.updateMonsterHP(currentMonster.hp);
+        await displayMonster(container);
+
+
+    }
+
+    void goodEnding() async {
+        String text = "You win!!! TODO MORE SHIT";
+        Element scene = new DivElement()..text = text..classes.add("cutscene");
+        container.append(scene);
+    }
+
+    Completer<void> handleStart(Element parent) {
+        Element startScreen = new DivElement()..classes.add("startScreen");
+        parent.append(startScreen);
+        final Completer<void> completer = new Completer();
+
+        ButtonElement startButton = new ButtonElement()..text = "START MAGICAL GIRL BLOOD PRICE";
+        parent.append(startButton);
+        startButton.classes.add("startButton");
+
+        startButton.onClick.listen((Event e){
+            startScreen.remove();
+            startButton.remove();
+            SoundHandler.playTier();
+            completer.complete();
+        });
+
+        startScreen.onClick.listen((Event e){
+            startScreen.remove();
+            SoundHandler.playTier();
+            completer.complete();
+        });
+        return completer;
+    }
+
     Future<void> display(Element parent) async {
         healthBar = new HealthBar();
         container = new DivElement()..classes.add("gameBox")..id="gameBox";
+        container.style.display = "none";
+        Completer<void> completer = handleStart(parent);
 
         if(currentGirl == null) {
             await spawnNewGirl();
         }
 
-        currentMonster ??= await MonsterGirl.randomGirl(currentGirl.doll);
-        healthBar.updateMonsterHP(currentMonster.hp);
+        if(currentMonster == null) {
+            await spawnNewMonster();
+        }
 
         healthBar.display(parent);
         parent.append(container);
         container.append(new DivElement()..className="voidGlow noIE");
-        await displayMonster(container);
         final Element birb = new DivElement()..id="🐥";
         container
             ..append(birb)
             ..append(new DivElement()..className="sunGlow noIE");
         menuHandler.displayMenu(container);
+        await completer.future;
+        container.style.display = "block";
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
     }

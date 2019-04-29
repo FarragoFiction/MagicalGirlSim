@@ -10,7 +10,7 @@ abstract class Effects {
     //#######################################
 
     static void magicHit(int x, int y) {
-        SoundHandler.meatSound();
+        SoundHandler.magicSound();
         _spawn("hit1", x, y, 800);
     }
     static void weaponHit(int x, int y) {
