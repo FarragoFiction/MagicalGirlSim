@@ -16,14 +16,21 @@ import 'SoundHandler.dart';
      Element healthChoice;
      Element weaponChoice;
      Element magicChoice;
+     Element weaponMenu;
+     Element magicMenu;
+     Element companionMenu;
+
      Element companionChoice;
+     BloodPriceGame game;
 
 
      void displayMenu(Element container) {
+         game = BloodPriceGame.instance;
         firstMenu = new DivElement()..classes.add("menuHolder");
         displayWeapon(firstMenu);
         displayMagic(firstMenu);
         displayCompanion(firstMenu);
+        updateStats();
         displayBloodPrice(firstMenu);
         displayBloodPriceSub1(container);
         displayBloodPriceSub2(container);
@@ -39,9 +46,9 @@ import 'SoundHandler.dart';
 
 
     void displayWeapon(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "⚔️ Weapon";
-        container.append(menu);
-        menu.onClick.listen((Event e) {
+         weaponMenu = new DivElement()..classes.add("menuItem");
+        container.append(weaponMenu);
+         weaponMenu.onClick.listen((Event e) {
             commonClickShit();
             BloodPriceGame.instance.handleWeapon();
             unmarkChildren(container);
@@ -49,9 +56,10 @@ import 'SoundHandler.dart';
     }
 
     void displayMagic(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "✨ Magic";
-        container.append(menu);
-        menu.onClick.listen((Event e) {
+
+        magicMenu = new DivElement()..classes.add("menuItem");
+        container.append(magicMenu);
+        magicMenu.onClick.listen((Event e) {
             commonClickShit();
             BloodPriceGame.instance.handleMagic();
             unmarkChildren(container);
@@ -59,10 +67,10 @@ import 'SoundHandler.dart';
     }
 
     void displayCompanion(Element container) {
-        final DivElement menu = new DivElement()..classes.add("menuItem")..text = "🐥 Friend";
+        companionMenu = new DivElement()..classes.add("menuItem")..text = "🐥 ";
         //menu.append(new SpanElement()..className="friend"..text="Friend");
-        container.append(menu);
-        menu.onClick.listen((Event e) {
+        container.append(companionMenu);
+        companionMenu.onClick.listen((Event e) {
             commonClickShit();
             BloodPriceGame.instance.handleCompanion();
             unmarkChildren(container);
@@ -207,6 +215,22 @@ import 'SoundHandler.dart';
 
          unmarkChildren(secondMenu);
          BloodPriceGame.instance.healthBar.updateBill(BloodPriceGame.instance.currentGirl.unpaidPacts);
+        updateStats();
+
+     }
+
+     void updateStats() {
+         int weaponDamage = (game.currentGirl.rawWeaponDamage()/100).ceil();
+         int weaponPacts = game.currentGirl.weaponMultiplier;
+         weaponMenu.text = "⚔️  x $weaponDamage x ${weaponPacts} Weapon";
+
+         int magicDamage = (game.currentGirl.rawMagicDamaage()/100).ceil();
+         int magicPacts = game.currentGirl.magicMultiplier;
+         magicMenu.text = "✨ x $magicDamage x ${magicPacts} Magic";
+
+         int companionDamage = (game.currentGirl.rawCompanionDamage()/100).ceil();
+         int companionPacts = Companion.damageMultiplier;
+         companionMenu.text = "🐥️ x $companionDamage x ${companionPacts} Friend";
 
      }
 

@@ -276,6 +276,10 @@ class BloodPriceGame {
         dollCanvas.context2D.drawImageScaled(cacheCanvas, 0,0, dollCanvas.width, dollCanvas.height);
         dollCanvas.classes.add("bloodDoll");
         container.append(dollCanvas);
+        /*
+        dollCanvas.onMouseEnter.listen((Event event) {
+            window.alert("girl stats");
+        });*/// why does this do nothing??? i guess because of overlays
         currentGirl.canvas = dollCanvas;
     }
 
@@ -284,6 +288,10 @@ class BloodPriceGame {
         dollCanvas.classes.add("monsterDoll");
         container.append(dollCanvas);
         currentMonster.canvas = dollCanvas;
+        /*
+        dollCanvas.onMouseEnter.listen((Event event) {
+            window.alert("monsterstats");
+        });*/ // why does this only do the right most edge of the monster???
     }
 
 

@@ -148,17 +148,25 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
 
     }
 
+
+
     int calculateWeaponDamage() {
-        return -1*(energetic.value.abs() + external.value.abs()) * (weaponMultiplier);
+        return -1*(rawWeaponDamage()) * (weaponMultiplier);
     }
+
+    int rawWeaponDamage() => energetic.value.abs() + external.value.abs();
 
     int calculateCompanionDamge() {
-        return -1*(curious.value.abs() + loyal.value.abs()) * (Companion.damageMultiplier +1);
+        return -1*(rawCompanionDamage()) * (Companion.damageMultiplier +1);
     }
 
+    int rawCompanionDamage() => curious.value.abs() + loyal.value.abs();
+
     int calculateMagicDamage() {
-        return -1*(patience.value.abs() + idealistic.value.abs())*(magicMultiplier);
+        return -1*(rawMagicDamaage())*(magicMultiplier);
     }
+
+    int rawMagicDamaage() => patience.value.abs() + idealistic.value.abs();
 
 
 
