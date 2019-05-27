@@ -240,13 +240,17 @@ display: inline-block;
 
 #battleGirlStats{
     top: 220px;
-    height: 120px;
+    height: 140px;
     right: 700px;
+}
+
+.optButton{
+    font-size: 28px;
 }
 
 #battleMonsterStats{
     top: 220px;
-    height: 120px;
+    height: 140px;
     right: 5px;
 }
 

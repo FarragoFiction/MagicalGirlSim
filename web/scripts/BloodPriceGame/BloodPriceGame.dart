@@ -226,7 +226,14 @@ class BloodPriceGame {
             BloodPriceGirl girl = await spawnNewGirl();
             DivElement girlWrapper = new DivElement()..classes.add("pickGirl");
             girlWrapper.onClick.listen((MouseEvent e) async {
-               await healthBar.twoOptionPopup("🐥 chooses ${girl.name}?","Yes","No");
+               bool result = await healthBar.twoOptionPopup("🐥 chooses ${girl.name}?","Yes","No");
+               if(result) {
+                   currentGirl = girl;
+                   await displayCurrentGirl(container);
+                   scene.parent.remove();
+               }else {
+                   print("better choose soon");
+               }
             });
             CanvasElement canvas = await girl.doll.getNewCanvas();
             girlWrapper.append(canvas);

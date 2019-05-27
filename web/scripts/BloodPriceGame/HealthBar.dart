@@ -78,15 +78,19 @@ class HealthBar {
     Future<bool> twoOptionPopup(String text, String trueOpt, String falseOpt) async {
         final Completer<bool> completer = new Completer();
         DivElement popup = new DivElement()..classes.add("twoOpt");
-        ButtonElement opt1Button = new ButtonElement()..text = trueOpt;
-        ButtonElement opt2Button = new ButtonElement()..text = falseOpt;
+        DivElement header = new DivElement()..text = text;
+        popup.append(header);
+        ButtonElement opt1Button = new ButtonElement()..text = trueOpt..classes.add("optButton");
+        ButtonElement opt2Button = new ButtonElement()..text = falseOpt..classes.add("optButton");
         popup.append(opt1Button);
         popup.append(opt2Button);
         opt1Button.onClick.listen((Event e) {
+            popup.remove();
             completer.complete(true);
         });
 
         opt2Button.onClick.listen((Event e) {
+            popup.remove();
             completer.complete(false);
         });
 
