@@ -34,6 +34,18 @@ class HealthBar {
 
     }
 
+    Future<Element> pickGirlCutscene(String text, Element sceneContents) async {
+//have to click to get past it or something.
+        Element scene = new DivElement()..classes.add("cutscene");
+        DivElement textElement = new DivElement()..innerHtml = text..classes.add("cutsceneText");
+        scene.append(textElement);
+
+        scene.append(sceneContents);
+        container.append(scene);
+
+        return scene;
+    }
+
     //todo maybe images?
     Future<void> cutscene(String text, Element sceneContents, [bool cantskip = false]) async {
         //have to click to get past it or something.
@@ -61,6 +73,29 @@ class HealthBar {
 
         }
         return completer.future;
+    }
+
+    Future<bool> twoOptionPopup(String text, String trueOpt, String falseOpt) async {
+        final Completer<bool> completer = new Completer();
+        DivElement popup = new DivElement()..classes.add("twoOpt");
+        ButtonElement opt1Button = new ButtonElement()..text = trueOpt;
+        ButtonElement opt2Button = new ButtonElement()..text = falseOpt;
+        popup.append(opt1Button);
+        popup.append(opt2Button);
+        opt1Button.onClick.listen((Event e) {
+            completer.complete(true);
+        });
+
+        opt2Button.onClick.listen((Event e) {
+            completer.complete(false);
+        });
+
+        container.append(popup);
+
+
+        //                completer.complete();
+        return completer.future;
+
     }
 
     Future<void> popup(String text, int tick) async {

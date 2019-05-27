@@ -74,7 +74,7 @@ class BloodPriceGame {
         if(sacrifice != null) {
             currentMonster = await MonsterGirl.corruptGirl(sacrifice);
             retireGirl();
-            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. <br><br>You know you can find a way to stop the cycle of monsters. Until then, 🐥 must find a new girl to protect the city! <br><br>Which does 🐥 pick?", await pickNewGirlScene());
+            await healthBar.pickGirlCutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. <br><br>You know you can find a way to stop the cycle of monsters. Until then, 🐥 must find a new girl to protect the city! <br><br>Which does 🐥 pick?", await pickNewGirlScene());
         }else {
             currentMonster = await MonsterGirl.randomGirl(new MagicalDoll());
         }
@@ -193,19 +193,21 @@ class BloodPriceGame {
     }
 
     Element girlStats(BloodPriceGirl char) {
-        DivElement ret = new DivElement()..classes.add("girlStats");
+        final DivElement ret = new DivElement()..classes.add("girlStats");
+        final DivElement label = new DivElement()..classes.add("girlStat")..text = "${char.name}";
+        ret.append(label);
         ret.append(new DivElement()..text = "${char.healthPacts.length} x 🚑  Pacts"..classes.add("girlStat"));
-        int weaponDamage = (char.rawWeaponDamage()/100).ceil();
-        int weaponPacts = char.weaponPacts.length;
+        final int weaponDamage = (char.rawWeaponDamage()/100).ceil();
+        final int weaponPacts = char.weaponPacts.length;
         ret.append(new DivElement()..text ="${weaponPacts} x ⚔️Pacts (${weaponDamage} base stat)"..classes.add("girlStat"));
 
-        int magicDamage = (char.rawMagicDamaage()/100).ceil();
-        int magicPacts = char.magicPacts.length;
+        final int magicDamage = (char.rawMagicDamaage()/100).ceil();
+        final int magicPacts = char.magicPacts.length;
         ret.append(new DivElement()..text= "${magicPacts} x ✨ Pacts (${magicDamage} base stat)"..classes.add("girlStat"));
 
 
-        int companionDamage = (char.rawCompanionDamage()/100).ceil();
-        int companionPacts = Companion.bloodPacts.length;
+        final int companionDamage = (char.rawCompanionDamage()/100).ceil();
+        final int companionPacts = Companion.bloodPacts.length;
         ret.append(new DivElement()..text = "${companionPacts} x 🐥️  Pacts (${companionDamage} base stat)"..classes.add("girlStat"));
         ret.append(new DivElement()..text ="${Amulet.bloodPacts.length} x 🥚  Pacts"..classes.add("girlStat"));
 
@@ -223,6 +225,9 @@ class BloodPriceGame {
         for(int i = 0; i <2; i++) {
             BloodPriceGirl girl = await spawnNewGirl();
             DivElement girlWrapper = new DivElement()..classes.add("pickGirl");
+            girlWrapper.onClick.listen((MouseEvent e) async {
+               await healthBar.twoOptionPopup("🐥 chooses ${girl.name}?","Yes","No");
+            });
             CanvasElement canvas = await girl.doll.getNewCanvas();
             girlWrapper.append(canvas);
 
@@ -325,27 +330,32 @@ class BloodPriceGame {
     }
 
     Future<void> displayCurrentGirl(Element container) async {
+        final DivElement wrapper = new DivElement()..classes.add("girlFightWrapper");
         currentGirl.doll.orientation = Doll.TURNWAYS;
         final CanvasElement cacheCanvas = await currentGirl.doll.getNewCanvas();
         const int ratio = 2;
         final CanvasElement dollCanvas = new CanvasElement(width: (cacheCanvas.width/ratio).floor(), height: (cacheCanvas.height/ratio).floor());
         dollCanvas.context2D.drawImageScaled(cacheCanvas, 0,0, dollCanvas.width, dollCanvas.height);
         dollCanvas.classes.add("bloodDoll");
-        container.append(dollCanvas);
+        wrapper.append(dollCanvas);
+        wrapper.append(girlStats(currentGirl)..id =("battleGirlStats"));
+
+        container.append(wrapper);
         /*
         dollCanvas.onMouseEnter.listen((Event event) {
             window.alert("girl stats");
         });*/// why does this do nothing??? i guess because of overlays
+
         currentGirl.canvas = dollCanvas;
     }
 
     Future<void> displayMonster(Element container) async {
-        DivElement wrapper = new DivElement()..classes.add("monsterFightWrapper");
+        final DivElement wrapper = new DivElement()..classes.add("monsterFightWrapper");
         final CanvasElement dollCanvas = await currentMonster.doll.getNewCanvas();
         dollCanvas.classes.add("monsterDoll");
         wrapper.append(dollCanvas);
         currentMonster.canvas = dollCanvas;
-        wrapper.append(girlStats(currentMonster));
+        wrapper.append(girlStats(currentMonster)..id = "battleMonsterStats");
         container.append(wrapper);
         /*
         dollCanvas.onMouseEnter.listen((Event event) {

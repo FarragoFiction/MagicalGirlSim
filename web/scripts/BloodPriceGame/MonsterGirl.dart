@@ -105,6 +105,20 @@ class MonsterGirl extends BloodPriceGirl{
     }
 
 
+
+
+    @override
+    int rawWeaponDamage() => energetic.value.abs() + external.value.abs() + rawCompanionDamage();
+
+
+    @override
+    int rawCompanionDamage() => curious.value.abs() + loyal.value.abs();
+
+
+    @override
+    int rawMagicDamaage() => patience.value.abs() + idealistic.value.abs() + rawCompanionDamage();
+
+
     @override
     void initializeStats() {
         stats.clear();

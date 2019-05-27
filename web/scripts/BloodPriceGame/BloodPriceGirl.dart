@@ -149,7 +149,7 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
         game.retireGirl();
         await Future<void>.delayed(Duration(milliseconds: 2000));
         SoundHandler.monsterSound();
-        await game.healthBar.cutscene("Unfortunately, ${name} has succumbed to their injuries. $debts. $thoughts <br><br>The city will be doomed without a protector. 🐥 must find someone new to take up the mantle of a Magical Girl. <br><Br>Which does 🐥 pick?", await game.pickNewGirlScene());
+        await game.healthBar.pickGirlCutscene("Unfortunately, ${name} has succumbed to their injuries. $debts. $thoughts <br><br>The city will be doomed without a protector. 🐥 must find someone new to take up the mantle of a Magical Girl. <br><Br>Which does 🐥 pick?", await game.pickNewGirlScene());
 
         game.showMenu();
 
