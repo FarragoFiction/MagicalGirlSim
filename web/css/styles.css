@@ -245,7 +245,7 @@ display: inline-block;
    position: absolute;
    bottom: 100px;
    right: 50px;
-   z-index: 1000;
+   z-index: 500;
 
 }
 
