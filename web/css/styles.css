@@ -245,11 +245,17 @@ display: inline-block;
    position: absolute;
    bottom: 100px;
    right: 50px;
+   z-index: 1000;
 
 }
 
 .girlStat{
-    padding:5px;
+}
+
+.pickGirl{
+    display: inline-block;
+    margin-top:200px;
+    position: relative;
 }
 
 .cutsceneText {

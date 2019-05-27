@@ -53,16 +53,20 @@ class BloodPriceGame {
         SoundHandler.bumpTier();
     }
 
-    Future<void> spawnNewGirl([nerf = false]) async {
-        currentGirl = await BloodPriceGirl.randomGirl(nerf);
-        await currentGirl.setShitUp();
-        healthBar.updateGirlHP(currentGirl.hp);
-        healthBar.updateBill(currentGirl.unpaidPacts);
+    Future<BloodPriceGirl> spawnNewGirl([nerf = false]) async {
+
+        BloodPriceGirl girl  = await BloodPriceGirl.randomGirl(nerf);
+        if(currentGirl == null) {
+            currentGirl = girl;
+        }
+        await girl.setShitUp();
+        healthBar.updateGirlHP(girl.hp);
+        healthBar.updateBill(girl.unpaidPacts);
         if(currentMonster != null) {
             currentMonster.hp = Math.max(currentMonster.hp, MonsterGirl.maxHP);
             healthBar.updateMonsterHP(currentMonster.hp);
         }
-        await displayCurrentGirl(container);
+        return girl;
 
     }
 
@@ -70,9 +74,7 @@ class BloodPriceGame {
         if(sacrifice != null) {
             currentMonster = await MonsterGirl.corruptGirl(sacrifice);
             retireGirl();
-            await spawnNewGirl();
-            //TODO have a popup you must click to explain why thers a new monster
-            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. <br><br>You know you can find a way to stop the cycle of monsters. Until then, 🐥 must find a new girl to protect the city! 🐥 finds ${currentGirl.name}!", await companionEggGirlScene());
+            await healthBar.cutscene("The peaceful days do not last long. A new monster, more horrific and powerful than the last rears its ugly head. <br><br>You know you can find a way to stop the cycle of monsters. Until then, 🐥 must find a new girl to protect the city! <br><br>Which does 🐥 pick?", await pickNewGirlScene());
         }else {
             currentMonster = await MonsterGirl.randomGirl(new MagicalDoll());
         }
@@ -164,7 +166,9 @@ class BloodPriceGame {
         Completer<void> completer = handleStart(container);
 
         if(currentGirl == null) {
-            await spawnNewGirl(true);
+           currentGirl =  await spawnNewGirl(true);
+            await displayCurrentGirl(container);
+
         }
 
         if(currentMonster == null) {
@@ -193,20 +197,42 @@ class BloodPriceGame {
         ret.append(new DivElement()..text = "${char.healthPacts.length} x 🚑  Pacts"..classes.add("girlStat"));
         int weaponDamage = (char.rawWeaponDamage()/100).ceil();
         int weaponPacts = char.weaponPacts.length;
-        ret.append(new DivElement()..text ="${weaponPacts} x ⚔️Pacts (${weaponDamage} base stat)");
+        ret.append(new DivElement()..text ="${weaponPacts} x ⚔️Pacts (${weaponDamage} base stat)"..classes.add("girlStat"));
 
         int magicDamage = (char.rawMagicDamaage()/100).ceil();
         int magicPacts = char.magicPacts.length;
-        ret.append(new DivElement()..text= "${magicPacts} x ✨ Pacts (${magicDamage} base stat)");
+        ret.append(new DivElement()..text= "${magicPacts} x ✨ Pacts (${magicDamage} base stat)"..classes.add("girlStat"));
 
 
         int companionDamage = (char.rawCompanionDamage()/100).ceil();
         int companionPacts = Companion.bloodPacts.length;
-        ret.append(new DivElement()..text = "${companionPacts} x 🐥️  Pacts (${companionDamage} base stat)");
-        ret.append(new DivElement()..text ="${Amulet.bloodPacts.length} x 🥚  Pacts");
+        ret.append(new DivElement()..text = "${companionPacts} x 🐥️  Pacts (${companionDamage} base stat)"..classes.add("girlStat"));
+        ret.append(new DivElement()..text ="${Amulet.bloodPacts.length} x 🥚  Pacts"..classes.add("girlStat"));
 
 
         return ret;
+
+    }
+
+    Future<Element> pickNewGirlScene() async {
+        DivElement scene = new DivElement()..className="scene";
+        //        await game.spawnNewGirl();
+        /*
+        TODO pick fromm three possible girls, stats displayed, plus the stats of the monster.
+         */
+        for(int i = 0; i <2; i++) {
+            BloodPriceGirl girl = await spawnNewGirl();
+            DivElement girlWrapper = new DivElement()..classes.add("pickGirl");
+            CanvasElement canvas = await girl.doll.getNewCanvas();
+            girlWrapper.append(canvas);
+
+            DivElement stat = girlStats(girl);
+            girlWrapper.append(stat);
+
+            scene.append(girlWrapper);
+
+        }
+        return scene;
 
     }
 
@@ -314,10 +340,13 @@ class BloodPriceGame {
     }
 
     Future<void> displayMonster(Element container) async {
+        DivElement wrapper = new DivElement()..classes.add("monsterFightWrapper");
         final CanvasElement dollCanvas = await currentMonster.doll.getNewCanvas();
         dollCanvas.classes.add("monsterDoll");
-        container.append(dollCanvas);
+        wrapper.append(dollCanvas);
         currentMonster.canvas = dollCanvas;
+        wrapper.append(girlStats(currentMonster));
+        container.append(wrapper);
         /*
         dollCanvas.onMouseEnter.listen((Event event) {
             window.alert("monsterstats");
