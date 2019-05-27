@@ -89,7 +89,7 @@ class MonsterGirl extends BloodPriceGirl{
         await Future.delayed(Duration(milliseconds: 2000));
         Random rand = new Random();
         rand.nextInt(); //init
-        int easinessQuotient = 20; //8 is good
+        int easinessQuotient = 10; //8 is good
         int damage = 0;
         String type = "";
         //companion damage now counts as monstrous strength owo

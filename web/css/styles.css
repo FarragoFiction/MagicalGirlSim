@@ -234,6 +234,24 @@ display: inline-block;
     margin-top:5px;
 }
 
+.girlStats{
+   background-color: #fff0f9;
+   font-size: 18px;
+   text-align: left;
+   width: 200px;
+   padding: 10px;
+   border: 3px solid #eb7cc1;
+   border-radius: 13px;
+   position: absolute;
+   bottom: 100px;
+   right: 50px;
+
+}
+
+.girlStat{
+    padding:5px;
+}
+
 .cutsceneText {
    background-color: #fff0f9;
    border-radius: 13px;
@@ -545,6 +563,11 @@ button{
 .girlCutscene{
     bottom: 0px;
     position: absolute;
+    left: 650px;
+
+}
+
+.girlCanvasCutscene{
     -moz-transform: scaleX(-1);
     -o-transform: scaleX(-1);
     -webkit-transform: scaleX(-1);

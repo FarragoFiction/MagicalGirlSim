@@ -222,15 +222,15 @@ import 'SoundHandler.dart';
      void updateStats() {
          int weaponDamage = (game.currentGirl.rawWeaponDamage()/100).ceil();
          int weaponPacts = game.currentGirl.weaponMultiplier;
-         weaponMenu.text = "⚔️  x $weaponDamage x ${weaponPacts} Weapon";
+         weaponMenu.text = "⚔️ Weapon";
 
          int magicDamage = (game.currentGirl.rawMagicDamaage()/100).ceil();
          int magicPacts = game.currentGirl.magicMultiplier;
-         magicMenu.text = "✨ x $magicDamage x ${magicPacts} Magic";
+         magicMenu.text = "✨ Magic";
 
          int companionDamage = (game.currentGirl.rawCompanionDamage()/100).ceil();
          int companionPacts = Companion.damageMultiplier;
-         companionMenu.text = "🐥️ x $companionDamage x ${companionPacts} Friend";
+         companionMenu.text = "🐥️ Friend";
 
      }
 

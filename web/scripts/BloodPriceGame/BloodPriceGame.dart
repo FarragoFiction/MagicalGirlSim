@@ -4,6 +4,7 @@ import "dart:math" as Math;
 
 import "package:CommonLib/Random.dart";
 import 'package:DollLibCorrect/DollRenderer.dart';
+import 'Amulet.dart';
 import 'BloodPriceGirl.dart';
 import 'Companion.dart';
 import 'Effects.dart';
@@ -52,8 +53,8 @@ class BloodPriceGame {
         SoundHandler.bumpTier();
     }
 
-    Future<void> spawnNewGirl() async {
-        currentGirl = await BloodPriceGirl.randomGirl();
+    Future<void> spawnNewGirl([nerf = false]) async {
+        currentGirl = await BloodPriceGirl.randomGirl(nerf);
         await currentGirl.setShitUp();
         healthBar.updateGirlHP(currentGirl.hp);
         healthBar.updateBill(currentGirl.unpaidPacts);
@@ -163,7 +164,7 @@ class BloodPriceGame {
         Completer<void> completer = handleStart(container);
 
         if(currentGirl == null) {
-            await spawnNewGirl();
+            await spawnNewGirl(true);
         }
 
         if(currentMonster == null) {
@@ -181,9 +182,32 @@ class BloodPriceGame {
         menuHandler.displayMenu(container);
         await completer.future;
         //container.style.display = "block";
+
         await healthBar.cutscene("A monster is rampaging and threatening the city! 🐥 will not allow this! 🐥 recruits ${currentGirl.name}!<br><br> With the power of the GALAXY EGG, they transform into a MAGICAL GIRL and attack the terrible monster!",await companionEggGirlScene());
 
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
+    }
+
+    Element girlStats(BloodPriceGirl char) {
+        DivElement ret = new DivElement()..classes.add("girlStats");
+        ret.append(new DivElement()..text = "${char.healthPacts.length} x 🚑  Pacts"..classes.add("girlStat"));
+        int weaponDamage = (char.rawWeaponDamage()/100).ceil();
+        int weaponPacts = char.weaponPacts.length;
+        ret.append(new DivElement()..text ="${weaponPacts} x ⚔️Pacts (${weaponDamage} base stat)");
+
+        int magicDamage = (char.rawMagicDamaage()/100).ceil();
+        int magicPacts = char.magicPacts.length;
+        ret.append(new DivElement()..text= "${magicPacts} x ✨ Pacts (${magicDamage} base stat)");
+
+
+        int companionDamage = (char.rawCompanionDamage()/100).ceil();
+        int companionPacts = Companion.bloodPacts.length;
+        ret.append(new DivElement()..text = "${companionPacts} x 🐥️  Pacts (${companionDamage} base stat)");
+        ret.append(new DivElement()..text ="${Amulet.bloodPacts.length} x 🥚  Pacts");
+
+
+        return ret;
+
     }
 
     Future<Element> companionEggGirlScene() async{
@@ -195,8 +219,14 @@ class BloodPriceGame {
         scene.append(birb);
         final ImageElement egg = new ImageElement(src: "images/BloodPrice/egg.png")..classes.add("eggCutscene");
         scene.append(egg);
-        CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCutscene");
-        scene.append(canvas);
+        DivElement girlWrapper = new DivElement()..classes.add("girlCutscene");
+        CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCanvasCutscene");
+        girlWrapper.append(canvas);
+
+        DivElement stat = girlStats(currentGirl);
+        girlWrapper.append(stat);
+
+        scene.append(girlWrapper);
         return scene;
     }
 

@@ -9,6 +9,8 @@ import 'BloodPriceGame.dart';
 import 'Companion.dart';
 import 'MonsterGirl.dart';
 import 'SoundHandler.dart';
+import 'package:CreditsLib/src/StatObject.dart';
+
 
 class BloodPriceGirl extends MagicalGirlCharacterObject{
     //TODO when a magic girl dies, zero out all unpaid pacts
@@ -95,10 +97,17 @@ class BloodPriceGirl extends MagicalGirlCharacterObject{
 
 
 
-    static Future<BloodPriceGirl> randomGirl() async {
+    static Future<BloodPriceGirl> randomGirl([nerf = false]) async {
         final MagicalDoll doll = new MagicalDoll();
         await doll.setNameFromEngine();
-        return new BloodPriceGirl(doll.dollName, doll.toDataBytesX());
+
+        BloodPriceGirl girl = new BloodPriceGirl(doll.dollName, doll.toDataBytesX());
+        if(nerf) {
+            girl.stats.forEach((StatObject stat) {
+                stat.value = 50;
+            });
+        }
+        return girl;
     }
 
     void damage(int damagePoints) {
