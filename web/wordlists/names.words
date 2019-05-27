@@ -93,6 +93,8 @@ dollname_flower
     flower
 dollname_fruit
     n/a - set by sim
+dollname_monsterdoll
+    @horrorterrorname_all
 
 //#############################################################################################
 // TROLLS

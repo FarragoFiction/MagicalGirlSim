@@ -215,6 +215,7 @@ import 'SoundHandler.dart';
 
          unmarkChildren(secondMenu);
          BloodPriceGame.instance.healthBar.updateBill(BloodPriceGame.instance.currentGirl.unpaidPacts);
+         BloodPriceGame.instance.syncStats();
         updateStats();
 
      }

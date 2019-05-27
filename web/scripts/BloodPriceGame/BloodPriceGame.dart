@@ -25,6 +25,8 @@ class BloodPriceGame {
         * menu shit???
      */
     BloodPriceGirl currentGirl;
+    Element monsterStats;
+    Element girlStats;
     Element container;
     MonsterGirl currentMonster;
     List<BloodPriceGirl> formerGirls  = <BloodPriceGirl>[];
@@ -192,8 +194,19 @@ class BloodPriceGame {
         new Timer.periodic(Duration(milliseconds: 50), (Timer t) { birbChaos(birb); });
     }
 
-    Element girlStats(BloodPriceGirl char) {
+    void syncStats() {
+        updateStats(girlStats, currentGirl);
+        updateStats(monsterStats,currentMonster);
+    }
+
+    Element getGirlStats(BloodPriceGirl char) {
         final DivElement ret = new DivElement()..classes.add("girlStats");
+        updateStats(ret, char);
+        return ret;
+    }
+
+    void updateStats(Element ret, BloodPriceGirl char) {
+        ret.text = "";
         final DivElement label = new DivElement()..classes.add("girlStat")..text = "${char.name}"..style.textDecoration="underline";
         ret.append(label);
         ret.append(new DivElement()..text = "${char.healthPacts.length} x 🚑  Pacts"..classes.add("girlStat"));
@@ -210,10 +223,6 @@ class BloodPriceGame {
         final int companionPacts = Companion.bloodPacts.length;
         ret.append(new DivElement()..text = "${companionPacts} x 🐥️  Pacts (${companionDamage} base stat)"..classes.add("girlStat"));
         ret.append(new DivElement()..text ="${Amulet.bloodPacts.length} x 🥚  Pacts"..classes.add("girlStat"));
-
-
-        return ret;
-
     }
 
     Future<Element> pickNewGirlScene() async {
@@ -238,7 +247,7 @@ class BloodPriceGame {
             CanvasElement canvas = await girl.doll.getNewCanvas();
             girlWrapper.append(canvas);
 
-            DivElement stat = girlStats(girl);
+            DivElement stat = getGirlStats(girl);
             girlWrapper.append(stat);
 
             scene.append(girlWrapper);
@@ -261,7 +270,7 @@ class BloodPriceGame {
         CanvasElement canvas = await currentGirl.doll.getNewCanvas()..classes.add("girlCanvasCutscene");
         girlWrapper.append(canvas);
 
-        DivElement stat = girlStats(currentGirl);
+        DivElement stat = getGirlStats(currentGirl);
         girlWrapper.append(stat);
 
         scene.append(girlWrapper);
@@ -345,7 +354,8 @@ class BloodPriceGame {
         dollCanvas.context2D.drawImageScaled(cacheCanvas, 0,0, dollCanvas.width, dollCanvas.height);
         dollCanvas.classes.add("bloodDoll");
         wrapper.append(dollCanvas);
-        wrapper.append(girlStats(currentGirl)..id =("battleGirlStats"));
+        girlStats = getGirlStats(currentGirl)..id =("battleGirlStats");
+        wrapper.append(girlStats);
 
         container.append(wrapper);
         /*
@@ -362,7 +372,8 @@ class BloodPriceGame {
         dollCanvas.classes.add("monsterDoll");
         wrapper.append(dollCanvas);
         currentMonster.canvas = dollCanvas;
-        wrapper.append(girlStats(currentMonster)..id = "battleMonsterStats");
+        monsterStats = getGirlStats(currentMonster)..id = "battleMonsterStats";
+        wrapper.append(monsterStats);
         container.append(wrapper);
         /*
         dollCanvas.onMouseEnter.listen((Event event) {
