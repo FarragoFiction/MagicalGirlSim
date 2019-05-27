@@ -194,7 +194,7 @@ class BloodPriceGame {
 
     Element girlStats(BloodPriceGirl char) {
         final DivElement ret = new DivElement()..classes.add("girlStats");
-        final DivElement label = new DivElement()..classes.add("girlStat")..text = "${char.name}";
+        final DivElement label = new DivElement()..classes.add("girlStat")..text = "${char.name}"..style.textDecoration="underline";
         ret.append(label);
         ret.append(new DivElement()..text = "${char.healthPacts.length} x 🚑  Pacts"..classes.add("girlStat"));
         final int weaponDamage = (char.rawWeaponDamage()/100).ceil();
